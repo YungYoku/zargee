@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Web native app</string>
+    <string name="title_activity_main">Web native app</string>
+    <string name="package_name">zargee.web.app</string>
+    <string name="custom_url_scheme">zargee.web.app</string>
+</resources>

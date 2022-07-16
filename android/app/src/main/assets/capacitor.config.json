@@ -1,0 +1,6 @@
+{
+	"appId": "zargee.web.app",
+	"appName": "Web native app",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
