@@ -13,12 +13,12 @@ app.use(createPinia());
 app.use(router);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCzaiL332ikJtK0IaPMbIBCYyZXCfoB-gg",
-  authDomain: "zargee-4c93f.firebaseapp.com",
-  projectId: "zargee-4c93f",
-  storageBucket: "zargee-4c93f.appspot.com",
-  messagingSenderId: "768088300597",
-  appId: "1:768088300597:web:2ae81c70b0561ba45aa57c",
+  apiKey: import.meta.env.VITE_FB_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 initializeApp(firebaseConfig);
