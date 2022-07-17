@@ -21,17 +21,20 @@ const time = computed(() =>
 .time {
   z-index: 2;
 
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
   width: 100%;
   height: 100%;
-
-  text-align: right;
-}
-
-.time h3 {
-  z-index: 2;
-
   padding: 10px;
 
-  font-size: 20px;
+  text-align: right;
+
+  h3 {
+    z-index: 2;
+
+    font-size: 20px;
+  }
 }
 </style>

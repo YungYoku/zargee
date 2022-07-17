@@ -21,11 +21,14 @@
       <div class="info">
         <div class="name">
           <h2>{{ mainStore.user.name }}</h2>
+
           <div class="name__lvl">{{ mainStore.user.lvl }}</div>
+
           <div class="name__info">
             <div @click="showPolitics">
-              <img alt="Политика" src="@/assets/icons/politics.svg" />
+              <img alt="Политика" src="@/assets/icons/file.svg" />
             </div>
+
             <h5 @click="showAbout">i</h5>
           </div>
         </div>
@@ -214,11 +217,17 @@ function hideInfo(e: Event) {
   display: flex;
   justify-content: right;
   align-items: center;
-}
 
-.name__info img {
-  width: 16px;
-  height: 16px;
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  h5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .life {

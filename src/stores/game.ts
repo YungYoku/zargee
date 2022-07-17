@@ -48,7 +48,7 @@ export const useGameStore = defineStore({
     timerInterval: 0,
     time: 15,
     gameProps: {
-      colors: ["#000000", "#ff0000", "#00ff00", "#0000ff", "#FFA500"],
+      colors: ["#1a1a1a", "#ff3a3a", "#3aff3a", "#3a3aff", "#FFA53a"],
       speed: {
         s: 1,
         m: 2,
@@ -246,7 +246,7 @@ export const useGameStore = defineStore({
       const app = document.querySelector("#app") as HTMLElement;
 
       const screenWidth = app.offsetWidth;
-      const screenHeight = app.offsetHeight - 88;
+      const screenHeight = app.offsetHeight - 140;
 
       const complexity = {
         targets: "s",
@@ -489,15 +489,15 @@ function generateBorderColor(lvl: number, colors: string[], bgColor: string) {
 
 function generateBorderColorName(borderColor: string) {
   switch (borderColor) {
-    case "#000000":
+    case "#1a1a1a":
       return "чёрной";
-    case "#ff0000":
+    case "#ff3a3a":
       return "красной";
-    case "#00ff00":
+    case "#3aff3a":
       return "зелёной";
-    case "#0000ff":
+    case "#3a3aff":
       return "синей";
-    case "#FFA500":
+    case "#FFA53a":
       return "оранжевой";
     default:
       return "transparent";
@@ -506,15 +506,15 @@ function generateBorderColorName(borderColor: string) {
 
 function generateBgColorName(bgColor: string) {
   switch (bgColor) {
-    case "#000000":
+    case "#1a1a1a":
       return "чёрный";
-    case "#ff0000":
+    case "#ff3a3a":
       return "красный";
-    case "#00ff00":
+    case "#3aff3a":
       return "зелёный";
-    case "#0000ff":
+    case "#3a3aff":
       return "синий";
-    case "#FFA500":
+    case "#FFA53a":
       return "оранжевый";
     default:
       return "transparent";

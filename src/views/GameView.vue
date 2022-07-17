@@ -222,7 +222,7 @@ function restart(props: { rebornType: string; lvl?: number }) {
   justify-content: center;
   align-items: center;
 
-  grid-template: 44px calc(100vh - 88px) 44px / 1fr 2fr 1fr;
+  grid-template: 60px calc(100vh - 140px) 80px / 1fr 3fr 1fr;
   grid-template-areas:
     "score task time"
     "playground playground playground"

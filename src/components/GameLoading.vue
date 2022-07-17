@@ -20,7 +20,7 @@
   width: 100%;
   height: 100vh;
 
-  background-color: white;
+  background-color: #f5eee9;
 
   div {
     position: relative;
@@ -52,7 +52,7 @@
       width: 30px;
       height: 30px;
 
-      background-color: white;
+      background-color: #f5eee9;
       border-radius: 50%;
     }
   }

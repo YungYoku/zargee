@@ -91,7 +91,7 @@
         {{ languagesStore.language.registration.rulesCheck }}
 
         <button class="politicsBtn" @click="showPolitics">
-          <img alt="Политика" src="@/assets/icons/politics.svg" />
+          <img alt="Политика" src="@/assets/icons/file.svg" />
         </button>
 
         <game-politics v-if="politicsShow" @close="hidePolitics" />
