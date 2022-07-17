@@ -72,7 +72,7 @@ async function claimReward() {
   display: grid;
   align-items: center;
 
-  grid-gap: 10px;
+  grid-gap: 5px;
   grid-template: 100% / 1fr 50px;
 }
 

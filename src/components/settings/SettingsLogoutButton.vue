@@ -17,8 +17,10 @@
 import { getAuth, signOut } from "firebase/auth";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
+import { useLoadingStore } from "@/stores/loading";
 
 const mainStore = useMainStore();
+const loadingStore = useLoadingStore();
 const router = useRouter();
 
 defineProps({
@@ -29,11 +31,17 @@ defineProps({
 });
 
 async function logout() {
+  loadingStore.show();
+
   await signOut(getAuth()).catch((error) => {
     console.log(error);
   });
+
   await mainStore.logout();
+
   await router.push("/login");
+
+  loadingStore.hide();
 }
 </script>
 

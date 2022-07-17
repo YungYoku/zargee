@@ -2,8 +2,8 @@
   <div class="home">
     <router-link
       :style="{
-        width: tabWidth < tabHeight ? tabWidth + 'px' : tabHeight + 'px',
-        height: tabWidth < tabHeight ? tabWidth + 'px' : tabHeight + 'px',
+        width: linkWidth,
+        height: linkHeight,
       }"
       class="play"
       to="/game"
@@ -13,8 +13,8 @@
 
     <router-link
       :style="{
-        width: tabWidth < tabHeight ? tabWidth + 'px' : tabHeight + 'px',
-        height: tabWidth < tabHeight ? tabWidth + 'px' : tabHeight + 'px',
+        width: linkWidth,
+        height: linkHeight,
       }"
       class="settings"
       to="/settings"
@@ -36,6 +36,18 @@ const tabWidth = computed(() => window.screen.availWidth * 0.3);
 const tabHeight = computed(() => window.screen.availHeight * 0.3);
 
 mainStore.setFirstPage(route.name as string);
+
+const linkWidth = computed(() =>
+  tabWidth.value < tabHeight.value
+    ? tabWidth.value + "px"
+    : tabHeight.value + "px"
+);
+
+const linkHeight = computed(() =>
+  tabWidth.value < tabHeight.value
+    ? tabWidth.value + "px"
+    : tabHeight.value + "px"
+);
 </script>
 
 <style lang="scss" scoped>
@@ -47,21 +59,21 @@ mainStore.setFirstPage(route.name as string);
 
   width: 100%;
   height: 100vh;
-}
 
-.play,
-.settings {
-  margin: 20px 0;
+  .play,
+  .settings {
+    margin: 20px 0;
 
-  border: 6px solid #333333;
-  border-radius: 50%;
+    border: 6px solid #333333;
+    border-radius: 50%;
 
-  cursor: pointer;
-}
+    cursor: pointer;
 
-a img {
-  width: 50%;
-  height: 50%;
-  margin: 25%;
+    img {
+      width: 50%;
+      height: 50%;
+      margin: 25%;
+    }
+  }
 }
 </style>

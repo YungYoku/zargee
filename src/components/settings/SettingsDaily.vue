@@ -208,7 +208,7 @@ function hideAd() {
   display: grid;
   align-items: center;
 
-  grid-gap: 10px;
+  grid-gap: 5px;
   grid-template: 100% / 1fr 50px;
 
   button {
@@ -311,8 +311,13 @@ function hideAd() {
   }
 
   .receiveButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     grid-area: receive;
 
+    width: 120px;
     margin-left: 10px;
     padding: 5px 10px;
 

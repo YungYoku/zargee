@@ -4,6 +4,7 @@
 
     <button class="sound" @click="swapSound">
       <img v-if="mainStore.sound" alt="Sound" src="@/assets/icons/sound.svg" />
+
       <img v-else alt="No sound" src="@/assets/icons/no-sound.svg" />
     </button>
   </div>

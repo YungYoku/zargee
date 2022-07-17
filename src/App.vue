@@ -5,12 +5,12 @@
     <source src="@/assets/sounds/bg.mp3" />
   </audio>
 
-  <the-tip />
+  <game-tip />
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted } from "vue";
-import TheTip from "@/components/TheTip.vue";
+import GameTip from "@/components/GameTip.vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 import { useLanguagesStore } from "@/stores/languages";

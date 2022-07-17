@@ -17,7 +17,7 @@ const tipStore = useTipStore();
 <style lang="scss" scoped>
 div {
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   z-index: 6;
 
   display: flex;
