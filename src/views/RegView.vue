@@ -577,7 +577,7 @@ async function submit() {
 
     color: #333333;
 
-    border: 3px solid #333333;
+    border: 2px solid #333333;
     border-radius: 50%;
 
     cursor: pointer;

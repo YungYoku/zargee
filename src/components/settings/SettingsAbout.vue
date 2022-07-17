@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <button class="about__leave-btn" @click="$emit('close')">
+    <button class="about__leave-btn" type="button" @click="$emit('close')">
       <img alt="Back" src="../../assets/icons/back.svg" />
     </button>
 
