@@ -192,11 +192,11 @@ export const useGameStore = defineStore({
       this.time = time;
     },
 
-    decreaseTime(): void {
+    decreaseTime() {
       this.time--;
     },
 
-    generateBlinking(): void {
+    generateBlinking() {
       this.targets.forEach((el) => (el.blink = false));
       const amount = Math.floor(
         Math.random() * this.targets.length * this.gameProps.blink
@@ -242,39 +242,64 @@ export const useGameStore = defineStore({
       }
     },
 
-    createTargets(): void {
+    getComplexitySize() {
+      const lvl = this.lvl - 1;
+
+      if (lvl % 9 < 2) {
+        return this.gameProps.size.s.min;
+      }
+      if (lvl % 9 < 4) {
+        return this.gameProps.size.m.min;
+      }
+      return this.gameProps.size.l.min;
+    },
+
+    getComplexityTime() {
+      const lvl = this.lvl - 1;
+
+      if (lvl % 9 < 3) {
+        return this.gameProps.time.s;
+      }
+      if (lvl % 9 < 7) {
+        return this.gameProps.time.m;
+      }
+      return this.gameProps.time.l;
+    },
+
+    getComplexityTargets() {
+      const lvl = this.lvl - 1;
+
+      if (lvl % 9 < 4) {
+        return "s";
+      }
+      if (lvl % 9 < 8) {
+        return "m";
+      }
+      return "l";
+    },
+
+    createTargets() {
       const app = document.querySelector("#app") as HTMLElement;
 
       const screenWidth = app.offsetWidth;
       const screenHeight = app.offsetHeight - 140;
 
       const complexity = {
-        targets: "s",
-        time: 15,
-        size: 100,
+        targets: this.getComplexityTargets(),
+        time: this.getComplexityTime(),
+        size: this.getComplexitySize(),
       };
 
-      if ((this.lvl - 1) % 9 < 2) complexity.size = this.gameProps.size.s.min;
-      else if ((this.lvl - 1) % 9 < 4)
-        complexity.size = this.gameProps.size.m.min;
-      else complexity.size = this.gameProps.size.l.min;
-
-      this.itemsAmount =
+      this.itemsAmount = Math.floor(
         ((screenWidth * screenHeight) / complexity.size / complexity.size) *
-        0.45;
+          0.45
+      );
 
-      if ((this.lvl - 1) % 9 < 3) complexity.time = this.gameProps.time.s;
-      else if ((this.lvl - 1) % 9 < 7) complexity.time = this.gameProps.time.m;
-      else complexity.time = this.gameProps.time.l;
-
-      if ((this.lvl - 1) % 9 < 4) {
-        complexity.targets = "s";
+      if (complexity.targets === "s") {
         this.setScoreEnding(this.gameProps.targets.s.min);
-      } else if ((this.lvl - 1) % 9 < 8) {
-        complexity.targets = "m";
+      } else if (complexity.targets === "m") {
         this.setScoreEnding(this.gameProps.targets.m.min);
-      } else {
-        complexity.targets = "l";
+      } else if (complexity.targets === "l") {
         this.setScoreEnding(this.gameProps.targets.l.min);
       }
 
