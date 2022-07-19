@@ -1,13 +1,17 @@
 <template>
   <div class="timer">
-    {{ gameStore.timer }}
+    {{ props.startTimer }}
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useGameStore } from "@/stores/game";
-
-const gameStore = useGameStore();
+const props = defineProps({
+  startTimer: {
+    type: Number,
+    required: true,
+    default: 3,
+  },
+});
 </script>
 
 <style lang="scss" scoped>

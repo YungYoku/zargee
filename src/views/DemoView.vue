@@ -1,17 +1,19 @@
 <template>
   <div class="game">
-    <the-load v-if="load" />
+    <game-loading v-if="loading" />
 
-    <game-start-timer v-if="gameStore.timer && !load" />
+    <game-start-timer v-if="startTimer && !loading" :start-timer="startTimer" />
 
-    <game-task v-if="!gameStore.timer && !load" class="task" />
+    <game-task v-if="!startTimer && !loading" class="task" />
 
-    <game-playground v-show="!gameStore.timer && !load" class="playground" />
+    <game-playground
+      v-show="!startTimer && !loading"
+      class="playground"
+      @lvlEnd="setStartTimerInterval"
+    />
 
     <game-lose-menu
-      v-if="
-        (!gameStore.timer && !load && gameStore.time === 0) || gameStore.lose
-      "
+      v-if="(!startTimer && !loading && gameStore.time === 0) || gameStore.lose"
       :free-reborn-amount="freeRebornAmount"
       :heart-reborn-amount="heartRebornAmount"
       :timeKick="timeKick"
@@ -28,9 +30,9 @@
       @clearIntervals="clearIntervals"
     />
 
-    <game-timer v-if="!gameStore.timer && !load" class="time" />
+    <game-timer v-if="!startTimer && !loading" class="time" />
 
-    <game-score v-if="!gameStore.timer && !load" class="score" />
+    <game-score v-if="!startTimer && !loading" class="score" />
 
     <game-level class="lvl" />
   </div>
@@ -40,7 +42,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import { useGameStore } from "@/stores/game";
 import { useRouter } from "vue-router";
-import TheLoad from "@/components/GameLoading.vue";
+import GameLoading from "@/components/GameLoading.vue";
 import "../additional/blink.css";
 import GameWinMenu from "@/components/game/GameWinMenu.vue";
 import GameTask from "@/components/game/GameTask.vue";
@@ -56,14 +58,16 @@ const mainStore = useMainStore();
 const gameStore = useGameStore();
 const router = useRouter();
 
-const load = ref(true);
+const loading = ref(true);
 const timeKick = ref(10);
 const adWatching = ref(false);
 
 let blinkInterval: number;
-let timerInterval: number;
+let startTimerInterval: number;
 let timeInterval: number;
 let kickInterval: number;
+
+const startTimer = ref(3);
 
 const deaths = ref(0);
 const freeRebornAmount = ref(0);
@@ -71,31 +75,40 @@ const heartRebornAmount = ref(0);
 
 function clearIntervals() {
   gameStore.reset();
+  clearInterval(startTimerInterval);
   clearInterval(timeInterval);
   clearInterval(kickInterval);
   clearInterval(blinkInterval);
 }
 
+const setStartTimerInterval = () => {
+  startTimer.value = 3;
+
+  startTimerInterval = setInterval(() => {
+    if (startTimer.value > 0) {
+      startTimer.value--;
+
+      if (startTimer.value <= 0) {
+        clearInterval(startTimerInterval);
+      }
+    }
+  }, 1000);
+};
+
 function setIntervals() {
   createTargets();
 
-  timerInterval = setInterval(() => {
-    if (gameStore.timer > 0) {
-      gameStore.decreaseTimer();
-    } else {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
+  setStartTimerInterval();
 
   timeInterval = setInterval(() => {
-    if (gameStore.time > 0 && gameStore.timer === 0 && !gameStore.lose) {
+    if (gameStore.time > 0 && startTimer.value === 0 && !gameStore.lose) {
       gameStore.decreaseTime();
     }
   }, 1000);
 
   kickInterval = setInterval(() => {
     if (
-      !gameStore.timer &&
+      !startTimer.value &&
       (gameStore.lose || !gameStore.time) &&
       !adWatching.value
     ) {
@@ -115,7 +128,7 @@ function setIntervals() {
 }
 
 onMounted(() => {
-  load.value = false;
+  loading.value = false;
   mainStore.loginDemo();
   gameStore.setComplexity(2);
   setIntervals();
@@ -163,14 +176,7 @@ function restart(props: { rebornType: string; lvl?: number }) {
   gameStore.reset();
 
   createTargets();
-
-  timerInterval = setInterval(() => {
-    if (gameStore.timer > 0) {
-      gameStore.decreaseTimer();
-    } else {
-      clearInterval(timerInterval);
-    }
-  }, 1000);
+  setStartTimerInterval();
 }
 
 function logout() {

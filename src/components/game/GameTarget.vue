@@ -13,7 +13,6 @@
           : target.bgColor,
     }"
     class="target"
-    @click="clickTarget"
   >
     <div
       :style="{
@@ -29,7 +28,6 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 import { onMounted, ref, watch } from "vue";
-import { useGameStore } from "@/stores/game";
 import type { Target } from "@/interfaces/target";
 
 const props = defineProps({
@@ -56,15 +54,7 @@ const props = defineProps({
       };
     },
   },
-
-  idx: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
 });
-
-const gameStore = useGameStore();
 
 const targetRef = ref();
 
@@ -91,13 +81,6 @@ function blink() {
 
 onMounted(() => blink());
 watch(props, () => blink());
-
-function clickTarget() {
-  gameStore.clickTarget({
-    target: props.target,
-    id: props.idx,
-  });
-}
 </script>
 
 <style lang="scss" scoped>

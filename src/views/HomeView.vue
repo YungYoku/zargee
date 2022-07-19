@@ -27,9 +27,11 @@
 <script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
 import { useRoute } from "vue-router";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
+import { useGameStore } from "@/stores/game";
 
 const mainStore = useMainStore();
+const gameStore = useGameStore();
 const route = useRoute();
 
 const tabWidth = computed(() => window.screen.availWidth * 0.3);
@@ -48,6 +50,10 @@ const linkHeight = computed(() =>
     ? tabWidth.value + "px"
     : tabHeight.value + "px"
 );
+
+onMounted(() => {
+  gameStore.reset();
+});
 </script>
 
 <style lang="scss" scoped>

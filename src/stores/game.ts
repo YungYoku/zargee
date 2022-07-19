@@ -24,8 +24,6 @@ interface State {
   score: Score;
   itemsAmount: number;
   sound: boolean;
-  timer: number;
-  timerInterval: number;
   time: number;
   gameProps: GameProps;
   task: Task;
@@ -56,8 +54,6 @@ export const useGameStore = defineStore({
     },
     itemsAmount: 0,
     sound: localStorage.sound === "true",
-    timer: 3,
-    timerInterval: 0,
     time: 15,
     gameProps: {
       colors: ["#1a1a1a", "#ff3a3a", "#3aff3a", "#3a3aff", "#FFA53a"],
@@ -151,7 +147,7 @@ export const useGameStore = defineStore({
 
     createTask(): void {
       if (this.targets.length) {
-        const randIndex = Math.floor(Math.random() * this.targets.length) - 1;
+        const randIndex = Math.floor(Math.random() * (this.targets.length - 1));
 
         this.task.figureFakeColor = this.gameProps.colors[randIndex % 5];
         this.task.borderFakeColor = this.gameProps.colors[randIndex % 5];
@@ -184,7 +180,9 @@ export const useGameStore = defineStore({
       this.targets.splice(id, 1);
     },
 
-    updateScoreLimit(complexity: string): void {
+    updateScoreLimit(): void {
+      const complexity = this.complexity.targets;
+
       if (complexity === "s") {
         this.score.ending = this.gameProps.targets.s.min;
       } else if (complexity === "m") {
@@ -202,12 +200,8 @@ export const useGameStore = defineStore({
       this.itemsAmount = itemsAmount;
     },
 
-    decreaseTimer(): void {
-      this.timer--;
-    },
-
-    setTime(time: number): void {
-      this.time = time;
+    updateTime(): void {
+      this.time = this.complexity.time;
     },
 
     decreaseTime() {
@@ -314,28 +308,32 @@ export const useGameStore = defineStore({
       return "l";
     },
 
-    createTargets() {
-      const app = document.querySelector("#app") as HTMLElement;
-
-      const screenWidth = app.offsetWidth;
-      const screenHeight = app.offsetHeight - 140;
-
+    updateComplexity() {
       this.complexity = {
         targets: this.getComplexityTargets(),
         time: this.getComplexityTime(),
         size: this.getComplexitySize(),
       };
+    },
 
+    updateItemsAmount(screenWidth: number, screenHeight: number) {
       this.itemsAmount = Math.floor(
         ((screenWidth * screenHeight) /
           this.complexity.size /
           this.complexity.size) *
           0.45
       );
+    },
 
-      this.updateScoreLimit(this.complexity.targets);
+    createTargets() {
+      const app = document.querySelector("#app") as HTMLElement;
+      const screenWidth = app.offsetWidth;
+      const screenHeight = app.offsetHeight - 140;
 
-      this.setTime(this.complexity.time);
+      this.updateComplexity();
+      this.updateItemsAmount(screenWidth, screenHeight);
+      this.updateScoreLimit();
+      this.updateTime();
 
       for (let i = 0; i < this.itemsAmount; i++) {
         const x = Math.floor(
@@ -392,74 +390,61 @@ export const useGameStore = defineStore({
       this.createTask();
     },
 
-    clickTarget(payload: clickTargetPayload): void {
-      // console.log("задание", this.task);
-      // console.log("нажато", payload.target);
+    isLevelCompleted() {
+      return (
+        this.score.current === this.score.ending && !this.lose && this.time
+      );
+    },
+
+    isTargetClicked(payload: clickTargetPayload) {
       if (
         payload.target.bgColorName === this.task.bgColor &&
         payload.target.figureName === this.task.figure
       ) {
-        if (
-          (payload.target.borderColor !== "transparent" &&
-            payload.target.borderColorName === this.task.borderColor) ||
-          payload.target.borderColor === "transparent"
-        ) {
-          this.targets.splice(payload.id, 1);
-          this.score.current++;
+        return true;
+      } else {
+        if (this.sound) {
+          playMistakeSound();
+        }
 
-          if (this.score.current !== this.score.ending) {
-            this.createTask();
-          }
+        return false;
+      }
+    },
 
-          if (
-            this.score.current === this.score.ending &&
-            !this.lose &&
-            this.time
-          ) {
-            this.lvl++;
-            if (this.lvl === 73) return;
+    handleTargetClick(payload: clickTargetPayload) {
+      if (
+        (payload.target.borderColor !== "transparent" &&
+          payload.target.borderColorName === this.task.borderColor) ||
+        payload.target.borderColor === "transparent"
+      ) {
+        this.targets.splice(payload.id, 1);
+        this.score.current++;
 
-            this.reset();
-            this.createTargets();
+        if (this.score.current !== this.score.ending) {
+          this.createTask();
+        }
 
-            this.timerInterval = setInterval(() => {
-              if (this.timer > 0) {
-                this.timer--;
-              } else {
-                clearInterval(this.timerInterval);
-              }
-            }, 1000);
-          }
+        if (this.isLevelCompleted()) {
+          this.lvl++;
+          if (this.lvl === 73) return;
 
-          if (this.sound) {
-            playPopSound();
-          }
-        } else {
-          this.lose = true;
-          if (this.sound) {
-            playMistakeSound();
-          }
+          this.reset();
+          this.createTargets();
+        }
+
+        if (this.sound) {
+          playPopSound();
         }
       } else {
         this.lose = true;
+
         if (this.sound) {
           playMistakeSound();
         }
       }
     },
 
-    setTimerInterval(): void {
-      // context.state.timerInterval = setInterval(() => {
-      //   if (context.state.timer > 0) context.state.timer--;
-      //   else {
-      //     context.commit("makeTargets");
-      //     clearInterval(context.state.timerInterval);
-      //   }
-      // }, 1000);
-    },
-
     reset(): void {
-      this.timer = 3;
       this.time = 15;
       this.score.current = 0;
       this.lose = false;
