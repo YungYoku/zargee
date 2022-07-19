@@ -9,9 +9,16 @@ import mistakeMp3 from "@/assets/sounds/mistake.mp3";
 const popSound = new Audio(popMp3);
 const mistakeSound = new Audio(mistakeMp3);
 
+interface Complexity {
+  targets: string;
+  time: number;
+  size: number;
+}
+
 interface State {
   lvl: number;
-  complexity: number;
+  complexity: Complexity;
+  settingsComplexity: number;
   adWatching: boolean;
   lose: boolean;
   score: Score;
@@ -35,7 +42,12 @@ export const useGameStore = defineStore({
 
   state: (): State => ({
     lvl: 1,
-    complexity: 1,
+    complexity: {
+      targets: "",
+      time: 0,
+      size: 0,
+    },
+    settingsComplexity: 1,
     adWatching: false,
     lose: false,
     score: {
@@ -172,8 +184,14 @@ export const useGameStore = defineStore({
       this.targets.splice(id, 1);
     },
 
-    setScoreEnding(ending: number): void {
-      this.score.ending = ending;
+    updateScoreLimit(complexity: string): void {
+      if (complexity === "s") {
+        this.score.ending = this.gameProps.targets.s.min;
+      } else if (complexity === "m") {
+        this.score.ending = this.gameProps.targets.m.min;
+      } else if (complexity === "l") {
+        this.score.ending = this.gameProps.targets.l.min;
+      }
     },
 
     increaseScore(): void {
@@ -194,6 +212,26 @@ export const useGameStore = defineStore({
 
     decreaseTime() {
       this.time--;
+    },
+
+    generateBorderColor(bgColor: string) {
+      const lvl = this.lvl;
+      const colors = this.gameProps.colors;
+      let borderColor = "transparent";
+
+      if (
+        (lvl >= 10 && lvl <= 18) ||
+        (lvl >= 37 && lvl <= 54) ||
+        (lvl >= 64 && lvl <= 72)
+      ) {
+        borderColor = colors[Math.round(Math.random() * 4)];
+      }
+
+      while (bgColor === borderColor) {
+        borderColor = colors[Math.round(Math.random() * 4)];
+      }
+
+      return borderColor;
     },
 
     generateBlinking() {
@@ -228,9 +266,7 @@ export const useGameStore = defineStore({
               this.targets[idx].d =
                 this.gameProps.figures[this.targets[idx].figure];
 
-              this.targets[idx].borderColor = generateBorderColor(
-                this.lvl,
-                this.gameProps.colors,
+              this.targets[idx].borderColor = this.generateBorderColor(
                 this.targets[idx].bgColor
               );
               this.targets[idx].borderColorName = generateBorderColorName(
@@ -284,39 +320,35 @@ export const useGameStore = defineStore({
       const screenWidth = app.offsetWidth;
       const screenHeight = app.offsetHeight - 140;
 
-      const complexity = {
+      this.complexity = {
         targets: this.getComplexityTargets(),
         time: this.getComplexityTime(),
         size: this.getComplexitySize(),
       };
 
       this.itemsAmount = Math.floor(
-        ((screenWidth * screenHeight) / complexity.size / complexity.size) *
+        ((screenWidth * screenHeight) /
+          this.complexity.size /
+          this.complexity.size) *
           0.45
       );
 
-      if (complexity.targets === "s") {
-        this.setScoreEnding(this.gameProps.targets.s.min);
-      } else if (complexity.targets === "m") {
-        this.setScoreEnding(this.gameProps.targets.m.min);
-      } else if (complexity.targets === "l") {
-        this.setScoreEnding(this.gameProps.targets.l.min);
-      }
+      this.updateScoreLimit(this.complexity.targets);
 
-      this.setTime(complexity.time);
+      this.setTime(this.complexity.time);
 
       for (let i = 0; i < this.itemsAmount; i++) {
-        const x = Math.floor(Math.random() * (screenWidth - complexity.size));
-        const y = Math.floor(Math.random() * (screenHeight - complexity.size));
+        const x = Math.floor(
+          Math.random() * (screenWidth - this.complexity.size)
+        );
+        const y = Math.floor(
+          Math.random() * (screenHeight - this.complexity.size)
+        );
         const figure = generateFigure(this.lvl);
         const figureName = generateFigureName(figure);
         const bgColor = this.gameProps.colors[Math.floor(Math.random() * 4)];
         const bgColorName = generateBgColorName(bgColor);
-        const borderColor = generateBorderColor(
-          this.lvl,
-          this.gameProps.colors,
-          bgColor
-        );
+        const borderColor = this.generateBorderColor(bgColor);
         const borderColorName = generateBorderColorName(borderColor);
 
         const border = Math.round(Math.random());
@@ -324,8 +356,8 @@ export const useGameStore = defineStore({
         const target: Target = {
           x,
           y,
-          width: complexity.size,
-          height: complexity.size,
+          width: this.complexity.size,
+          height: this.complexity.size,
           d: this.gameProps.figures[figure],
           figure,
           figureName,
@@ -345,10 +377,10 @@ export const useGameStore = defineStore({
             Math.abs(this.targets[j].y - target.y) < 30
           ) {
             target.x = Math.floor(
-              Math.random() * (screenWidth - complexity.size)
+              Math.random() * (screenWidth - this.complexity.size)
             );
             target.y = Math.floor(
-              Math.random() * (screenHeight - complexity.size)
+              Math.random() * (screenHeight - this.complexity.size)
             );
             j--;
           }
@@ -465,18 +497,15 @@ function playMistakeSound() {
 }
 
 function generateFigure(lvl: number) {
-  let figure;
   if (
     (lvl >= 19 && lvl <= 27) ||
     (lvl >= 37 && lvl <= 45) ||
     (lvl >= 55 && lvl <= 72)
   ) {
-    figure = Math.round(Math.random() * 4);
-  } else {
-    figure = Math.round(Math.random());
+    return Math.round(Math.random() * 4);
   }
 
-  return figure;
+  return Math.round(Math.random());
 }
 
 function generateFigureName(figure: number) {
@@ -494,22 +523,6 @@ function generateFigureName(figure: number) {
     default:
       return "";
   }
-}
-
-function generateBorderColor(lvl: number, colors: string[], bgColor: string) {
-  let borderColor = "transparent";
-  if (
-    (lvl >= 10 && lvl <= 18) ||
-    (lvl >= 37 && lvl <= 54) ||
-    (lvl >= 64 && lvl <= 72)
-  ) {
-    borderColor = colors[Math.round(Math.random() * 4)];
-  }
-  while (bgColor === borderColor) {
-    borderColor = colors[Math.round(Math.random() * 4)];
-  }
-
-  return borderColor;
 }
 
 function generateBorderColorName(borderColor: string) {
