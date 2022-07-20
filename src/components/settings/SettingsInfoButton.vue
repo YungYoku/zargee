@@ -32,7 +32,6 @@ function open(e: Event) {
 
 <style lang="scss" scoped>
 .infoButton {
-  margin: 10px 0;
   overflow: hidden;
 
   background-color: transparent;

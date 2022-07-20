@@ -4,7 +4,9 @@
 
     <div v-if="timer" class="earnTimer">{{ timer }}</div>
 
-    <button v-else class="earnClose" @click="hideAd">X</button>
+    <button v-else class="earnClose" @click="hideAd">
+      <img alt="Закрыть" src="@/assets/icons/close.svg" />
+    </button>
   </div>
 </template>
 

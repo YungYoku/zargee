@@ -47,7 +47,6 @@ async function logout() {
 
 <style lang="scss" scoped>
 .logoutButton {
-  margin: 10px 0;
   overflow: hidden;
 
   background-color: transparent;

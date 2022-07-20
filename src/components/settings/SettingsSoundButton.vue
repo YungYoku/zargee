@@ -33,7 +33,6 @@ function turnOnSound() {
 
 <style lang="scss" scoped>
 .soundButton {
-  margin: 10px 0;
   overflow: hidden;
 
   background-color: transparent;

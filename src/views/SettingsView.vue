@@ -52,6 +52,8 @@
         <the-about v-if="aboutShow" @close="hideAbout" />
       </div>
     </div>
+
+    <div class="version">Версия: {{ version }}</div>
   </div>
 </template>
 
@@ -81,6 +83,7 @@ mainStore.setFirstPage(route.name as string);
 const politicsShow = ref(false);
 const aboutShow = ref(false);
 const infoShow = ref(false);
+const version = __APP_VERSION__;
 
 const buttonSize = computed<string>(() => {
   const tabWidth = window.screen.availWidth * 0.25;
@@ -131,6 +134,7 @@ function hideInfo(e: Event) {
 
   width: 100%;
   height: 100vh;
+  gap: 20px;
 }
 
 .infoWrap {
@@ -174,25 +178,25 @@ function hideInfo(e: Event) {
 
   grid-gap: 10px;
   grid-template: 100% / auto 1fr 1fr;
-}
 
-.name h2 {
-  font-size: 40px;
-  text-align: left;
-}
+  h2 {
+    font-size: 40px;
+    text-align: left;
+  }
 
-.name__lvl {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &__lvl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  width: 40px;
-  height: 40px;
+    width: 40px;
+    height: 40px;
 
-  color: #333333;
+    color: #333333;
 
-  border: 2px solid #333333;
-  border-radius: 50%;
+    border: 2px solid #333333;
+    border-radius: 50%;
+  }
 }
 
 .name h5,
@@ -260,6 +264,12 @@ function hideInfo(e: Event) {
     width: 20px;
     height: 20px;
   }
+}
+
+.version {
+  margin-top: 20px;
+
+  font-size: 16px;
 }
 
 @media screen and (max-width: 768px) {

@@ -293,7 +293,7 @@ function hideAd() {
   color: #333333;
 
   border: 2px solid #333333;
-  border-radius: 10px;
+  border-radius: 5px;
 
   img {
     width: 40px;
