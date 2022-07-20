@@ -83,7 +83,8 @@ mainStore.setFirstPage(route.name as string);
 const politicsShow = ref(false);
 const aboutShow = ref(false);
 const infoShow = ref(false);
-const version = __APP_VERSION__;
+// eslint-disable-next-line no-undef
+const version = APP_VERSION;
 
 const buttonSize = computed<string>(() => {
   const tabWidth = window.screen.availWidth * 0.25;
