@@ -16,7 +16,8 @@ const mainStore = useMainStore();
 const tipStore = useTipStore();
 
 function copyToClipboard() {
-  navigator.clipboard.writeText(mainStore.user.ref);
+  navigator.clipboard.writeText(mainStore.user.ref.toString());
+
   tipStore.update("Скопировано");
 }
 </script>

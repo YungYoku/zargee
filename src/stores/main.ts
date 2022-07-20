@@ -23,9 +23,7 @@ export const useMainStore = defineStore({
   state: (): State => ({
     demo: false,
     uid: localStorage.uid ? localStorage.uid : "",
-    user: {
-      ref: "",
-    } as User,
+    user: {} as User,
     sound: localStorage.sound === "true",
     soundChange: localStorage.soundChange === "true",
     firstPage: "",
@@ -103,21 +101,25 @@ export const useMainStore = defineStore({
     },
 
     async subscribeToNewRefs() {
-      await onSnapshot(doc(db, "refs", this.user.ref), async (response) => {
-        if (response.exists()) {
-          const refUsers = response.data();
+      await onSnapshot(
+        doc(db, "refs", this.user.ref.toString()),
+        async (response) => {
+          if (response.exists()) {
+            const refUsers = response.data();
 
-          if (this.user.refUsers < refUsers.refs.length) {
-            await updateDoc(doc(db, "users", localStorage.uid), {
-              gold: this.user.gold + refUsers.refs.length - this.user.refUsers,
-              hearts:
-                this.user.hearts +
-                10 * (refUsers.refs.length - this.user.refUsers),
-              refUsers: refUsers.refs.length,
-            });
+            if (this.user.refUsers < refUsers.refs.length) {
+              await updateDoc(doc(db, "users", localStorage.uid), {
+                gold:
+                  this.user.gold + refUsers.refs.length - this.user.refUsers,
+                hearts:
+                  this.user.hearts +
+                  10 * (refUsers.refs.length - this.user.refUsers),
+                refUsers: refUsers.refs.length,
+              });
+            }
           }
         }
-      });
+      );
     },
 
     async loadInfo() {
