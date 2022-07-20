@@ -126,14 +126,20 @@ async function submit() {
         switch (error.code) {
           case "auth/wrong-password":
             tipStore.update("Неверный пароль");
+            form.password = "";
             break;
           case "auth/user-not-found":
             tipStore.update("Почта не зарегистрирована");
+            form.email = "";
+            form.password = "";
             break;
           default:
             tipStore.update("Ошибка");
+            form.email = "";
+            form.password = "";
             break;
         }
+        loadingStore.hide();
       });
   }
 }

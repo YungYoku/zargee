@@ -301,11 +301,22 @@ async function submit() {
         switch (error.code) {
           case "auth/email-already-in-use":
             tipStore.update("Почта уже используется");
+            form.email = "";
+            form.name = "";
+            form.password = "";
+            form.passwordRep = "";
+            form.refCode = "";
             break;
           default:
             tipStore.update("Ошибка");
+            form.email = "";
+            form.name = "";
+            form.password = "";
+            form.passwordRep = "";
+            form.refCode = "";
             break;
         }
+        loadingStore.hide();
       });
   }
 }
