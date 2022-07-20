@@ -1,6 +1,7 @@
 <template>
   <div class="refCode" @click="copyToClipboard">
     <h4>Реф. код: {{ mainStore.user.ref }}</h4>
+
     <button>
       <img alt="Copy" src="@/assets/icons/copy.svg" />
     </button>
@@ -15,8 +16,8 @@ const mainStore = useMainStore();
 const tipStore = useTipStore();
 
 function copyToClipboard() {
-  tipStore.update("Скопировано");
   navigator.clipboard.writeText(mainStore.user.ref);
+  tipStore.update("Скопировано");
 }
 </script>
 

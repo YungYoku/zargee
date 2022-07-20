@@ -1,19 +1,19 @@
 <template>
-  <div class="codeWrap">
+  <form class="codeWrap" @submit.prevent="sendCode">
     <label for="code">
       <input
         id="code"
         v-model.trim="code"
         placeholder="Ввести код"
+        required
         type="text"
-        @keypress.enter="sendCode()"
       />
     </label>
 
-    <div class="approveWrap" @click="sendCode()">
-      <img alt="Approve" src="../../assets/icons/approve.svg" />
-    </div>
-  </div>
+    <button class="approveWrap" type="submit">
+      <img alt="Approve" src="@/assets/icons/approve.svg" />
+    </button>
+  </form>
 </template>
 
 <script lang="ts" setup>

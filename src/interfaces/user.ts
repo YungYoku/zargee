@@ -6,7 +6,7 @@ export interface User {
   hearts: number;
   lvl: number;
   name: string;
-  ref: string;
+  ref: number;
   refUsers: number;
   resetDay: number;
   rewardDay: number;

@@ -115,7 +115,7 @@
 <script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
 import { useLanguagesStore } from "@/stores/languages";
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
@@ -170,6 +170,17 @@ const lineIII = ref();
 
 const passIcon = ref("passInvisible");
 const politicsShow = ref(false);
+
+onMounted(() => {
+  const queryRef = router.currentRoute.value.query.ref as string;
+  if (queryRef) {
+    if (queryRef.length === 9) {
+      form.refCode = queryRef;
+    } else {
+      router.push("/reg");
+    }
+  }
+});
 
 function showPolitics() {
   politicsShow.value = true;
@@ -251,9 +262,9 @@ async function submit() {
       .then(async (userCredential) => {
         const uid = userCredential.user.uid;
 
-        let _refCode = "";
-        for (let i = 0; i < 9; i++) {
-          _refCode += Math.floor(Math.random() * 9);
+        let _refCode = 0;
+        for (let i = 0; i < 8; i++) {
+          _refCode += Math.floor(Math.random() * 9) * i ** 10;
         }
 
         let bonus = false;
@@ -286,7 +297,7 @@ async function submit() {
           },
         });
 
-        await setDoc(doc(db, "refs", _refCode), {
+        await setDoc(doc(db, "refs", _refCode.toString()), {
           name: form.name,
           refs: [],
         });
