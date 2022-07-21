@@ -1,7 +1,5 @@
 <template>
   <div class="authWrap">
-    <h2>{{ languagesStore.language.login.title }}</h2>
-
     <game-loading v-if="loadingStore.loading" />
 
     <form
@@ -10,6 +8,10 @@
       }"
       @submit.prevent="submit"
     >
+      <h2 class="title">
+        {{ languagesStore.language.login.title }}
+      </h2>
+
       <label class="email" for="emailInput">
         <input
           id="emailInput"
@@ -156,43 +158,20 @@ async function submit() {
   height: 100vh;
   gap: 20px;
 
-  h2 {
-    margin: 0 0 40px 0;
-
-    font-size: 70px;
-    font-weight: 500;
-    text-align: center;
-    color: #999999;
-
-    @media screen and (max-width: 768px) {
-      font-size: 50px;
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: 40px;
-    }
-  }
-
   form {
     display: grid;
     justify-content: center;
     align-items: center;
 
-    grid-template: 50px 50px 30px 70px 50px / 1fr;
-    grid-template-areas:
-      "email"
-      "pass"
-      "passForgot"
-      "btnSubmit"
-      "swap";
+    grid-template: 70px 50px 50px 30px 70px 50px / 1fr;
 
     width: 30%;
     min-width: 400px;
     margin: 0 auto;
-    padding: 30px 40px 20px 40px;
+    padding: 40px 40px 30px 40px;
 
     background-color: #fbfaf7;
-    border-radius: 30px;
+    border-radius: 15px;
 
     @media screen and (max-width: 480px) {
       width: 90%;
@@ -200,44 +179,51 @@ async function submit() {
       padding: 30px 40px 20px 40px;
     }
 
+    .title {
+      margin-bottom: auto;
+
+      font-size: 32px;
+      font-weight: 400;
+      text-align: center;
+      color: #333333;
+    }
+
     .email {
       position: relative;
-
-      grid-area: email;
     }
 
-    .email::after,
-    .pass::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .email,
+    .pass {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
 
-      width: 100%;
-      height: 1px;
+        width: 100%;
+        height: 1px;
 
-      background-color: #d3d3d3;
-    }
+        background-color: #d3d3d3;
+      }
 
-    .email input,
-    .pass input {
-      width: 100%;
-      height: 100%;
+      input {
+        width: 100%;
+        height: 100%;
 
-      font-size: 18px;
+        font-size: 16px;
 
-      background-color: transparent;
+        background-color: transparent;
 
-      user-select: text;
-    }
+        user-select: text;
+      }
 
-    .email:focus-within::after,
-    .pass:focus-within::after {
-      bottom: -1px;
+      &:focus-within::after {
+        bottom: -1px;
 
-      height: 2px;
+        height: 2px;
 
-      background-color: #333333;
+        background-color: #333333;
+      }
     }
 
     label > img {
@@ -253,35 +239,29 @@ async function submit() {
 
     .pass {
       position: relative;
-
-      grid-area: pass;
     }
 
     .passForgot {
-      grid-area: passForgot;
-    }
+      a {
+        font-size: 14px;
+        color: #727270;
 
-    .passForgot a {
-      font-size: 14px;
-      color: #727270;
-    }
-
-    .passForgot a:hover {
-      color: #333333;
+        &:hover {
+          color: #333333;
+        }
+      }
     }
 
     .btnSubmit {
-      grid-area: btnSubmit;
-
       padding: 10px 0;
 
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 400;
       color: white;
 
       background-color: #333333;
       border: none;
-      border-radius: 20px;
+      border-radius: 10px;
       outline: none;
 
       cursor: pointer;
@@ -298,10 +278,6 @@ async function submit() {
       border-right: none;
       border-bottom: 1px solid lightgray;
       border-left: none;
-    }
-
-    .swapMode {
-      grid-area: swap;
     }
   }
 }

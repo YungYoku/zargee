@@ -1,7 +1,5 @@
 <template>
   <div class="authWrap">
-    <h2>{{ languagesStore.language.reset.title }}</h2>
-
     <form
       :class="{
         beforeSend: form.mode === 'default',
@@ -13,6 +11,10 @@
       class="reset beforeSend"
       @submit.prevent="submitHandle"
     >
+      <h2 class="title">
+        {{ languagesStore.language.reset.title }}
+      </h2>
+
       <label v-if="form.mode === 'default'" class="email" for="emailInput">
         <input
           id="emailInput"
@@ -275,11 +277,11 @@ async function resetPassword() {
     padding: 30px 40px 20px 40px;
 
     background-color: #fbfaf7;
-    border-radius: 30px;
+    border-radius: 15px;
   }
 
   form.beforeSend {
-    grid-template: 50px 90px 10px / 1fr;
+    grid-template: 70px 50px 90px 10px / 1fr;
     grid-template-areas:
       "email"
       "btnSubmit"
@@ -288,27 +290,19 @@ async function resetPassword() {
 
   form.resetPassword {
     grid-template: 50px 50px 20px 90px 10px / 1fr;
-    grid-template-areas:
-      "pass"
-      "passRep"
-      "passPower"
-      "btnSubmit"
-      "swap";
   }
 
-  h2 {
-    margin: 0 0 60px 0;
+  .title {
+    margin-bottom: auto;
 
-    font-size: 70px;
-    font-weight: 500;
+    font-size: 32px;
+    font-weight: 400;
     text-align: center;
-    color: #999999;
+    color: #333333;
   }
 
   .email {
     position: relative;
-
-    grid-area: email;
   }
 
   .email::after,
@@ -331,7 +325,7 @@ async function resetPassword() {
     width: 100%;
     height: 100%;
 
-    font-size: 18px;
+    font-size: 16px;
 
     background-color: transparent;
 
@@ -350,20 +344,15 @@ async function resetPassword() {
 
   .pass {
     position: relative;
-
-    grid-area: pass;
   }
 
   .passRep {
     position: relative;
-
-    grid-area: passRep;
   }
 
   .passPower {
     display: grid;
 
-    grid-area: passPower;
     grid-gap: 5%;
     grid-template: 100% / 1fr 1fr 1fr;
   }
@@ -389,17 +378,15 @@ async function resetPassword() {
   }
 
   .btnSubmit {
-    grid-area: btnSubmit;
-
     padding: 10px 0;
 
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 400;
     color: white;
 
     background-color: #333333;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     outline: none;
 
     cursor: pointer;
@@ -431,8 +418,6 @@ async function resetPassword() {
   .swapMode {
     display: flex;
     justify-content: center;
-
-    grid-area: swap;
   }
 
   h5 {

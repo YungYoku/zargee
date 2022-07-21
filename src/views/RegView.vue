@@ -1,7 +1,5 @@
 <template>
   <div class="authWrap">
-    <h2>{{ languagesStore.language.registration.title }}</h2>
-
     <game-loading v-if="loadingStore.loading" />
 
     <form
@@ -11,6 +9,10 @@
       class="registration"
       @submit.prevent="submit"
     >
+      <h2 class="title">
+        {{ languagesStore.language.registration.title }}
+      </h2>
+
       <label class="email" for="emailInput">
         <input
           id="emailInput"
@@ -317,6 +319,8 @@ async function submit() {
             form.password = "";
             form.passwordRep = "";
             form.refCode = "";
+            form.rules = false;
+            changePower();
             break;
           default:
             tipStore.update("Ошибка");
@@ -325,6 +329,8 @@ async function submit() {
             form.password = "";
             form.passwordRep = "";
             form.refCode = "";
+            form.rules = false;
+            changePower();
             break;
         }
         loadingStore.hide();
@@ -344,23 +350,6 @@ async function submit() {
   height: 100vh;
   gap: 20px;
 
-  h2 {
-    margin: 0 0 40px 0;
-
-    font-size: 70px;
-    font-weight: 500;
-    text-align: center;
-    color: #999999;
-
-    @media screen and (max-width: 768px) {
-      font-size: 50px;
-    }
-
-    @media screen and (max-width: 480px) {
-      font-size: 40px;
-    }
-  }
-
   form {
     position: relative;
 
@@ -368,17 +357,7 @@ async function submit() {
     justify-content: center;
     align-items: center;
 
-    grid-template: 50px 50px 50px 50px 50px 50px 30px 70px 50px / 1fr;
-    grid-template-areas:
-      "email"
-      "name"
-      "pass"
-      "passRep"
-      "refCode"
-      "passPower"
-      "rules"
-      "btnSubmit"
-      "swap";
+    grid-template: 70px 50px 50px 50px 50px 50px 50px 30px 70px 50px / 1fr;
 
     width: 30%;
     min-width: 400px;
@@ -387,7 +366,7 @@ async function submit() {
     overflow: hidden;
 
     background-color: #fbfaf7;
-    border-radius: 30px;
+    border-radius: 15px;
 
     @media screen and (max-width: 480px) {
       width: 90%;
@@ -395,10 +374,17 @@ async function submit() {
       padding: 30px 40px 20px 40px;
     }
 
+    .title {
+      margin-bottom: auto;
+
+      font-size: 32px;
+      font-weight: 400;
+      text-align: center;
+      color: #333333;
+    }
+
     .email {
       position: relative;
-
-      grid-area: email;
     }
 
     .email::after,
@@ -425,7 +411,7 @@ async function submit() {
       width: 100%;
       height: 100%;
 
-      font-size: 18px;
+      font-size: 16px;
 
       background-color: transparent;
 
@@ -459,32 +445,23 @@ async function submit() {
 
     .name {
       position: relative;
-
-      grid-area: name;
     }
 
     .pass {
       position: relative;
-
-      grid-area: pass;
     }
 
     .passRep {
       position: relative;
-
-      grid-area: passRep;
     }
 
     .refCode {
       position: relative;
-
-      grid-area: refCode;
     }
 
     .passPower {
       display: grid;
 
-      grid-area: passPower;
       grid-gap: 5%;
       grid-template: 100% / 1fr 1fr 1fr;
     }
@@ -503,8 +480,6 @@ async function submit() {
       justify-content: flex-start;
       align-items: center;
 
-      grid-area: rules;
-
       color: initial;
 
       input {
@@ -517,17 +492,15 @@ async function submit() {
     }
 
     .btnSubmit {
-      grid-area: btnSubmit;
-
       padding: 10px 0;
 
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 400;
       color: white;
 
       background-color: #333333;
       border: none;
-      border-radius: 20px;
+      border-radius: 10px;
       outline: none;
 
       cursor: pointer;
@@ -544,10 +517,6 @@ async function submit() {
       border-right: none;
       border-bottom: 1px solid lightgray;
       border-left: none;
-    }
-
-    .swapMode {
-      grid-area: swap;
     }
   }
 
