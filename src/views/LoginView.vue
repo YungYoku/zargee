@@ -6,13 +6,14 @@
       :style="{
         boxShadow: '0 14px 20px 6px ' + theme.shadow,
       }"
+      class="login"
       @submit.prevent="submit"
     >
-      <h2 class="title">
+      <h2 class="login__item title">
         {{ languagesStore.language.login.title }}
       </h2>
 
-      <label class="email" for="emailInput">
+      <label class="login__item email" for="emailInput">
         <input
           id="emailInput"
           v-model.trim="form.email"
@@ -22,7 +23,7 @@
         />
       </label>
 
-      <label class="pass" for="passwordInput">
+      <label class="login__item pass" for="passwordInput">
         <input
           id="passwordInput"
           ref="passDom"
@@ -47,18 +48,18 @@
         />
       </label>
 
-      <div class="passForgot">
+      <div class="login__item passForgot">
         <router-link to="/reset">Забыли пароль?</router-link>
       </div>
 
-      <button class="btnSubmit" type="submit">
+      <button class="login__item btnSubmit" type="submit">
         {{ languagesStore.language.login.button }}
       </button>
 
       <animated-link
         :link="'/reg'"
         :text="languagesStore.language.login.swapMode"
-        class="swapMode"
+        class="login__item swapMode"
       />
     </form>
 
@@ -156,14 +157,14 @@ async function submit() {
 
   width: 100%;
   height: 100vh;
-  gap: 20px;
+  gap: 30px;
 
-  form {
+  .login {
     display: grid;
     justify-content: center;
     align-items: center;
 
-    grid-template: 70px 50px 50px 30px 70px 50px / 1fr;
+    grid-template: 70px 50px 50px 30px 70px 30px / 1fr;
 
     width: 30%;
     min-width: 400px;
@@ -179,6 +180,10 @@ async function submit() {
       padding: 30px 40px 20px 40px;
     }
 
+    &__item {
+      position: relative;
+    }
+
     .title {
       margin-bottom: auto;
 
@@ -186,10 +191,6 @@ async function submit() {
       font-weight: 400;
       text-align: center;
       color: #333333;
-    }
-
-    .email {
-      position: relative;
     }
 
     .email,
@@ -237,10 +238,6 @@ async function submit() {
       cursor: pointer;
     }
 
-    .pass {
-      position: relative;
-    }
-
     .passForgot {
       a {
         font-size: 14px;
@@ -253,6 +250,8 @@ async function submit() {
     }
 
     .btnSubmit {
+      z-index: 3;
+
       padding: 10px 0;
 
       font-size: 20px;
@@ -265,12 +264,12 @@ async function submit() {
       outline: none;
 
       cursor: pointer;
-    }
 
-    .btnSubmit:hover {
-      box-shadow: 0 10px 14px 5px lightgray;
+      &:hover {
+        box-shadow: 0 10px 14px 5px lightgray;
 
-      transform: scale(1.05);
+        transform: scale(1.05);
+      }
     }
 
     .inputLine {

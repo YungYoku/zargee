@@ -13,7 +13,7 @@
         {{ languagesStore.language.registration.title }}
       </h2>
 
-      <label class="email" for="emailInput">
+      <label class="registration__item email" for="emailInput">
         <input
           id="emailInput"
           v-model.trim="form.email"
@@ -23,7 +23,7 @@
         />
       </label>
 
-      <label class="name" for="nameInput">
+      <label class="registration__item name" for="nameInput">
         <input
           id="nameInput"
           v-model.trim="form.name"
@@ -33,7 +33,7 @@
         />
       </label>
 
-      <label class="pass" for="passwordInput">
+      <label class="registration__item pass" for="passwordInput">
         <input
           id="passwordInput"
           ref="passDom"
@@ -59,7 +59,7 @@
         />
       </label>
 
-      <label class="passRep" for="passwordRepeatInput">
+      <label class="registration__item passRep" for="passwordRepeatInput">
         <input
           id="passwordRepeatInput"
           ref="passRepDom"
@@ -71,7 +71,7 @@
         />
       </label>
 
-      <label class="refCode" for="refInput">
+      <label class="registration__item refCode" for="refInput">
         <input
           id="refInput"
           v-model.trim="form.refCode"
@@ -81,16 +81,18 @@
         />
       </label>
 
-      <div class="passPower">
+      <div class="registration__item passPower">
         <span ref="lineI" class="powerLines"></span>
         <span ref="lineII" class="powerLines"></span>
         <span ref="lineIII" class="powerLines"></span>
       </div>
 
-      <label class="rules">
+      <label class="registration__item rules">
         <input v-model="form.rules" type="checkbox" />
 
-        {{ languagesStore.language.registration.rulesCheck }}
+        <span>
+          {{ languagesStore.language.registration.rulesCheck }}
+        </span>
 
         <button class="politicsBtn" @click="showPolitics">
           <img alt="Политика" src="@/assets/icons/file.svg" />
@@ -99,14 +101,14 @@
         <game-politics v-if="politicsShow" @close="hidePolitics" />
       </label>
 
-      <button class="btnSubmit" type="submit">
+      <button class="registration__item btnSubmit" type="submit">
         {{ languagesStore.language.registration.button }}
       </button>
 
       <animated-link
         :link="'/login'"
         :text="languagesStore.language.registration.swapMode"
-        class="swapMode"
+        class="registration__item swapMode"
       />
     </form>
 
@@ -348,16 +350,16 @@ async function submit() {
 
   width: 100%;
   height: 100vh;
-  gap: 20px;
+  gap: 30px;
 
-  form {
+  .registration {
     position: relative;
 
     display: grid;
     justify-content: center;
     align-items: center;
 
-    grid-template: 70px 50px 50px 50px 50px 50px 50px 30px 70px 50px / 1fr;
+    grid-template: 70px 50px 50px 50px 50px 50px 50px 30px 70px 30px / 1fr;
 
     width: 30%;
     min-width: 400px;
@@ -374,63 +376,9 @@ async function submit() {
       padding: 30px 40px 20px 40px;
     }
 
-    .title {
-      margin-bottom: auto;
-
-      font-size: 32px;
-      font-weight: 400;
-      text-align: center;
-      color: #333333;
-    }
-
-    .email {
+    &__item {
       position: relative;
-    }
 
-    .email::after,
-    .name::after,
-    .pass::after,
-    .passRep::after,
-    .refCode::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-
-      width: 100%;
-      height: 1px;
-
-      background-color: #d3d3d3;
-    }
-
-    .email input,
-    .name input,
-    .pass input,
-    .passRep input,
-    .refCode input {
-      width: 100%;
-      height: 100%;
-
-      font-size: 16px;
-
-      background-color: transparent;
-
-      user-select: text;
-    }
-
-    .email:focus-within::after,
-    .name:focus-within::after,
-    .pass:focus-within::after,
-    .passRep:focus-within::after,
-    .refCode:focus-within::after {
-      bottom: -1px;
-
-      height: 2px;
-
-      background-color: #333333;
-    }
-
-    label {
       > img {
         position: absolute;
         top: 0;
@@ -443,20 +391,50 @@ async function submit() {
       }
     }
 
-    .name {
-      position: relative;
+    .title {
+      margin-bottom: auto;
+
+      font-size: 32px;
+      font-weight: 400;
+      text-align: center;
+      color: #333333;
     }
 
-    .pass {
-      position: relative;
-    }
-
-    .passRep {
-      position: relative;
-    }
-
+    .email,
+    .name,
+    .pass,
+    .passRep,
     .refCode {
-      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        width: 100%;
+        height: 1px;
+
+        background-color: #d3d3d3;
+      }
+
+      input {
+        width: 100%;
+        height: 100%;
+
+        font-size: 16px;
+
+        background-color: transparent;
+
+        user-select: text;
+      }
+
+      &:focus-within::after {
+        bottom: -1px;
+
+        height: 2px;
+
+        background-color: #333333;
+      }
     }
 
     .passPower {
@@ -480,10 +458,15 @@ async function submit() {
       justify-content: flex-start;
       align-items: center;
 
+      font-size: 14px;
       color: initial;
 
       input {
-        margin: 0 10px 0 0;
+        margin: 0 5px 0 0;
+      }
+
+      span {
+        line-height: 14px;
       }
 
       button {
@@ -492,6 +475,8 @@ async function submit() {
     }
 
     .btnSubmit {
+      z-index: 3;
+
       padding: 10px 0;
 
       font-size: 20px;

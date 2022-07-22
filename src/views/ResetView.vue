@@ -85,18 +85,12 @@
         }}
       </button>
 
-      <router-link to="/login">
-        <div class="swapMode">
-          <h5>{{ languagesStore.language.reset.toLogin }}</h5>
-        </div>
-      </router-link>
+      <animated-link
+        :text="languagesStore.language.reset.toLogin"
+        class="swapMode"
+        link="login"
+      />
     </form>
-
-    <router-link to="/demo" @click="mainStore.loginDemo">
-      <div class="demoVersion">
-        <h5>ДЕМО ВЕРСИЯ</h5>
-      </div>
-    </router-link>
   </div>
 </template>
 
@@ -113,6 +107,7 @@ import {
 } from "firebase/auth";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
+import AnimatedLink from "@/components/AnimatedLink.vue";
 
 interface Reset {
   mode: string;
@@ -266,7 +261,7 @@ async function resetPassword() {
   width: 100%;
   height: 100vh;
 
-  form {
+  .reset {
     display: grid;
     justify-content: center;
     align-items: center;
@@ -280,7 +275,7 @@ async function resetPassword() {
     border-radius: 15px;
   }
 
-  form.beforeSend {
+  .reset.beforeSend {
     grid-template: 70px 50px 90px 10px / 1fr;
     grid-template-areas:
       "email"
@@ -288,7 +283,7 @@ async function resetPassword() {
       "swap";
   }
 
-  form.resetPassword {
+  .reset.resetPassword {
     grid-template: 50px 50px 20px 90px 10px / 1fr;
   }
 
@@ -305,41 +300,39 @@ async function resetPassword() {
     position: relative;
   }
 
-  .email::after,
-  .pass::after,
-  .passRep::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  .email,
+  .pass,
+  .passRep {
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
 
-    width: 100%;
-    height: 1px;
+      width: 100%;
+      height: 1px;
 
-    background-color: #d3d3d3;
-  }
+      background-color: #d3d3d3;
+    }
 
-  .email input,
-  .pass input,
-  .passRep input {
-    width: 100%;
-    height: 100%;
+    input {
+      width: 100%;
+      height: 100%;
 
-    font-size: 16px;
+      font-size: 16px;
 
-    background-color: transparent;
+      background-color: transparent;
 
-    user-select: text;
-  }
+      user-select: text;
+    }
 
-  .email:focus-within::after,
-  .pass:focus-within::after,
-  .passRep:focus-within::after {
-    bottom: -1px;
+    &:focus-within::after {
+      bottom: -1px;
 
-    height: 2px;
+      height: 2px;
 
-    background-color: #333333;
+      background-color: #333333;
+    }
   }
 
   .pass {
@@ -366,18 +359,22 @@ async function resetPassword() {
     transition: all 0.5s;
   }
 
-  label > img {
-    position: absolute;
-    top: 0;
-    right: 0;
+  label {
+    > img {
+      position: absolute;
+      top: 0;
+      right: 0;
 
-    width: 20px;
-    height: 20px;
+      width: 20px;
+      height: 20px;
 
-    cursor: pointer;
+      cursor: pointer;
+    }
   }
 
   .btnSubmit {
+    z-index: 3;
+
     padding: 10px 0;
 
     font-size: 20px;
@@ -390,22 +387,22 @@ async function resetPassword() {
     outline: none;
 
     cursor: pointer;
-  }
 
-  .btnSubmit:hover {
-    box-shadow: 0 10px 14px 5px lightgray;
+    &:hover {
+      box-shadow: 0 10px 14px 5px lightgray;
 
-    transform: scale(1.05);
+      transform: scale(1.05);
+    }
   }
 
   .btnSubmit.mailSend {
     cursor: not-allowed;
-  }
 
-  .btnSubmit.mailSend:hover {
-    box-shadow: none;
+    &:hover {
+      box-shadow: none;
 
-    transform: none;
+      transform: none;
+    }
   }
 
   .inputLine {

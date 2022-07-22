@@ -28,14 +28,16 @@ defineProps({
 
 <style lang="scss" scoped>
 .wrap {
+  z-index: 2;
+
   display: flex;
   justify-content: center;
 
   .link {
-    padding: 10px;
+    padding: 5px 10px;
 
     background-color: #ffffff;
-    border-radius: 10px;
+    border-radius: 5px;
 
     .text {
       position: relative;
