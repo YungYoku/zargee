@@ -13,7 +13,7 @@
         {{ languagesStore.language.registration.title }}
       </h2>
 
-      <label class="registration__item email" for="emailInput">
+      <label class="email" for="emailInput">
         <input
           id="emailInput"
           v-model.trim="form.email"
@@ -23,7 +23,7 @@
         />
       </label>
 
-      <label class="registration__item name" for="nameInput">
+      <label class="name" for="nameInput">
         <input
           id="nameInput"
           v-model.trim="form.name"
@@ -33,7 +33,7 @@
         />
       </label>
 
-      <label class="registration__item pass" for="passwordInput">
+      <label class="pass" for="passwordInput">
         <input
           id="passwordInput"
           ref="passDom"
@@ -47,6 +47,7 @@
         <img
           v-if="passIcon === 'passVisible'"
           alt="view"
+          class="pass__image"
           src="@/assets/icons/passVisible.svg"
           @click="showPass"
         />
@@ -54,12 +55,13 @@
         <img
           v-if="passIcon === 'passInvisible'"
           alt="view"
+          class="pass__image"
           src="@/assets/icons/passInvisible.svg"
           @click="showPass"
         />
       </label>
 
-      <label class="registration__item passRep" for="passwordRepeatInput">
+      <label class="passRep" for="passwordRepeatInput">
         <input
           id="passwordRepeatInput"
           ref="passRepDom"
@@ -71,7 +73,7 @@
         />
       </label>
 
-      <label class="registration__item refCode" for="refInput">
+      <label class="refCode" for="refInput">
         <input
           id="refInput"
           v-model.trim="form.refCode"
@@ -81,13 +83,13 @@
         />
       </label>
 
-      <div class="registration__item passPower">
+      <div class="passPower">
         <span ref="lineI" class="powerLines"></span>
         <span ref="lineII" class="powerLines"></span>
         <span ref="lineIII" class="powerLines"></span>
       </div>
 
-      <label class="registration__item rules">
+      <label class="rules">
         <input v-model="form.rules" type="checkbox" />
 
         <span>
@@ -101,14 +103,14 @@
         <game-politics v-if="politicsShow" @close="hidePolitics" />
       </label>
 
-      <button class="registration__item btnSubmit" type="submit">
+      <button class="btnSubmit" type="submit">
         {{ languagesStore.language.registration.button }}
       </button>
 
       <animated-link
         :link="'/login'"
         :text="languagesStore.language.registration.swapMode"
-        class="registration__item swapMode"
+        class="swapMode"
       />
     </form>
 
@@ -366,11 +368,9 @@ async function submit() {
   .registration {
     position: relative;
 
-    display: grid;
-    justify-content: center;
-    align-items: center;
-
-    grid-template: 70px 50px 50px 50px 50px 50px 50px 30px 70px 30px / 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 
     width: 30%;
     min-width: 400px;
@@ -384,22 +384,6 @@ async function submit() {
     @media screen and (max-width: 480px) {
       width: 90%;
       min-width: 300px;
-      padding: 30px 40px 20px 40px;
-    }
-
-    &__item {
-      position: relative;
-
-      > img {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        width: 20px;
-        height: 20px;
-
-        cursor: pointer;
-      }
     }
 
     .title {
@@ -445,6 +429,21 @@ async function submit() {
         height: 2px;
 
         background-color: #333333;
+      }
+    }
+
+    .pass {
+      position: relative;
+
+      &__image {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        width: 20px;
+        height: 20px;
+
+        cursor: pointer;
       }
     }
 

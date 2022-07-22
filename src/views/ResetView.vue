@@ -1,21 +1,21 @@
 <template>
   <div class="authWrap">
     <form
-      :class="{
-        beforeSend: form.mode === 'default',
-        resetPassword: form.mode === 'resetPassword',
-      }"
       :style="{
         boxShadow: '0 14px 20px 6px ' + theme.shadow,
       }"
-      class="reset beforeSend"
+      class="reset"
       @submit.prevent="submitHandle"
     >
       <h2 class="title">
         {{ languagesStore.language.reset.title }}
       </h2>
 
-      <label v-if="form.mode === 'default'" class="email" for="emailInput">
+      <label
+        v-if="form.mode === 'default' && !isMailSend"
+        class="email"
+        for="emailInput"
+      >
         <input
           id="emailInput"
           v-model.trim="form.email"
@@ -259,7 +259,6 @@ async function resetPassword() {
 <style lang="scss" scoped>
 .authWrap {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -267,29 +266,22 @@ async function resetPassword() {
   height: 100vh;
 
   .reset {
-    display: grid;
-    justify-content: center;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 
     width: 30%;
     min-width: 400px;
     margin: 0 auto;
     padding: 30px 40px 20px 40px;
+    gap: 18px;
 
     background-color: #fbfaf7;
     border-radius: 15px;
-  }
 
-  .reset.beforeSend {
-    grid-template: 70px 50px 90px 10px / 1fr;
-    grid-template-areas:
-      "email"
-      "btnSubmit"
-      "swap";
-  }
-
-  .reset.resetPassword {
-    grid-template: 50px 50px 20px 90px 10px / 1fr;
+    @media screen and (max-width: 480px) {
+      width: 90%;
+      min-width: 300px;
+    }
   }
 
   .title {

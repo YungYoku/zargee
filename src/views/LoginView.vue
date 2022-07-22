@@ -171,16 +171,14 @@ async function submit() {
   gap: 30px;
 
   .login {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-
-    grid-template: 70px 50px 50px 30px 70px 30px / 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 
     width: 30%;
     min-width: 400px;
     margin: 0 auto;
-    padding: 40px 40px 30px 40px;
+    padding: 30px 40px 20px 40px;
 
     background-color: #fbfaf7;
     border-radius: 15px;
@@ -188,7 +186,6 @@ async function submit() {
     @media screen and (max-width: 480px) {
       width: 90%;
       min-width: 300px;
-      padding: 30px 40px 20px 40px;
     }
 
     &__item {
