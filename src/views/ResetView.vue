@@ -134,13 +134,17 @@ const lineII = ref();
 const lineIII = ref();
 const passIcon = ref("passInvisible");
 
+const emailReg = new RegExp(
+  /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
+);
+
 const form = reactive<Reset>({
   mode: (query.mode as string) || "default",
   email: "",
   password: "",
   passwordRep: "",
   isValid() {
-    return this.email !== "";
+    return emailReg.test(this.email);
   },
 });
 
@@ -242,11 +246,12 @@ async function resetPassword() {
       getAuth(),
       query.oobCode as string,
       form.password
-    ).then(() => {
-      router.push("/login");
+    ).then(async () => {
+      await router.push("/login");
       tipStore.update("Пароль изменён");
-      loadingStore.hide();
     });
+
+    loadingStore.hide();
   }
 }
 </script>

@@ -10,19 +10,19 @@
   </div>
 
   <div v-if="calendar" class="calendar">
-    <button class="leaveCalendar" @click="swapCalendar">
-      <img alt="Back" src="@/assets/icons/back.svg" />
+    <button class="calendar__leave" @click="swapCalendar">
+      <img
+        alt="Back"
+        class="calendar__leave-img"
+        src="@/assets/icons/back.svg"
+      />
     </button>
 
-    <div
-      v-for="day in week"
-      :key="day"
-      :style="{
-        gridArea: 'day' + day,
-      }"
-      class="days"
-    >
-      {{ day }} день
+    <span class="leftTime">{{ formattedTime }}</span>
+
+    <div v-for="day in week" :key="day" class="calendar__day">
+      <span> {{ day }} день</span>
+
       <button
         :class="{
           received: isItReceived(day),
@@ -34,8 +34,6 @@
         {{ getButtonText(day) }}
       </button>
     </div>
-
-    <span class="leftTime">{{ formattedTime }}</span>
 
     <ad-video v-if="adShowing" :timer="timer" class="earn" @hideAd="hideAd" />
   </div>
@@ -257,114 +255,93 @@ function hideAd() {
   left: 0;
   z-index: 3;
 
-  display: grid;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
   align-items: center;
-
-  grid-gap: 10px;
-  grid-template: repeat(8, 1fr) / 1fr;
-  grid-template-areas:
-    "day7"
-    "day6"
-    "day5"
-    "day4"
-    "day3"
-    "day2"
-    "day1"
-    "leftTime";
 
   width: 100%;
   height: 100%;
   padding: 44px 10px 10px 10px;
 
   background-color: #f5eee9;
+
+  gap: 10px;
   justify-items: center;
-}
 
-.days {
-  position: relative;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 5px 5px 5px 10px;
-
-  font-size: 20px;
-  color: #333333;
-
-  border: 2px solid #333333;
-  border-radius: 5px;
-
-  img {
-    width: 40px;
-    height: 40px;
-  }
-
-  span {
+  &__leave {
     position: absolute;
-    bottom: -20px;
+    top: 10px;
+    left: 10px;
 
-    width: 60px;
+    width: 36px;
+    height: 36px;
+    padding: 7px;
 
-    font-size: 14px;
-    color: black;
+    background-color: transparent;
+    border: 2px solid #333333;
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    &-img {
+      width: 16px;
+      height: 16px;
+    }
   }
 
-  .receiveButton {
+  &__day {
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
 
-    grid-area: receive;
+    padding: 5px 5px 5px 10px;
 
-    width: 120px;
-    margin-left: 10px;
-    padding: 5px 10px;
+    font-size: 20px;
+    color: #333333;
 
-    font-size: 16px;
-    color: #ffffff;
-
-    background-color: #4ae32f;
+    border: 2px solid #333333;
     border-radius: 5px;
 
-    cursor: pointer;
+    gap: 10px;
+
+    span {
+      width: 62px;
+    }
+
+    .receiveButton {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 120px;
+      height: 38px;
+      padding: 5px 10px;
+
+      font-size: 16px;
+      color: #ffffff;
+
+      background-color: #4ae32f;
+      border-radius: 5px;
+
+      cursor: pointer;
+    }
+
+    .received,
+    .cantBeReceived {
+      background-color: #333333;
+      border: 2px solid #333333;
+
+      cursor: not-allowed;
+    }
   }
 
-  .received,
-  .cantBeReceived {
-    background-color: #333333;
-    border: 2px solid #333333;
+  .leftTime {
+    padding: 5px 10px;
 
-    cursor: not-allowed;
-  }
-}
-
-.leftTime {
-  grid-area: leftTime;
-
-  padding: 5px 10px;
-
-  border-radius: 5px;
-}
-
-.leaveCalendar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-
-  width: 36px;
-  height: 36px;
-  padding: 7px;
-
-  background-color: transparent;
-  border: 2px solid #333333;
-  border-radius: 50%;
-
-  cursor: pointer;
-
-  img {
-    width: 16px;
-    height: 16px;
+    border-radius: 5px;
   }
 }
 </style>

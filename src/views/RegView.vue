@@ -130,6 +130,8 @@ import { useLoadingStore } from "@/stores/loading";
 import GameLoading from "@/components/GameLoading.vue";
 import AnimatedLink from "@/components/AnimatedLink.vue";
 import GamePolitics from "@/components/GamePolitics.vue";
+import type { AuthError } from "@/interfaces/authError";
+import type { AuthResponse } from "@/interfaces/authResponse";
 
 interface Registration {
   mode: string;
@@ -148,6 +150,10 @@ const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
 
+const emailReg = new RegExp(
+  /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
+);
+
 const form = reactive<Registration>({
   mode: "reg",
   email: "",
@@ -160,7 +166,7 @@ const form = reactive<Registration>({
     return (
       this.password === this.passwordRep &&
       this.password.length >= 6 &&
-      this.email !== "" &&
+      emailReg.test(this.email) &&
       this.name !== "" &&
       this.rules
     );
@@ -258,85 +264,90 @@ function rightPass() {
   }
 }
 
+const handleResponse = async (response: AuthResponse) => {
+  const uid = response.user.uid;
+
+  let _refCode = 0;
+  for (let i = 0; i < 8; i++) {
+    _refCode += Math.floor(Math.random() * 9) * i ** 10;
+  }
+
+  let bonus = false;
+  if (form.refCode) {
+    try {
+      await updateDoc(doc(db, "refs", form.refCode), {
+        refs: arrayUnion(form.name),
+      });
+      bonus = true;
+    } catch (e) {
+      tipStore.update("Такой код не существует");
+    }
+  }
+
+  await setDoc(doc(db, "users", uid), {
+    adWatchTime: 0,
+    codes: [],
+    complexity: 1,
+    gold: bonus ? 1 : 0,
+    hearts: bonus ? 10 : 1,
+    lvl: 0,
+    name: form.name,
+    ref: _refCode,
+    refUsers: 0,
+    resetDay: 0,
+    rewardDay: 1,
+    rewardParts: {
+      first: false,
+      second: false,
+    },
+  });
+
+  await setDoc(doc(db, "refs", _refCode.toString()), {
+    name: form.name,
+    refs: [],
+  });
+
+  mainStore.login(uid);
+  await mainStore.loadInfo();
+  await router.push("/");
+};
+
+const handleError = (error: AuthError) => {
+  switch (error.code) {
+    case "auth/email-already-in-use":
+      tipStore.update("Почта уже используется");
+      form.email = "";
+      form.name = "";
+      form.password = "";
+      form.passwordRep = "";
+      form.refCode = "";
+      form.rules = false;
+      changePower();
+      break;
+    default:
+      tipStore.update("Ошибка");
+      form.email = "";
+      form.name = "";
+      form.password = "";
+      form.passwordRep = "";
+      form.refCode = "";
+      form.rules = false;
+      changePower();
+      break;
+  }
+};
+
 async function submit() {
   if (form.isValid()) {
     loadingStore.show();
 
     await createUserWithEmailAndPassword(getAuth(), form.email, form.password)
-      .then(async (userCredential) => {
-        const uid = userCredential.user.uid;
+      .then(handleResponse)
+      .catch(handleError);
 
-        let _refCode = 0;
-        for (let i = 0; i < 8; i++) {
-          _refCode += Math.floor(Math.random() * 9) * i ** 10;
-        }
-
-        let bonus = false;
-        if (form.refCode) {
-          try {
-            await updateDoc(doc(db, "refs", form.refCode), {
-              refs: arrayUnion(form.name),
-            });
-            bonus = true;
-          } catch (e) {
-            tipStore.update("Такой код не существует");
-          }
-        }
-
-        await setDoc(doc(db, "users", uid), {
-          adWatchTime: 0,
-          codes: [],
-          complexity: 1,
-          gold: bonus ? 1 : 0,
-          hearts: bonus ? 10 : 1,
-          lvl: 0,
-          name: form.name,
-          ref: _refCode,
-          refUsers: 0,
-          resetDay: 0,
-          rewardDay: 1,
-          rewardParts: {
-            first: false,
-            second: false,
-          },
-        });
-
-        await setDoc(doc(db, "refs", _refCode.toString()), {
-          name: form.name,
-          refs: [],
-        });
-
-        mainStore.login(uid);
-        await mainStore.loadInfo();
-        await router.push("/");
-
-        loadingStore.hide();
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            tipStore.update("Почта уже используется");
-            form.email = "";
-            form.name = "";
-            form.password = "";
-            form.passwordRep = "";
-            form.refCode = "";
-            form.rules = false;
-            changePower();
-            break;
-          default:
-            tipStore.update("Ошибка");
-            form.email = "";
-            form.name = "";
-            form.password = "";
-            form.passwordRep = "";
-            form.refCode = "";
-            form.rules = false;
-            changePower();
-            break;
-        }
-        loadingStore.hide();
-      });
+    loadingStore.hide();
+  } else {
+    console.error("Form is not valid!");
   }
 }
 </script>

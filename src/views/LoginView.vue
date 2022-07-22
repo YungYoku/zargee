@@ -78,6 +78,8 @@ import AnimatedLink from "@/components/AnimatedLink.vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
 import GameLoading from "@/components/GameLoading.vue";
+import type { AuthResponse } from "@/interfaces/authResponse";
+import type { AuthError } from "@/interfaces/authError";
 
 interface Login {
   email: string;
@@ -91,11 +93,15 @@ const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
 
+const emailReg = new RegExp(
+  /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
+);
+
 const form = reactive<Login>({
   email: "",
   password: "",
   isValid() {
-    return this.password.length >= 6 && this.email !== "";
+    return this.password.length >= 6 && emailReg.test(this.email);
   },
 });
 
@@ -113,37 +119,42 @@ function showPass() {
   }
 }
 
+const handleResponse = async (response: AuthResponse) => {
+  mainStore.login(response.user.uid);
+  await mainStore.loadInfo();
+  await router.push("/");
+
+  loadingStore.hide();
+};
+
+const handleError = (error: AuthError) => {
+  switch (error.code) {
+    case "auth/wrong-password":
+      tipStore.update("Неверный пароль");
+      form.password = "";
+      break;
+    case "auth/user-not-found":
+      tipStore.update("Почта не зарегистрирована");
+      form.email = "";
+      form.password = "";
+      break;
+    default:
+      tipStore.update("Ошибка");
+      form.email = "";
+      form.password = "";
+      break;
+  }
+};
+
 async function submit() {
   if (form.isValid()) {
     loadingStore.show();
 
     await signInWithEmailAndPassword(getAuth(), form.email, form.password)
-      .then(async (userCredential) => {
-        mainStore.login(userCredential.user.uid);
-        await mainStore.loadInfo();
-        await router.push("/");
+      .then(handleResponse)
+      .catch(handleError);
 
-        loadingStore.hide();
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/wrong-password":
-            tipStore.update("Неверный пароль");
-            form.password = "";
-            break;
-          case "auth/user-not-found":
-            tipStore.update("Почта не зарегистрирована");
-            form.email = "";
-            form.password = "";
-            break;
-          default:
-            tipStore.update("Ошибка");
-            form.email = "";
-            form.password = "";
-            break;
-        }
-        loadingStore.hide();
-      });
+    loadingStore.hide();
   }
 }
 </script>
