@@ -56,6 +56,9 @@ function changeComplexity(complexity: number) {
     border-radius: 5px;
 
     &::-webkit-slider-thumb {
+      width: 14px;
+      height: 14px;
+
       background: #ffffff;
       border: 2px solid #333333;
       border-radius: 50%;
@@ -66,6 +69,9 @@ function changeComplexity(complexity: number) {
     }
 
     &::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+
       background: #ffffff;
       border: 2px solid #333333;
       border-radius: 50%;
