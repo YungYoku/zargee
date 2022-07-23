@@ -5,10 +5,10 @@
         width: linkWidth,
         height: linkHeight,
       }"
-      class="play"
+      class="home__link"
       to="/game"
     >
-      <img alt="Play" src="@/assets/icons/play.svg" />
+      <img alt="Play" class="home__link-img" src="@/assets/icons/play.svg" />
     </router-link>
 
     <router-link
@@ -16,10 +16,14 @@
         width: linkWidth,
         height: linkHeight,
       }"
-      class="settings"
+      class="home__link"
       to="/settings"
     >
-      <img alt="Settings" src="@/assets/icons/settings.svg" />
+      <img
+        alt="Settings"
+        class="home__link-img"
+        src="@/assets/icons/settings.svg"
+      />
     </router-link>
   </div>
 </template>
@@ -66,8 +70,7 @@ onMounted(() => {
   width: 100%;
   height: 100vh;
 
-  .play,
-  .settings {
+  &__link {
     margin: 20px 0;
 
     border: 6px solid #333333;
@@ -75,7 +78,7 @@ onMounted(() => {
 
     cursor: pointer;
 
-    img {
+    &-img {
       width: 50%;
       height: 50%;
       margin: 25%;

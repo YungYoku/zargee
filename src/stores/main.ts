@@ -80,10 +80,23 @@ export const useMainStore = defineStore({
       }
     },
 
+    updateComplexitySettings() {
+      const LocalStorageComplexity = localStorage.complexity;
+
+      if (LocalStorageComplexity) {
+        //this.complexity = LocalStorageComplexity;
+      } else {
+        localStorage.complexity = "1";
+        //this.complexity = "1";
+      }
+    },
+
     updateSettings() {
       this.loadUIDFromLocalStorage();
 
       this.updateSoundSettings();
+
+      this.updateComplexitySettings();
     },
 
     login(uid: string) {

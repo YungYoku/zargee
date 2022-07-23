@@ -49,7 +49,7 @@ function changeComplexity(complexity: number) {
 
   input {
     width: calc(100% - 126px);
-    height: 7px;
+    height: 5px;
 
     background-color: #333333;
     border: 2px solid #333333;

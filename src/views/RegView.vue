@@ -374,6 +374,7 @@ async function submit() {
 
     width: 30%;
     min-width: 400px;
+    max-width: 460px;
     margin: 0 auto;
     padding: 30px 40px 20px 40px;
     overflow: hidden;
@@ -472,7 +473,16 @@ async function submit() {
       color: initial;
 
       input {
+        position: relative;
+
+        width: 14px;
+        height: 14px;
         margin: 0 5px 0 0;
+
+        border: 2px solid #333333;
+        border-radius: 2px;
+
+        cursor: pointer;
       }
 
       span {
@@ -491,6 +501,7 @@ async function submit() {
 
       font-size: 20px;
       font-weight: 400;
+      text-align: center;
       color: white;
 
       background-color: #333333;

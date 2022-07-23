@@ -2,13 +2,7 @@
   <div class="authWrap">
     <game-loading v-if="loadingStore.loading" />
 
-    <form
-      :style="{
-        boxShadow: '0 14px 20px 6px ' + theme.shadow,
-      }"
-      class="login"
-      @submit.prevent="submit"
-    >
+    <form class="login" @submit.prevent="submit">
       <h2 class="login__item title">
         {{ languagesStore.language.login.title }}
       </h2>
@@ -73,7 +67,6 @@ import { useLanguagesStore } from "@/stores/languages";
 import { reactive, ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
-import { theme } from "@/api/theme";
 import AnimatedLink from "@/components/AnimatedLink.vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
@@ -177,11 +170,13 @@ async function submit() {
 
     width: 30%;
     min-width: 400px;
+    max-width: 460px;
     margin: 0 auto;
     padding: 30px 40px 20px 40px;
 
     background-color: #fbfaf7;
     border-radius: 15px;
+    box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {
       width: 90%;
@@ -235,21 +230,25 @@ async function submit() {
       }
     }
 
-    label > img {
-      position: absolute;
-      top: 0;
-      right: 0;
+    label {
+      > img {
+        position: absolute;
+        top: 0;
+        right: 0;
 
-      width: 20px;
-      height: 20px;
+        width: 20px;
+        height: 20px;
 
-      cursor: pointer;
+        cursor: pointer;
+      }
     }
 
     .passForgot {
       a {
         font-size: 14px;
         color: #727270;
+
+        cursor: pointer;
 
         &:hover {
           color: #333333;
@@ -264,6 +263,7 @@ async function submit() {
 
       font-size: 20px;
       font-weight: 400;
+      text-align: center;
       color: white;
 
       background-color: #333333;

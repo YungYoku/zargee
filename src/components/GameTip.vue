@@ -27,15 +27,16 @@ div {
   width: 100%;
 
   transition: all 0.3s;
-}
 
-h3 {
-  padding: 10px;
+  h3 {
+    padding: 10px;
 
-  font-size: 20px;
-  color: #333333;
+    font-size: 20px;
+    font-weight: 500;
+    color: #333333;
 
-  background-color: #f5eee9;
-  border-radius: 5px;
+    background-color: #f5eee9;
+    border-radius: 5px;
+  }
 }
 </style>

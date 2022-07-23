@@ -40,26 +40,30 @@ function hideAd() {
   height: 100%;
 
   background-color: #f5eee9;
-}
 
-.earnTimer,
-.earnClose {
-  position: fixed;
-  top: 30px;
-  right: 40px;
+  h3 {
+    font-size: 20px;
+  }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .earnTimer,
+  .earnClose {
+    position: fixed;
+    top: 30px;
+    right: 40px;
 
-  width: 50px;
-  height: 50px;
-  padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  font-size: 24px;
-  color: #333333;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
 
-  border: 2px solid #333333;
-  border-radius: 50%;
+    font-size: 24px;
+    color: #333333;
+
+    border: 2px solid #333333;
+    border-radius: 50%;
+  }
 }
 </style>

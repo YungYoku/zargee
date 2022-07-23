@@ -1,19 +1,20 @@
 <template>
-  <div class="earnWrap">
-    <button class="earnWatchButton" @click="watchAd">Смотреть рекламу</button>
-    <h4 class="earnCounter">+1</h4>
+  <div class="earn">
+    <button class="earn__button" @click="watchAd">Смотреть рекламу</button>
 
-    <ad-video v-if="adShowing" :timer="timer" class="earn" @hideAd="hideAd" />
+    <h4 class="earn__counter">+1</h4>
+
+    <earn-video v-if="adShowing" :timer="timer" @hideAd="hideAd" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from "vue";
-import { useMainStore } from "@/stores/main";
 import { db } from "@/main";
 import { doc, updateDoc } from "firebase/firestore";
-import AdVideo from "@/components/EarnVideo.vue";
+import { useMainStore } from "@/stores/main";
 import { useTipStore } from "@/stores/tip";
+import EarnVideo from "@/components/EarnVideo.vue";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -21,6 +22,7 @@ const tipStore = useTipStore();
 const adShowing = ref(false);
 const timer = ref(5);
 let adWatching: number;
+
 const adWatchTime = computed(() => {
   return (
     mainStore.getCurrentDayInYear() * 86_400 +
@@ -68,39 +70,40 @@ async function claimReward() {
 </script>
 
 <style lang="scss" scoped>
-.earnWrap {
+.earn {
   display: grid;
   align-items: center;
 
   grid-gap: 5px;
   grid-template: 100% / 1fr 50px;
-}
 
-.earnWatchButton {
-  padding: 10px;
+  &__button {
+    padding: 10px;
 
-  font-size: 16px;
-  font-weight: 600;
-  color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    color: #333333;
 
-  background-color: transparent;
-  border: 2px solid #333333;
-  border-radius: 5px;
+    background-color: transparent;
+    border: 2px solid #333333;
+    border-radius: 5px;
 
-  cursor: pointer;
-}
+    cursor: pointer;
+  }
 
-.earnCounter {
-  width: 50px;
-  height: 50px;
-  padding: 10px;
+  &__counter {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
 
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-  color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    color: #333333;
 
-  border: 2px solid #333333;
-  border-radius: 5px;
+    border: 2px solid #333333;
+    border-radius: 5px;
+  }
 }
 </style>

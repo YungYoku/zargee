@@ -214,6 +214,7 @@ function hideAd() {
 
     font-size: 16px;
     font-weight: 600;
+    text-align: left;
     color: #333333;
 
     background-color: transparent;

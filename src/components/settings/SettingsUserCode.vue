@@ -78,53 +78,54 @@ async function sendCode() {
 
   grid-gap: 5px;
   grid-template: 100% / 1fr 50px;
-}
 
-label {
-  width: 100%;
-  height: 100%;
-}
+  label {
+    width: 100%;
+    height: 100%;
 
-input {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
+    input {
+      width: 100%;
+      height: 100%;
+      padding: 10px;
 
-  font-size: 16px;
-  font-weight: 600;
-  color: #333333;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      color: #333333;
 
-  background-color: transparent;
-  border: 2px solid #333333;
-  border-radius: 5px;
+      background-color: transparent;
+      border: 2px solid #333333;
+      border-radius: 5px;
 
-  cursor: text;
+      cursor: text;
 
-  user-select: text;
-}
+      user-select: text;
+    }
+  }
 
-img {
-  width: 19px;
-  height: 19px;
-}
+  .approveWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-.approveWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
 
-  width: 50px;
-  height: 50px;
-  padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333333;
 
-  font-size: 16px;
-  font-weight: 600;
-  color: #333333;
+    background-color: transparent;
+    border: 2px solid #333333;
+    border-radius: 5px;
 
-  background-color: transparent;
-  border: 2px solid #333333;
-  border-radius: 5px;
+    cursor: pointer;
 
-  cursor: pointer;
+    img {
+      width: 19px;
+      height: 19px;
+    }
+  }
 }
 </style>

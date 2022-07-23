@@ -1,12 +1,6 @@
 <template>
   <div class="authWrap">
-    <form
-      :style="{
-        boxShadow: '0 14px 20px 6px ' + theme.shadow,
-      }"
-      class="reset"
-      @submit.prevent="submitHandle"
-    >
+    <form class="reset" @submit.prevent="submitHandle">
       <h2 class="title">
         {{ languagesStore.language.reset.title }}
       </h2>
@@ -99,7 +93,6 @@ import { useMainStore } from "@/stores/main";
 import { useLanguagesStore } from "@/stores/languages";
 import { reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { theme } from "@/api/theme";
 import {
   confirmPasswordReset,
   getAuth,
@@ -271,12 +264,14 @@ async function resetPassword() {
 
     width: 30%;
     min-width: 400px;
+    max-width: 460px;
     margin: 0 auto;
     padding: 30px 40px 20px 40px;
     gap: 18px;
 
     background-color: #fbfaf7;
     border-radius: 15px;
+    box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {
       width: 90%;
@@ -376,6 +371,7 @@ async function resetPassword() {
 
     font-size: 20px;
     font-weight: 400;
+    text-align: center;
     color: white;
 
     background-color: #333333;
