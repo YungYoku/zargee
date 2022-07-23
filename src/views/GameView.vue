@@ -1,19 +1,23 @@
 <template>
   <div class="game">
-    <game-loading v-if="loading" />
+    <game-start-timer
+      v-if="startTimer && !loadingStore.loading"
+      :start-timer="startTimer"
+    />
 
-    <game-start-timer v-if="startTimer && !loading" :start-timer="startTimer" />
-
-    <game-task v-if="!startTimer && !loading" class="task" />
+    <game-task v-if="!startTimer && !loadingStore.loading" class="task" />
 
     <game-playground
-      v-show="!startTimer && !loading"
+      v-show="!startTimer && !loadingStore.loading"
       class="playground"
       @lvlEnd="setStartTimerInterval"
     />
 
     <game-lose-menu
-      v-if="(!startTimer && !loading && gameStore.time === 0) || gameStore.lose"
+      v-if="
+        (!startTimer && !loadingStore.loading && gameStore.time === 0) ||
+          gameStore.lose
+      "
       :deaths="deaths"
       :free-reborn-amount="freeRebornAmount"
       :heart-reborn-amount="heartRebornAmount"
@@ -30,9 +34,9 @@
       @clearIntervals="clearIntervals"
     />
 
-    <game-timer v-if="!startTimer && !loading" class="time" />
+    <game-timer v-if="!startTimer && !loadingStore.loading" class="time" />
 
-    <game-score v-if="!startTimer && !loading" class="score" />
+    <game-score v-if="!startTimer && !loadingStore.loading" class="score" />
 
     <game-level class="lvl" />
   </div>
@@ -43,7 +47,6 @@ import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useGameStore } from "@/stores/game";
 import { useRouter } from "vue-router";
-import GameLoading from "@/components/GameLoading.vue";
 import { db } from "@/main";
 import { doc, updateDoc } from "firebase/firestore";
 import "../additional/blink.css";
@@ -55,12 +58,13 @@ import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
 import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
+import { useLoadingStore } from "@/stores/loading";
 
 const mainStore = useMainStore();
 const gameStore = useGameStore();
+const loadingStore = useLoadingStore();
 const router = useRouter();
 
-const loading = ref(true);
 const timeKick = ref(10);
 const adWatching = ref(false);
 
@@ -169,7 +173,8 @@ onMounted(() => {
     mainStore.setFirstPage("Game");
     router.push("/");
   } else {
-    loading.value = false;
+    loadingStore.hide();
+
     gameStore.setComplexity(mainStore.user.complexity);
     setIntervals();
   }
@@ -229,7 +234,7 @@ function restart(props: { rebornType: string; lvl?: number }) {
   justify-content: center;
   align-items: center;
 
-  grid-template: 60px calc(100vh - 140px) 80px / 1fr 3fr 1fr;
+  grid-template: 60px calc(100vh - 140px) 80px / 60px 1fr 60px;
   grid-template-areas:
     "score task time"
     "playground playground playground"

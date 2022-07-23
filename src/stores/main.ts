@@ -25,7 +25,7 @@ export const useMainStore = defineStore({
     uid: "",
     user: {} as User,
     isMusicPlayable: false,
-    isMusicChangeable: localStorage.soundChange === "true",
+    isMusicChangeable: false,
     firstPage: "",
     error: "",
     subscribedToNewRefs: false,
@@ -34,22 +34,39 @@ export const useMainStore = defineStore({
   getters: {},
 
   actions: {
-    updateSoundSettings() {
+    updateIsMusicPlayable() {
       const LocalStorageIsMusicPlayable = localStorage.isMusicPlayable;
+
       if (LocalStorageIsMusicPlayable) {
-        this.isMusicPlayable = LocalStorageIsMusicPlayable;
+        if (LocalStorageIsMusicPlayable === "true") {
+          this.isMusicPlayable = true;
+        } else if (LocalStorageIsMusicPlayable === "false") {
+          this.isMusicPlayable = false;
+        }
       } else {
         localStorage.isMusicPlayable = false;
         this.isMusicPlayable = false;
       }
+    },
 
+    updateIsMusicChangeable() {
       const LocalStorageIsMusicChangeable = localStorage.isMusicChangeable;
+
       if (LocalStorageIsMusicChangeable) {
-        this.isMusicChangeable = LocalStorageIsMusicChangeable;
+        if (LocalStorageIsMusicChangeable === "true") {
+          this.isMusicChangeable = true;
+        } else if (LocalStorageIsMusicChangeable === "false") {
+          this.isMusicChangeable = false;
+        }
       } else {
         localStorage.isMusicChangeable = false;
         this.isMusicChangeable = false;
       }
+    },
+
+    updateSoundSettings() {
+      this.updateIsMusicPlayable();
+      this.updateIsMusicChangeable();
     },
 
     loadUIDFromLocalStorage() {

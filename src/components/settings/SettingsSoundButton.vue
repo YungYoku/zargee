@@ -9,7 +9,7 @@
     class="soundButton"
     @click="turnOnSound"
   >
-    <img :src="mainStore.isMusicPlayable ? sound : noSound" alt="Sound" />
+    <img :src="soundIcon" alt="Sound" />
   </button>
 </template>
 
@@ -17,6 +17,7 @@
 import { useMainStore } from "@/stores/main";
 import sound from "@/assets/icons/sound.svg";
 import noSound from "@/assets/icons/no-sound.svg";
+import { computed } from "vue";
 
 defineProps({
   size: {
@@ -24,11 +25,16 @@ defineProps({
     required: true,
   },
 });
+
 const mainStore = useMainStore();
 
-function turnOnSound() {
+const turnOnSound = () => {
   mainStore.swapSound();
-}
+};
+
+const soundIcon = computed(() => {
+  return mainStore.isMusicPlayable ? sound : noSound;
+});
 </script>
 
 <style lang="scss" scoped>

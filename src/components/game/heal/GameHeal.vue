@@ -1,5 +1,7 @@
 <template>
   <div class="heal">
+    <game-loading v-if="loadingStore.loading" />
+
     <button class="leaveHeal" @click="close">
       <img alt="Back" src="@/assets/icons/back.svg" />
     </button>
@@ -35,6 +37,8 @@ import { db } from "@/main";
 import { useMainStore } from "@/stores/main";
 import { computed } from "vue";
 import { useTipStore } from "@/stores/tip";
+import { useLoadingStore } from "@/stores/loading";
+import GameLoading from "@/components/GameLoading.vue";
 
 const props = defineProps({
   timeKick: {
@@ -59,6 +63,7 @@ const props = defineProps({
 const emit = defineEmits(["restart", "swapHeal", "watchAd", "close"]);
 
 const mainStore = useMainStore();
+const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 
 const heartPrice = computed(() =>
@@ -88,6 +93,8 @@ const reborn = {
     if (mainStore.user.hearts - heartPrice.value < 0) {
       tipStore.update("Недостаточно жизней");
     } else {
+      loadingStore.show();
+
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
         hearts: mainStore.user.hearts - heartPrice.value,
@@ -95,6 +102,8 @@ const reborn = {
         restart("heart");
         swapHeal();
       });
+
+      loadingStore.hide();
     }
   },
 
@@ -102,6 +111,8 @@ const reborn = {
     if (mainStore.user.gold === 0) {
       tipStore.update("Недостаточно зотолых жизней");
     } else {
+      loadingStore.show();
+
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
         gold: mainStore.user.gold - 1,
@@ -109,6 +120,8 @@ const reborn = {
         restart("gold");
         swapHeal();
       });
+
+      loadingStore.hide();
     }
   },
 };

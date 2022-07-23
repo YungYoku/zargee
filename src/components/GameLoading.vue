@@ -18,7 +18,7 @@
   align-items: center;
 
   width: 100%;
-  height: 100vh;
+  height: 100%;
 
   background-color: #f5eee9;
 

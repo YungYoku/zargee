@@ -1,19 +1,23 @@
 <template>
   <div class="game">
-    <game-loading v-if="loading" />
+    <game-start-timer
+      v-if="startTimer && !loadingStore.loading"
+      :start-timer="startTimer"
+    />
 
-    <game-start-timer v-if="startTimer && !loading" :start-timer="startTimer" />
-
-    <game-task v-if="!startTimer && !loading" class="task" />
+    <game-task v-if="!startTimer && !loadingStore.loading" class="task" />
 
     <game-playground
-      v-show="!startTimer && !loading"
+      v-show="!startTimer && !loadingStore.loading"
       class="playground"
       @lvlEnd="setStartTimerInterval"
     />
 
     <game-lose-menu
-      v-if="(!startTimer && !loading && gameStore.time === 0) || gameStore.lose"
+      v-if="
+        (!startTimer && !loadingStore.loading && gameStore.time === 0) ||
+          gameStore.lose
+      "
       :free-reborn-amount="freeRebornAmount"
       :heart-reborn-amount="heartRebornAmount"
       :timeKick="timeKick"
@@ -30,9 +34,9 @@
       @clearIntervals="clearIntervals"
     />
 
-    <game-timer v-if="!startTimer && !loading" class="time" />
+    <game-timer v-if="!startTimer && !loadingStore.loading" class="time" />
 
-    <game-score v-if="!startTimer && !loading" class="score" />
+    <game-score v-if="!startTimer && !loadingStore.loading" class="score" />
 
     <game-level class="lvl" />
   </div>
@@ -42,7 +46,6 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import { useGameStore } from "@/stores/game";
 import { useRouter } from "vue-router";
-import GameLoading from "@/components/GameLoading.vue";
 import "../additional/blink.css";
 import GameWinMenu from "@/components/game/GameWinMenu.vue";
 import GameTask from "@/components/game/GameTask.vue";
@@ -53,12 +56,13 @@ import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
 import { useMainStore } from "@/stores/main";
+import { useLoadingStore } from "@/stores/loading";
 
 const mainStore = useMainStore();
 const gameStore = useGameStore();
+const loadingStore = useLoadingStore();
 const router = useRouter();
 
-const loading = ref(true);
 const timeKick = ref(10);
 const adWatching = ref(false);
 
@@ -128,7 +132,7 @@ function setIntervals() {
 }
 
 onMounted(() => {
-  loading.value = false;
+  loadingStore.hide();
   mainStore.loginDemo();
   gameStore.setComplexity(2);
   setIntervals();
@@ -196,7 +200,7 @@ window.addEventListener("beforeunload", unloadHandler);
   justify-content: center;
   align-items: center;
 
-  grid-template: 60px calc(100vh - 140px) 80px / 1fr 3fr 1fr;
+  grid-template: 60px calc(100vh - 140px) 80px / 60px 1fr 60px;
   grid-template-areas:
     "score task time"
     "playground playground playground"
