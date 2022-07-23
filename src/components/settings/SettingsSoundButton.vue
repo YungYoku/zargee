@@ -9,7 +9,7 @@
     class="soundButton"
     @click="turnOnSound"
   >
-    <img :src="mainStore.sound ? sound : noSound" alt="Sound" />
+    <img :src="mainStore.isMusicPlayable ? sound : noSound" alt="Sound" />
   </button>
 </template>
 

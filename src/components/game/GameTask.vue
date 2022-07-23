@@ -50,6 +50,7 @@ const getColor2 = (i: number) => {
   justify-content: center;
   align-items: center;
 
+  font-size: 20px;
   text-align: center;
 
   span {

@@ -8,8 +8,8 @@ export interface State {
   demo: boolean;
   uid: string;
   user: User;
-  sound: boolean;
-  soundChange: boolean;
+  isMusicPlayable: boolean;
+  isMusicChangeable: boolean;
   firstPage: string;
   error: string;
   subscribedToNewRefs: boolean;
@@ -22,10 +22,10 @@ export const useMainStore = defineStore({
 
   state: (): State => ({
     demo: false,
-    uid: localStorage.uid ? localStorage.uid : "",
+    uid: "",
     user: {} as User,
-    sound: localStorage.sound === "true",
-    soundChange: localStorage.soundChange === "true",
+    isMusicPlayable: false,
+    isMusicChangeable: localStorage.soundChange === "true",
     firstPage: "",
     error: "",
     subscribedToNewRefs: false,
@@ -34,6 +34,41 @@ export const useMainStore = defineStore({
   getters: {},
 
   actions: {
+    updateSoundSettings() {
+      const LocalStorageIsMusicPlayable = localStorage.isMusicPlayable;
+      if (LocalStorageIsMusicPlayable) {
+        this.isMusicPlayable = LocalStorageIsMusicPlayable;
+      } else {
+        localStorage.isMusicPlayable = false;
+        this.isMusicPlayable = false;
+      }
+
+      const LocalStorageIsMusicChangeable = localStorage.isMusicChangeable;
+      if (LocalStorageIsMusicChangeable) {
+        this.isMusicChangeable = LocalStorageIsMusicChangeable;
+      } else {
+        localStorage.isMusicChangeable = false;
+        this.isMusicChangeable = false;
+      }
+    },
+
+    loadUIDFromLocalStorage() {
+      const LocalStorageUID = localStorage.uid;
+
+      if (LocalStorageUID) {
+        this.uid = LocalStorageUID;
+      } else {
+        localStorage.uid = "";
+        this.uid = "";
+      }
+    },
+
+    updateSettings() {
+      this.loadUIDFromLocalStorage();
+
+      this.updateSoundSettings();
+    },
+
     login(uid: string) {
       this.demo = false;
       this.uid = uid;
@@ -52,18 +87,23 @@ export const useMainStore = defineStore({
     },
 
     swapSound() {
-      this.sound = !this.sound;
-      this.soundChange = this.sound;
-      localStorage.sound = "" + this.sound;
-      localStorage.soundChange = "" + this.soundChange;
+      this.isMusicPlayable = !this.isMusicPlayable;
+      this.isMusicChangeable = this.isMusicPlayable;
+
+      localStorage.isMusicPlayable = this.isMusicPlayable;
+      localStorage.isMusicChangeable = this.isMusicChangeable;
     },
 
     offSound() {
-      if (this.soundChange) this.sound = false;
+      if (this.isMusicChangeable) {
+        this.isMusicPlayable = false;
+      }
     },
 
     onSound() {
-      if (this.soundChange) this.sound = true;
+      if (this.isMusicChangeable) {
+        this.isMusicPlayable = true;
+      }
     },
 
     setFirstPage(page: string) {

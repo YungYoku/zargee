@@ -29,6 +29,7 @@ const time = computed(() =>
   height: 100%;
   padding: 10px;
 
+  font-size: 20px;
   text-align: right;
 
   h3 {

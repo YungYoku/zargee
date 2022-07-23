@@ -3,7 +3,11 @@
     <h3>Уровень: {{ gameStore.lvl }}</h3>
 
     <button class="sound" @click="swapSound">
-      <img v-if="mainStore.sound" alt="Sound" src="@/assets/icons/sound.svg" />
+      <img
+        v-if="mainStore.isMusicPlayable"
+        alt="Sound"
+        src="@/assets/icons/sound.svg"
+      />
 
       <img v-else alt="No sound" src="@/assets/icons/no-sound.svg" />
     </button>
@@ -33,6 +37,7 @@ function swapSound() {
   width: 100%;
   height: 100%;
 
+  font-size: 20px;
   text-align: center;
 }
 

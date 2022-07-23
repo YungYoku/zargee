@@ -29,11 +29,13 @@ if (localStorage.language) {
 }
 
 onMounted(() => {
+  mainStore.updateSettings();
+
   mainStore.loadInfo();
 });
 
 document.addEventListener("visibilitychange", () => {
-  if (mainStore.soundChange) {
+  if (mainStore.isMusicChangeable) {
     if (document.visibilityState === "visible") {
       mainStore.onSound();
     } else {
@@ -46,7 +48,7 @@ const audioPlaying = computed(() => {
   return (
     router.currentRoute.value.name !== "Game" &&
     router.currentRoute.value.name !== "LoginView.vue" &&
-    mainStore.sound
+    mainStore.isMusicPlayable
   );
 });
 </script>

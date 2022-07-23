@@ -5,6 +5,7 @@ import type { Target } from "@/interfaces/target";
 import type { Score } from "@/interfaces/score";
 import popMp3 from "@/assets/sounds/pop.mp3";
 import mistakeMp3 from "@/assets/sounds/mistake.mp3";
+import { useMainStore } from "@/stores/main";
 
 const popSound = new Audio(popMp3);
 const mistakeSound = new Audio(mistakeMp3);
@@ -18,12 +19,10 @@ interface Complexity {
 interface State {
   lvl: number;
   complexity: Complexity;
-  settingsComplexity: number;
   adWatching: boolean;
   lose: boolean;
   score: Score;
   itemsAmount: number;
-  sound: boolean;
   time: number;
   gameProps: GameProps;
   task: Task;
@@ -45,7 +44,6 @@ export const useGameStore = defineStore({
       time: 0,
       size: 0,
     },
-    settingsComplexity: 1,
     adWatching: false,
     lose: false,
     score: {
@@ -53,7 +51,6 @@ export const useGameStore = defineStore({
       ending: 4,
     },
     itemsAmount: 0,
-    sound: localStorage.sound === "true",
     time: 15,
     gameProps: {
       colors: ["#1a1a1a", "#ff3a3a", "#3aff3a", "#3a3aff", "#FFA53a"],
@@ -125,15 +122,15 @@ export const useGameStore = defineStore({
   getters: {},
 
   actions: {
-    setLvl(lvl: number): void {
+    setLvl(lvl: number) {
       this.lvl = lvl;
     },
 
-    increaseLvl(): void {
+    increaseLvl() {
       this.lvl++;
     },
 
-    setComplexity(complexity: number): void {
+    setComplexity(complexity: number) {
       this.gameProps.time = {
         s: complexity === 2 ? 25 : complexity === 3 ? 20 : 15,
         m: complexity === 2 ? 22 : complexity === 3 ? 17 : 12,
@@ -141,11 +138,11 @@ export const useGameStore = defineStore({
       };
     },
 
-    setLose(value: boolean): void {
+    setLose(value: boolean) {
       this.lose = value;
     },
 
-    createTask(): void {
+    createTask() {
       if (this.targets.length) {
         const randIndex = Math.floor(Math.random() * (this.targets.length - 1));
 
@@ -172,15 +169,15 @@ export const useGameStore = defineStore({
       }
     },
 
-    pushTarget(target: Target): void {
+    pushTarget(target: Target) {
       this.targets.push(target);
     },
 
-    removeTarget(id: number): void {
+    removeTarget(id: number) {
       this.targets.splice(id, 1);
     },
 
-    updateScoreLimit(): void {
+    updateScoreLimit() {
       const complexity = this.complexity.targets;
 
       if (complexity === "s") {
@@ -192,15 +189,15 @@ export const useGameStore = defineStore({
       }
     },
 
-    increaseScore(): void {
+    increaseScore() {
       this.score.current++;
     },
 
-    setItemsAmount(itemsAmount: number): void {
+    setItemsAmount(itemsAmount: number) {
       this.itemsAmount = itemsAmount;
     },
 
-    updateTime(): void {
+    updateTime() {
       this.time = this.complexity.time;
     },
 
@@ -397,13 +394,15 @@ export const useGameStore = defineStore({
     },
 
     isTargetClicked(payload: clickTargetPayload) {
+      const mainStore = useMainStore();
+
       if (
         payload.target.bgColorName === this.task.bgColor &&
         payload.target.figureName === this.task.figure
       ) {
         return true;
       } else {
-        if (this.sound) {
+        if (mainStore.isMusicPlayable) {
           playMistakeSound();
         }
 
@@ -412,6 +411,8 @@ export const useGameStore = defineStore({
     },
 
     handleTargetClick(payload: clickTargetPayload) {
+      const mainStore = useMainStore();
+
       if (
         (payload.target.borderColor !== "transparent" &&
           payload.target.borderColorName === this.task.borderColor) ||
@@ -432,13 +433,13 @@ export const useGameStore = defineStore({
           this.createTargets();
         }
 
-        if (this.sound) {
+        if (mainStore.isMusicPlayable) {
           playPopSound();
         }
       } else {
         this.lose = true;
 
-        if (this.sound) {
+        if (mainStore.isMusicPlayable) {
           playMistakeSound();
         }
       }
