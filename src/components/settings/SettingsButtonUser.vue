@@ -24,10 +24,10 @@ defineProps({
   },
 });
 
-function open(e: Event) {
+const open = (e: Event) => {
   const target = e.target as HTMLInputElement;
   emit("open", target.id);
-}
+};
 </script>
 
 <style lang="scss" scoped>

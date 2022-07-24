@@ -15,11 +15,11 @@ import { useTipStore } from "@/stores/tip";
 const mainStore = useMainStore();
 const tipStore = useTipStore();
 
-function copyToClipboard() {
+const copyToClipboard = () => {
   navigator.clipboard.writeText(mainStore.user.ref.toString());
 
   tipStore.update("Скопировано");
-}
+};
 </script>
 
 <style lang="scss" scoped>

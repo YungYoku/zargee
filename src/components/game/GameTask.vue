@@ -3,7 +3,7 @@
     <div v-if="gameStore.task.title[4]">
       <span
         v-for="(text, i) in gameStore.task.title"
-        :key="text"
+        :key="text + i"
         :style="{
           color: getColor(i),
         }"
@@ -15,7 +15,7 @@
     <div v-else>
       <span
         v-for="(text, i) in gameStore.task.title"
-        :key="text"
+        :key="text + i"
         :style="{
           color: getColor2(i),
         }"

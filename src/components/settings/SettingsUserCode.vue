@@ -28,7 +28,7 @@ const tipStore = useTipStore();
 
 const code = ref("");
 
-async function sendCode() {
+const sendCode = async () => {
   if (code.value) {
     if (mainStore.user.codes.includes(code.value)) {
       tipStore.update("Этот код уже был использован");
@@ -68,7 +68,7 @@ async function sendCode() {
   } else {
     tipStore.update("Введите код");
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

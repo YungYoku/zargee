@@ -141,7 +141,7 @@ const form = reactive<Reset>({
   },
 });
 
-function showPass() {
+const showPass = () => {
   if (passDom.value.type === "text") {
     passIcon.value = "passInvisible";
     passDom.value.type = "password";
@@ -151,7 +151,7 @@ function showPass() {
     passDom.value.type = "text";
     passRepDom.value.type = "text";
   }
-}
+};
 
 const colors = {
   main: "#333333",
@@ -160,7 +160,7 @@ const colors = {
   valid: "#66cc68",
 };
 
-function changePower() {
+const changePower = () => {
   if (form.password.length >= 6 && form.passwordRep.length >= 6) {
     lineI.value.style.backgroundColor = colors.main;
   } else {
@@ -182,9 +182,9 @@ function changePower() {
     lineIII.value.style.backgroundColor = colors.additional;
   }
   rightPass();
-}
+};
 
-function rightPass() {
+const rightPass = () => {
   if (form.password !== form.passwordRep) {
     passDom.value.style.color = colors.error;
     passRepDom.value.style.color = colors.error;
@@ -203,9 +203,9 @@ function rightPass() {
   if (form.passwordRep.length < 6) {
     passRepDom.value.style.color = colors.error;
   }
-}
+};
 
-function submitHandle() {
+const submitHandle = () => {
   switch (form.mode) {
     case "default":
       sendEmailReset();
@@ -214,9 +214,9 @@ function submitHandle() {
       resetPassword();
       break;
   }
-}
+};
 
-async function sendEmailReset() {
+const sendEmailReset = async () => {
   if (form.isValid() && !isMailSend.value) {
     loadingStore.show();
 
@@ -229,9 +229,9 @@ async function sendEmailReset() {
         loadingStore.hide();
       });
   }
-}
+};
 
-async function resetPassword() {
+const resetPassword = async () => {
   if (form.password.length >= 6 && form.password === form.passwordRep) {
     loadingStore.show();
 
@@ -246,7 +246,7 @@ async function resetPassword() {
 
     loadingStore.hide();
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

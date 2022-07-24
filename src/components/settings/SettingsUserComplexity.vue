@@ -1,7 +1,7 @@
 <template>
   <div class="complexity">
     <input
-      v-model.number="mainStore.user.complexity"
+      v-model.number="mainStore.complexity"
       max="4"
       min="1"
       step="1"
@@ -12,7 +12,7 @@
       <img
         v-for="complexity in 4"
         :key="complexity"
-        :src="mainStore.user.complexity >= complexity ? fireOn : fireOff"
+        :src="mainStore.complexity >= complexity ? fireOn : fireOff"
         alt="Fire"
         @click="changeComplexity(complexity)"
       />
@@ -22,18 +22,14 @@
 
 <script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "@/main";
 import fireOn from "@/assets/icons/fireOn.svg";
 import fireOff from "@/assets/icons/fireOff.svg";
 
 const mainStore = useMainStore();
 
-function changeComplexity(complexity: number) {
-  updateDoc(doc(db, "users", mainStore.uid), {
-    complexity,
-  });
-}
+const changeComplexity = (complexity: number) => {
+  mainStore.setComplexity(complexity);
+};
 </script>
 
 <style lang="scss" scoped>

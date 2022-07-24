@@ -13,7 +13,7 @@ const mainStore = useMainStore();
 const gameStore = useGameStore();
 
 const time = computed(() =>
-  mainStore.user.complexity !== 1 ? gameStore.time : "∞"
+  mainStore.complexity !== 1 ? gameStore.time : "∞"
 );
 </script>
 

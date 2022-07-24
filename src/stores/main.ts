@@ -8,6 +8,7 @@ export interface State {
   demo: boolean;
   uid: string;
   user: User;
+  complexity: number;
   isMusicPlayable: boolean;
   isMusicChangeable: boolean;
   firstPage: string;
@@ -24,6 +25,7 @@ export const useMainStore = defineStore({
     demo: false,
     uid: "",
     user: {} as User,
+    complexity: 1,
     isMusicPlayable: false,
     isMusicChangeable: false,
     firstPage: "",
@@ -34,6 +36,11 @@ export const useMainStore = defineStore({
   getters: {},
 
   actions: {
+    resetIsMusicPlayable() {
+      localStorage.isMusicPlayable = false;
+      this.isMusicPlayable = false;
+    },
+
     updateIsMusicPlayable() {
       const LocalStorageIsMusicPlayable = localStorage.isMusicPlayable;
 
@@ -42,11 +49,17 @@ export const useMainStore = defineStore({
           this.isMusicPlayable = true;
         } else if (LocalStorageIsMusicPlayable === "false") {
           this.isMusicPlayable = false;
+        } else {
+          this.resetIsMusicPlayable();
         }
       } else {
-        localStorage.isMusicPlayable = false;
-        this.isMusicPlayable = false;
+        this.resetIsMusicPlayable();
       }
+    },
+
+    resetIsMusicChangeable() {
+      localStorage.isMusicChangeable = false;
+      this.isMusicChangeable = false;
     },
 
     updateIsMusicChangeable() {
@@ -57,10 +70,11 @@ export const useMainStore = defineStore({
           this.isMusicChangeable = true;
         } else if (LocalStorageIsMusicChangeable === "false") {
           this.isMusicChangeable = false;
+        } else {
+          this.resetIsMusicChangeable();
         }
       } else {
-        localStorage.isMusicChangeable = false;
-        this.isMusicChangeable = false;
+        this.resetIsMusicChangeable();
       }
     },
 
@@ -81,14 +95,23 @@ export const useMainStore = defineStore({
     },
 
     updateComplexitySettings() {
-      const LocalStorageComplexity = localStorage.complexity;
+      const LocalStorageComplexity = parseInt(localStorage.complexity);
 
-      if (LocalStorageComplexity) {
-        //this.complexity = LocalStorageComplexity;
+      if (
+        LocalStorageComplexity &&
+        LocalStorageComplexity > 0 &&
+        LocalStorageComplexity < 5
+      ) {
+        this.complexity = LocalStorageComplexity;
       } else {
         localStorage.complexity = "1";
-        //this.complexity = "1";
+        this.complexity = 1;
       }
+    },
+
+    setComplexity(complexity: number) {
+      this.complexity = complexity;
+      localStorage.complexity = complexity;
     },
 
     updateSettings() {

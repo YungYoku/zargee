@@ -21,9 +21,9 @@ import { useMainStore } from "@/stores/main";
 const mainStore = useMainStore();
 const gameStore = useGameStore();
 
-function swapSound() {
+const swapSound = () => {
   mainStore.swapSound();
-}
+};
 </script>
 
 <style lang="scss" scoped>

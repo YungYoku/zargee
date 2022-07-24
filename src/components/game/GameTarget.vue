@@ -58,26 +58,26 @@ const props = defineProps({
 
 const targetRef = ref();
 
-function startAnimation() {
+const startAnimation = () => {
   if (targetRef.value) {
     targetRef.value.classList.add("animate");
   }
-}
+};
 
-function endAnimation() {
+const endAnimation = () => {
   if (targetRef.value) {
     targetRef.value.classList.remove("animate");
   }
-}
+};
 
-function blink() {
+const blink = () => {
   if (props.target.blink && targetRef.value) {
     setTimeout(() => {
       props.target.blink ? startAnimation() : endAnimation();
       setTimeout(() => endAnimation(), 8000);
     }, props.target.blinkDelay * 1000);
   }
-}
+};
 
 onMounted(() => blink());
 watch(props, () => blink());

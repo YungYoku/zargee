@@ -1,11 +1,11 @@
 <template>
   <div class="timer">
-    {{ props.startTimer }}
+    {{ startTimer }}
   </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   startTimer: {
     type: Number,
     required: true,

@@ -103,13 +103,13 @@ watch(time, async () => {
   }
 });
 
-function clearIntervals() {
+const clearIntervals = () => {
   gameStore.reset();
   clearInterval(startTimerInterval);
   clearInterval(timeInterval);
   clearInterval(kickInterval);
   clearInterval(blinkInterval);
-}
+};
 
 const updateKickInterval = () => {
   if (timeKick.value > 0) {
@@ -134,12 +134,12 @@ const setStartTimerInterval = () => {
   }, 1000);
 };
 
-function setIntervals() {
+const setIntervals = () => {
   createTargets();
 
   setStartTimerInterval();
 
-  if (mainStore.user.complexity !== 1) {
+  if (mainStore.complexity !== 1) {
     timeInterval = setInterval(() => {
       if (gameStore.time > 0 && startTimer.value === 0 && !gameStore.lose) {
         gameStore.decreaseTime();
@@ -166,7 +166,7 @@ function setIntervals() {
   blinkInterval = setInterval(() => {
     gameStore.generateBlinking();
   }, 15000);
-}
+};
 
 onMounted(() => {
   if (mainStore.firstPage === "") {
@@ -175,7 +175,7 @@ onMounted(() => {
   } else {
     loadingStore.hide();
 
-    gameStore.setComplexity(mainStore.user.complexity);
+    gameStore.setComplexity(mainStore.complexity);
     setIntervals();
   }
 });
@@ -185,25 +185,25 @@ onUnmounted(() => {
   reset();
 });
 
-function watchAd() {
+const watchAd = () => {
   adWatching.value = true;
-}
+};
 
-function stopAdWatching() {
+const stopAdWatching = () => {
   adWatching.value = false;
-}
+};
 
-function reset() {
+const reset = () => {
   timeKick.value = 10;
   gameStore.setLvl(1);
   gameStore.reset();
-}
+};
 
-function createTargets() {
+const createTargets = () => {
   gameStore.createTargets();
-}
+};
 
-function restart(props: { rebornType: string; lvl?: number }) {
+const restart = (props: { rebornType: string; lvl?: number }) => {
   if (props.lvl) {
     gameStore.setLvl(props.lvl);
 
@@ -225,7 +225,7 @@ function restart(props: { rebornType: string; lvl?: number }) {
 
   createTargets();
   setStartTimerInterval();
-}
+};
 </script>
 
 <style lang="scss" scoped>

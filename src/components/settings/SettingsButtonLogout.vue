@@ -30,7 +30,7 @@ defineProps({
   },
 });
 
-async function logout() {
+const logout = async () => {
   loadingStore.show();
 
   await signOut(getAuth()).catch((error) => {
@@ -42,7 +42,7 @@ async function logout() {
   await router.push("/login");
 
   loadingStore.hide();
-}
+};
 </script>
 
 <style lang="scss" scoped>

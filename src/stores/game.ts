@@ -470,19 +470,19 @@ export const useGameStore = defineStore({
   },
 });
 
-function playPopSound() {
+const playPopSound = () => {
   popSound.play().then(() => {
     return;
   });
-}
+};
 
-function playMistakeSound() {
+const playMistakeSound = () => {
   mistakeSound.play().then(() => {
     return;
   });
-}
+};
 
-function generateFigure(lvl: number) {
+const generateFigure = (lvl: number) => {
   if (
     (lvl >= 19 && lvl <= 27) ||
     (lvl >= 37 && lvl <= 45) ||
@@ -492,9 +492,9 @@ function generateFigure(lvl: number) {
   }
 
   return Math.round(Math.random());
-}
+};
 
-function generateFigureName(figure: number) {
+const generateFigureName = (figure: number) => {
   switch (figure) {
     case 0:
       return "круг";
@@ -509,9 +509,9 @@ function generateFigureName(figure: number) {
     default:
       return "";
   }
-}
+};
 
-function generateBorderColorName(borderColor: string) {
+const generateBorderColorName = (borderColor: string) => {
   switch (borderColor) {
     case "#1a1a1a":
       return "чёрной";
@@ -526,9 +526,9 @@ function generateBorderColorName(borderColor: string) {
     default:
       return "transparent";
   }
-}
+};
 
-function generateBgColorName(bgColor: string) {
+const generateBgColorName = (bgColor: string) => {
   switch (bgColor) {
     case "#1a1a1a":
       return "чёрный";
@@ -543,4 +543,4 @@ function generateBgColorName(bgColor: string) {
     default:
       return "transparent";
   }
-}
+};

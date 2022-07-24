@@ -1,6 +1,6 @@
 <template>
-  <div class="endWrap">
-    <div class="end">
+  <div class="end">
+    <div class="end__content">
       <button @click="restart('', 1)">
         Повторить
         <img alt="Restart" src="@/assets/icons/restart.svg" />
@@ -8,7 +8,7 @@
 
       <button class="reborn" @click="swapHeal">
         Возродиться
-        <span>{{ timeKick }}</span>
+        <span class="reborn__time">{{ timeKick }}</span>
       </button>
 
       <earn-video v-if="adShowing" :timer="adTimer" @hideAd="hideAd" />
@@ -39,9 +39,9 @@
 
 <script lang="ts" setup>
 import TheShare from "@/components/game/GameShare.vue";
-import GameHeal from "@/components/game/heal/GameHeal.vue";
+import GameHeal from "@/components/game/GameHeal.vue";
 import EarnVideo from "@/components/EarnVideo.vue";
-import { ref } from "vue";
+import { onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 
@@ -82,13 +82,21 @@ const adShowing = ref(false);
 const adTimer = ref(5);
 const healShow = ref(false);
 
-setInterval(() => {
-  if (adTimer.value > 0) {
-    adTimer.value--;
+const interval = setInterval(() => {
+  if (adShowing.value) {
+    if (adTimer.value > 0) {
+      adTimer.value--;
+    } else {
+      clearInterval(interval);
+    }
   }
 }, 1000);
 
-function restart(rebornType: string, lvl?: number) {
+onUnmounted(() => {
+  clearInterval(interval);
+});
+
+const restart = (rebornType: string, lvl?: number) => {
   if (lvl) {
     emit("restart", {
       rebornType,
@@ -99,47 +107,47 @@ function restart(rebornType: string, lvl?: number) {
       rebornType,
     });
   }
-}
+};
 
-function closeHealMenu() {
+const closeHealMenu = () => {
   healShow.value = false;
-}
+};
 
-function swapHeal() {
+const swapHeal = () => {
   if (mainStore.demo) {
     watchAd();
   } else {
     healShow.value = true;
   }
-}
+};
 
-function clearIntervals() {
+const clearIntervals = () => {
   emit("clearIntervals");
   emit("reset");
-}
+};
 
-function watchAd() {
+const watchAd = () => {
   healShow.value = false;
   adTimer.value = 5;
   adShowing.value = true;
   emit("watchAd");
-}
+};
 
-function hideAd() {
+const hideAd = () => {
   adShowing.value = false;
   restart("ad");
   emit("stopAdWatching");
-}
+};
 
-function logout() {
+const logout = () => {
   emit("logout");
   mainStore.logout();
   router.push("/login");
-}
+};
 </script>
 
 <style lang="scss" scoped>
-.endWrap {
+.end {
   position: absolute;
   top: 0;
   left: 0;
@@ -153,71 +161,74 @@ function logout() {
   height: 100vh;
 
   background-color: rgba(0, 0, 0, 0.5);
-}
 
-.end {
-  position: relative;
+  &__content {
+    position: relative;
 
-  display: grid;
+    display: grid;
 
-  grid-gap: 10px;
+    grid-gap: 10px;
 
-  width: 30%;
-  min-width: 300px;
-  padding: 10px;
-  overflow: hidden;
+    width: 30%;
+    min-width: 300px;
+    max-width: 360px;
+    padding: 10px;
+    overflow: hidden;
 
-  background-color: #f5eee9;
-  border-radius: 5px;
-}
+    background-color: #f5eee9;
+    border-radius: 5px;
 
-.end > a,
-.end > button:not(.leaveHeal) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    a,
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  width: 100%;
-  height: 100%;
-  padding: 20px;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
 
-  font-size: 28px;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
+      font-size: 28px;
+      font-weight: 500;
+      text-align: center;
+      color: #333333;
 
-  background-color: transparent;
-  border: 3px solid #333333;
-  border-radius: 5px;
+      background-color: transparent;
+      border: 3px solid #333333;
+      border-radius: 5px;
 
-  cursor: pointer;
-}
+      cursor: pointer;
+    }
+  }
 
-.end > a > img,
-.end > button > img {
-  width: 32px;
-  height: 32px;
-  margin-left: 20px;
-}
+  a,
+  button {
+    img {
+      width: 32px;
+      height: 32px;
+      margin-left: 20px;
+    }
+  }
 
-.reborn {
-  position: relative;
-}
+  .reborn {
+    position: relative;
 
-.reborn span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    &__time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  width: 38px;
-  height: 38px;
-  margin-left: 20px;
-  padding: 5px;
+      width: 38px;
+      height: 38px;
+      margin-left: 20px;
+      padding: 5px;
 
-  font-size: 18px;
-  font-weight: 500;
+      font-size: 18px;
+      font-weight: 500;
 
-  border: 2px solid #333333;
-  border-radius: 50%;
+      border: 2px solid #333333;
+      border-radius: 50%;
+    }
+  }
 }
 </style>

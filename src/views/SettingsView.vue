@@ -46,18 +46,18 @@ const buttonSize = computed(() => {
   return tabWidth < tabHeight ? tabWidth + "px" : tabHeight + "px";
 });
 
-function showInfo(id: string) {
+const showInfo = (id: string) => {
   if (id === "info" || id === "infoButton" || id === "infoButtonImg") {
     infoShow.value = true;
   }
-}
+};
 
-function hideInfo(e: Event) {
+const hideInfo = (e: Event) => {
   const target = e.target as HTMLInputElement;
   if (target.id === "info") {
     infoShow.value = false;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

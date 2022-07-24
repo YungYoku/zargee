@@ -70,21 +70,21 @@ const heartPrice = computed(() =>
   props.heartRebornAmount === 0 ? 1 : 2 ** props.heartRebornAmount
 );
 
-function close() {
+const close = () => {
   emit("close");
-}
+};
 
-function watchAd() {
+const watchAd = () => {
   emit("watchAd");
-}
+};
 
-function restart(rebornType: string) {
+const restart = (rebornType: string) => {
   emit("restart", rebornType);
-}
+};
 
-function swapHeal() {
+const swapHeal = () => {
   emit("swapHeal");
-}
+};
 
 const isHeartRebornAvailable = computed(() => props.freeRebornAmount < 5);
 

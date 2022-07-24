@@ -194,15 +194,15 @@ onMounted(() => {
   }
 });
 
-function showPolitics() {
+const showPolitics = () => {
   politicsShow.value = true;
-}
+};
 
-function hidePolitics() {
+const hidePolitics = () => {
   politicsShow.value = false;
-}
+};
 
-function showPass() {
+const showPass = () => {
   if (passDom.value.type === "text") {
     passIcon.value = "passInvisible";
     passDom.value.type = "password";
@@ -212,7 +212,7 @@ function showPass() {
     passDom.value.type = "text";
     passRepDom.value.type = "text";
   }
-}
+};
 
 const colors = {
   main: "#333333",
@@ -221,7 +221,7 @@ const colors = {
   valid: "#66cc68",
 };
 
-function changePower() {
+const changePower = () => {
   if (form.password.length >= 6 && form.passwordRep.length >= 6) {
     lineI.value.style.backgroundColor = colors.main;
   } else {
@@ -243,9 +243,9 @@ function changePower() {
     lineIII.value.style.backgroundColor = colors.additional;
   }
   rightPass();
-}
+};
 
-function rightPass() {
+const rightPass = () => {
   if (form.password !== form.passwordRep) {
     passDom.value.style.color = colors.error;
     passRepDom.value.style.color = colors.error;
@@ -264,7 +264,7 @@ function rightPass() {
   if (form.passwordRep.length < 6) {
     passRepDom.value.style.color = colors.error;
   }
-}
+};
 
 const handleResponse = async (response: AuthResponse) => {
   const uid = response.user.uid;
@@ -339,7 +339,7 @@ const handleError = (error: AuthError) => {
   }
 };
 
-async function submit() {
+const submit = async () => {
   if (form.isValid()) {
     loadingStore.show();
 
@@ -351,7 +351,7 @@ async function submit() {
   } else {
     console.error("Form is not valid!");
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

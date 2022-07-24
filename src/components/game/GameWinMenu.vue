@@ -18,9 +18,9 @@ import TheShare from "@/components/game/GameShare.vue";
 
 const emit = defineEmits(["clearIntervals"]);
 
-function clearIntervals() {
+const clearIntervals = () => {
   emit("clearIntervals");
-}
+};
 </script>
 
 <style lang="scss" scoped>

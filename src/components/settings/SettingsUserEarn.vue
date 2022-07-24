@@ -32,7 +32,7 @@ const adWatchTime = computed(() => {
   );
 });
 
-async function watchAd() {
+const watchAd = async () => {
   const expireTime = mainStore.user.adWatchTime + 3600;
 
   if (adWatchTime.value > expireTime) {
@@ -53,20 +53,20 @@ async function watchAd() {
     const leftTime = Math.floor((expireTime - adWatchTime.value) / 60);
     tipStore.update(`Осталось ${leftTime} минут`);
   }
-}
+};
 
-async function hideAd() {
+const hideAd = async () => {
   await claimReward();
   adShowing.value = false;
-}
+};
 
-async function claimReward() {
+const claimReward = async () => {
   await updateDoc(doc(db, "users", mainStore.uid), {
     hearts: mainStore.user.hearts + 1,
   }).then(() => {
     tipStore.update(`Получено 1 сердце`);
   });
-}
+};
 </script>
 
 <style lang="scss" scoped>

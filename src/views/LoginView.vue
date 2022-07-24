@@ -102,7 +102,7 @@ const passDom = ref();
 
 const passIcon = ref("passInvisible");
 
-function showPass() {
+const showPass = () => {
   if (passDom.value.type === "text") {
     passIcon.value = "passInvisible";
     passDom.value.type = "password";
@@ -110,7 +110,7 @@ function showPass() {
     passIcon.value = "passVisible";
     passDom.value.type = "text";
   }
-}
+};
 
 const handleResponse = async (response: AuthResponse) => {
   mainStore.login(response.user.uid);
@@ -139,7 +139,7 @@ const handleError = (error: AuthError) => {
   }
 };
 
-async function submit() {
+const submit = async () => {
   if (form.isValid()) {
     loadingStore.show();
 
@@ -149,7 +149,7 @@ async function submit() {
 
     loadingStore.hide();
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

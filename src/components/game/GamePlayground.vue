@@ -5,7 +5,7 @@
       :key="target.x + '/' + target.y"
       :idx="i"
       :target="target"
-      class="targets"
+      class="target"
       @click="handleTargetClick(target, i)"
     />
   </div>
@@ -20,7 +20,7 @@ const emit = defineEmits(["lvlEnd"]);
 
 const gameStore = useGameStore();
 
-function handleTargetClick(target: Target, idx: number) {
+const handleTargetClick = (target: Target, idx: number) => {
   const payload = {
     target: target,
     id: idx,
@@ -37,7 +37,7 @@ function handleTargetClick(target: Target, idx: number) {
   } else {
     gameStore.setLose(true);
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -46,13 +46,13 @@ function handleTargetClick(target: Target, idx: number) {
 
   width: 100%;
   height: 100%;
-}
 
-.targets {
-  position: absolute;
+  .target {
+    position: absolute;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  cursor: pointer;
+    cursor: pointer;
+  }
 }
 </style>

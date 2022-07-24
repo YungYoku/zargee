@@ -15,13 +15,13 @@ const gameStore = useGameStore();
 
 const tipStore = useTipStore();
 
-function share() {
+const share = () => {
   navigator.clipboard.writeText(
     `Смотри! Я дошёл до ${gameStore.lvl} уровня в Zargee! До какого сможешь дойти ты? Введи мой код ${mainStore.user.ref} при регистрации и получи приятный бонус! https://zargee-4c93f.web.app/reg?ref=${mainStore.user.ref}`
   );
 
   tipStore.update("Скопировано!");
-}
+};
 </script>
 
 <style lang="scss" scoped>

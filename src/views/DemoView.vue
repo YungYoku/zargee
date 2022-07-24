@@ -46,6 +46,8 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import { useGameStore } from "@/stores/game";
 import { useRouter } from "vue-router";
+import { useMainStore } from "@/stores/main";
+import { useLoadingStore } from "@/stores/loading";
 import "../additional/blink.css";
 import GameWinMenu from "@/components/game/GameWinMenu.vue";
 import GameTask from "@/components/game/GameTask.vue";
@@ -55,8 +57,6 @@ import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
 import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
-import { useMainStore } from "@/stores/main";
-import { useLoadingStore } from "@/stores/loading";
 
 const mainStore = useMainStore();
 const gameStore = useGameStore();
@@ -77,13 +77,13 @@ const deaths = ref(0);
 const freeRebornAmount = ref(0);
 const heartRebornAmount = ref(0);
 
-function clearIntervals() {
+const clearIntervals = () => {
   gameStore.reset();
   clearInterval(startTimerInterval);
   clearInterval(timeInterval);
   clearInterval(kickInterval);
   clearInterval(blinkInterval);
-}
+};
 
 const setStartTimerInterval = () => {
   startTimer.value = 3;
@@ -99,7 +99,7 @@ const setStartTimerInterval = () => {
   }, 1000);
 };
 
-function setIntervals() {
+const setIntervals = () => {
   createTargets();
 
   setStartTimerInterval();
@@ -129,7 +129,7 @@ function setIntervals() {
   blinkInterval = setInterval(() => {
     gameStore.generateBlinking();
   }, 15000);
-}
+};
 
 onMounted(() => {
   loadingStore.hide();
@@ -143,25 +143,25 @@ onUnmounted(() => {
   reset();
 });
 
-function watchAd() {
+const watchAd = () => {
   adWatching.value = true;
-}
+};
 
-function stopAdWatching() {
+const stopAdWatching = () => {
   adWatching.value = false;
-}
+};
 
-function reset() {
+const reset = () => {
   timeKick.value = 10;
   gameStore.setLvl(1);
   gameStore.reset();
-}
+};
 
-function createTargets() {
+const createTargets = () => {
   gameStore.createTargets();
-}
+};
 
-function restart(props: { rebornType: string; lvl?: number }) {
+const restart = (props: { rebornType: string; lvl?: number }) => {
   if (props.lvl) {
     gameStore.setLvl(props.lvl);
 
@@ -181,11 +181,11 @@ function restart(props: { rebornType: string; lvl?: number }) {
 
   createTargets();
   setStartTimerInterval();
-}
+};
 
-function logout() {
+const logout = () => {
   clearIntervals();
-}
+};
 
 const unloadHandler = () => {
   localStorage.clear();

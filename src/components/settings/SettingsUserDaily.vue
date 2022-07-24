@@ -40,12 +40,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
-import AdVideo from "@/components/EarnVideo.vue";
 import { useTipStore } from "@/stores/tip";
+import AdVideo from "@/components/EarnVideo.vue";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -61,18 +61,20 @@ const time = ref(
 const adShowing = ref(false);
 const timer = ref(5);
 let adWatching: number;
+
 const imageShowing = computed(() => {
   return !(
     !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
   );
 });
+
 const rewardShowing = computed(() => {
   return (
     !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
   );
 });
 
-function isItPossibleToReceive(weekDay: number) {
+const isItPossibleToReceive = (weekDay: number) => {
   if (
     mainStore.user.rewardDay === weekDay &&
     mainStore.user.resetDay === mainStore.getCurrentDayInYear() + 1
@@ -82,40 +84,40 @@ function isItPossibleToReceive(weekDay: number) {
     );
   }
   return false;
-}
+};
 
-function isItReceived(weekDay: number) {
+const isItReceived = (weekDay: number) => {
   return (
     mainStore.user.rewardDay === weekDay + 1 &&
     mainStore.user.resetDay === mainStore.getCurrentDayInYear() + 1 &&
     mainStore.user.rewardParts.first &&
     mainStore.user.rewardParts.second
   );
-}
+};
 
-function isItOldReceived(weekDay: number) {
+const isItOldReceived = (weekDay: number) => {
   return mainStore.user.rewardDay >= weekDay;
-}
+};
 
-function isItClaimable(weekDay: number) {
+const isItClaimable = (weekDay: number) => {
   return (
     mainStore.user.rewardDay === weekDay &&
     mainStore.user.resetDay === mainStore.getCurrentDayInYear() + 1 &&
     !mainStore.user.rewardParts.first &&
     !mainStore.user.rewardParts.second
   );
-}
+};
 
-function isItDoubleClaimable(weekDay: number) {
+const isItDoubleClaimable = (weekDay: number) => {
   return (
     mainStore.user.rewardDay === weekDay &&
     mainStore.user.resetDay === mainStore.getCurrentDayInYear() + 1 &&
     mainStore.user.rewardParts.first &&
     !mainStore.user.rewardParts.second
   );
-}
+};
 
-function getButtonText(weekDay: number) {
+const getButtonText = (weekDay: number) => {
   return isItClaimable(weekDay)
     ? "Получить"
     : isItDoubleClaimable(weekDay)
@@ -126,11 +128,17 @@ function getButtonText(weekDay: number) {
     : isItReceived(weekDay) || isItOldReceived(weekDay)
     ? "Получено"
     : "";
-}
+};
 
-setInterval(() => {
-  if (time.value > 0) time.value--;
+const interval = setInterval(() => {
+  if (time.value > 0) {
+    time.value--;
+  }
 }, 1000);
+
+onUnmounted(() => {
+  clearInterval(interval);
+});
 
 const formattedTime = computed(() => {
   const hours = Math.floor(time.value / 3600);
@@ -144,7 +152,7 @@ const formattedTime = computed(() => {
       `;
 });
 
-async function claimReward(first: boolean, second: boolean) {
+const claimReward = async (first: boolean, second: boolean) => {
   const reward = mainStore.user.rewardDay;
 
   await updateDoc(doc(db, "users", mainStore.uid), {
@@ -157,9 +165,9 @@ async function claimReward(first: boolean, second: boolean) {
   }).then(() => {
     tipStore.update(`Получено ${reward} сердец`);
   });
-}
+};
 
-async function getHearts(day = mainStore.user.rewardDay) {
+const getHearts = async (day = mainStore.user.rewardDay) => {
   if (
     mainStore.user.rewardDay < day ||
     (isItReceived(day) && mainStore.user.rewardDay === day)
@@ -177,13 +185,13 @@ async function getHearts(day = mainStore.user.rewardDay) {
   } else if (!mainStore.user.rewardParts.second) {
     watchAd();
   }
-}
+};
 
-function swapCalendar() {
+const swapCalendar = () => {
   calendar.value = !calendar.value;
-}
+};
 
-function watchAd() {
+const watchAd = () => {
   timer.value = 5;
   adShowing.value = true;
   adWatching = setInterval(() => {
@@ -193,12 +201,12 @@ function watchAd() {
       clearInterval(adWatching);
     }
   }, 1000);
-}
+};
 
-function hideAd() {
+const hideAd = () => {
   claimReward(true, true);
   adShowing.value = false;
-}
+};
 </script>
 
 <style lang="scss" scoped>

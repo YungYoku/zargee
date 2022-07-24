@@ -21,9 +21,9 @@ defineProps({
 
 const emit = defineEmits(["hideAd"]);
 
-function hideAd() {
+const hideAd = () => {
   emit("hideAd");
-}
+};
 </script>
 
 <style lang="scss" scoped>

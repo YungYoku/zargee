@@ -1,7 +1,6 @@
 export interface User {
   adWatchTime: number;
   codes: string[];
-  complexity: number;
   gold: number;
   hearts: number;
   lvl: number;
