@@ -1,23 +1,21 @@
 <template>
   <router-view />
 
-  <audio v-if="audioPlaying" autoplay loop>
-    <source src="@/assets/sounds/bg.mp3" />
-  </audio>
-
   <game-tip />
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import GameTip from "@/components/GameTip.vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 import { useLanguagesStore } from "@/stores/languages";
 import { useSettingsStore } from "@/stores/settings";
+import { useSoundsStore } from "@/stores/sounds";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
+const soundsStore = useSoundsStore();
 const languagesStore = useLanguagesStore();
 const router = useRouter();
 
@@ -51,12 +49,20 @@ document.addEventListener("visibilitychange", () => {
 });
 
 const audioPlaying = computed(() => {
-  return (
-    router.currentRoute.value.name !== "Game" &&
-    router.currentRoute.value.name !== "LoginView.vue" &&
-    settingsStore.isMusicPlayable
-  );
+  return router.currentRoute.value.meta.audio && settingsStore.isMusicPlayable;
 });
+
+watch(
+  audioPlaying,
+  () => {
+    if (audioPlaying.value) {
+      soundsStore.playBgMusic();
+    } else {
+      soundsStore.stopBgMusic();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>

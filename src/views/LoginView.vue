@@ -13,6 +13,7 @@
           v-model.trim="form.email"
           :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          required
           type="email"
         />
       </label>
@@ -24,6 +25,7 @@
           v-model.trim="form.password"
           :placeholder="languagesStore.language.registration.password"
           class="inputLine"
+          required
           type="password"
         />
 

@@ -3,12 +3,8 @@ import type { Task } from "@/interfaces/task";
 import type { GameProps } from "@/interfaces/gameProps";
 import type { Target } from "@/interfaces/target";
 import type { Score } from "@/interfaces/score";
-import popMp3 from "@/assets/sounds/pop.mp3";
-import mistakeMp3 from "@/assets/sounds/mistake.mp3";
 import { useSettingsStore } from "@/stores/settings";
-
-const popSound = new Audio(popMp3);
-const mistakeSound = new Audio(mistakeMp3);
+import { useSoundsStore } from "@/stores/sounds";
 
 interface Complexity {
   targets: string;
@@ -395,6 +391,7 @@ export const useGameStore = defineStore({
 
     isTargetClicked(payload: clickTargetPayload) {
       const settingsStore = useSettingsStore();
+      const soundsStore = useSoundsStore();
 
       if (
         payload.target.bgColorName === this.task.bgColor &&
@@ -403,7 +400,7 @@ export const useGameStore = defineStore({
         return true;
       } else {
         if (settingsStore.isMusicPlayable) {
-          playMistakeSound();
+          soundsStore.playMistakeSound();
         }
 
         return false;
@@ -412,6 +409,7 @@ export const useGameStore = defineStore({
 
     handleTargetClick(payload: clickTargetPayload) {
       const settingsStore = useSettingsStore();
+      const soundsStore = useSoundsStore();
 
       if (
         (payload.target.borderColor !== "transparent" &&
@@ -434,13 +432,13 @@ export const useGameStore = defineStore({
         }
 
         if (settingsStore.isMusicPlayable) {
-          playPopSound();
+          soundsStore.playPopSound();
         }
       } else {
         this.lose = true;
 
         if (settingsStore.isMusicPlayable) {
-          playMistakeSound();
+          soundsStore.playMistakeSound();
         }
       }
     },
@@ -469,18 +467,6 @@ export const useGameStore = defineStore({
     },
   },
 });
-
-const playPopSound = () => {
-  popSound.play().then(() => {
-    return;
-  });
-};
-
-const playMistakeSound = () => {
-  mistakeSound.play().then(() => {
-    return;
-  });
-};
 
 const generateFigure = (lvl: number) => {
   if (

@@ -5,8 +5,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    component: () => import("../views/HomeView.vue"),
+    component: () => import("@/views/HomeView.vue"),
     meta: {
+      audio: true,
       auth: true,
     },
   },
@@ -14,8 +15,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/game",
     name: "Game",
-    component: () => import("../views/GameView.vue"),
+    component: () => import("@/views/GameView.vue"),
     meta: {
+      audio: false,
       auth: true,
     },
   },
@@ -23,8 +25,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/demo",
     name: "Demo",
-    component: () => import("../views/DemoView.vue"),
+    component: () => import("@/views/DemoView.vue"),
     meta: {
+      audio: false,
       auth: true,
     },
   },
@@ -32,8 +35,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/settings",
     name: "Settings",
-    component: () => import("../views/SettingsView.vue"),
+    component: () => import("@/views/SettingsView.vue"),
     meta: {
+      audio: true,
       auth: true,
     },
   },
@@ -41,8 +45,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/LoginView.vue"),
+    component: () => import("@/views/LoginView.vue"),
     meta: {
+      audio: false,
       auth: false,
     },
   },
@@ -50,8 +55,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/reg",
     name: "Registration",
-    component: () => import("../views/RegView.vue"),
+    component: () => import("@/views/RegView.vue"),
     meta: {
+      audio: false,
       auth: false,
     },
   },
@@ -59,8 +65,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/reset",
     name: "Reset",
-    component: () => import("../views/ResetView.vue"),
+    component: () => import("@/views/ResetView.vue"),
     meta: {
+      audio: false,
       auth: false,
     },
   },
