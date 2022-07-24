@@ -75,6 +75,7 @@ import { useTipStore } from "@/stores/tip";
 import GameLoading from "@/components/GameLoading.vue";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import type { AuthError } from "@/interfaces/authError";
+import { useSettingsStore } from "@/stores/settings";
 
 interface Login {
   email: string;
@@ -83,6 +84,7 @@ interface Login {
 }
 
 const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const languagesStore = useLanguagesStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
@@ -116,6 +118,8 @@ const showPass = () => {
 
 const handleResponse = async (response: AuthResponse) => {
   mainStore.login(response.user.uid);
+  settingsStore.updateSettings();
+  settingsStore.swapSound();
   await mainStore.loadInfo();
   await router.push("/");
 

@@ -138,6 +138,7 @@ import AnimatedLink from "@/components/AnimatedLink.vue";
 import GamePolitics from "@/components/GamePolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
+import { useSettingsStore } from "@/stores/settings";
 
 interface Registration {
   mode: string;
@@ -151,6 +152,7 @@ interface Registration {
 }
 
 const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const languagesStore = useLanguagesStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
@@ -313,6 +315,8 @@ const handleResponse = async (response: AuthResponse) => {
   });
 
   mainStore.login(uid);
+  settingsStore.updateSettings();
+  settingsStore.swapSound();
   await mainStore.loadInfo();
   await router.push("/");
 };
