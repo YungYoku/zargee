@@ -15,6 +15,7 @@
           v-model.trim="form.email"
           :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          required
           type="email"
         />
       </label>
@@ -30,6 +31,7 @@
           v-model.trim="form.password"
           :placeholder="languagesStore.language.reset.password"
           class="inputLine"
+          required
           type="password"
           @keyup="changePower"
         />
@@ -60,6 +62,7 @@
           v-model.trim="form.passwordRep"
           :placeholder="languagesStore.language.reset.passwordRepeat"
           class="inputLine"
+          required
           type="password"
           @keyup="changePower"
         />
@@ -270,7 +273,7 @@ const resetPassword = async () => {
     gap: 18px;
 
     background-color: #fbfaf7;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {
@@ -338,7 +341,7 @@ const resetPassword = async () => {
   .passPower {
     display: grid;
 
-    grid-gap: 5%;
+    grid-gap: 10px;
     grid-template: 100% / 1fr 1fr 1fr;
   }
 
@@ -376,7 +379,7 @@ const resetPassword = async () => {
 
     background-color: #333333;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
 
     cursor: pointer;

@@ -7,6 +7,7 @@
       height: size,
     }"
     class="logoutButton"
+    type="button"
     @click.prevent="logout"
   >
     <img alt="Logout" class="logoutButtonImg" src="@/assets/icons/logout.svg" />

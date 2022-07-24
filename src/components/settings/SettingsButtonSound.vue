@@ -7,6 +7,7 @@
       minHeight: size,
     }"
     class="soundButton"
+    type="button"
     @click="turnOnSound"
   >
     <img :src="soundIcon" alt="Sound" />
@@ -14,10 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from "@/stores/main";
 import sound from "@/assets/icons/sound.svg";
 import noSound from "@/assets/icons/no-sound.svg";
 import { computed } from "vue";
+import { useSettingsStore } from "@/stores/settings";
 
 defineProps({
   size: {
@@ -26,14 +27,14 @@ defineProps({
   },
 });
 
-const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 
 const turnOnSound = () => {
-  mainStore.swapSound();
+  settingsStore.swapSound();
 };
 
 const soundIcon = computed(() => {
-  return mainStore.isMusicPlayable ? sound : noSound;
+  return settingsStore.isMusicPlayable ? sound : noSound;
 });
 </script>
 

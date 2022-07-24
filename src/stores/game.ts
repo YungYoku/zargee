@@ -5,7 +5,7 @@ import type { Target } from "@/interfaces/target";
 import type { Score } from "@/interfaces/score";
 import popMp3 from "@/assets/sounds/pop.mp3";
 import mistakeMp3 from "@/assets/sounds/mistake.mp3";
-import { useMainStore } from "@/stores/main";
+import { useSettingsStore } from "@/stores/settings";
 
 const popSound = new Audio(popMp3);
 const mistakeSound = new Audio(mistakeMp3);
@@ -394,7 +394,7 @@ export const useGameStore = defineStore({
     },
 
     isTargetClicked(payload: clickTargetPayload) {
-      const mainStore = useMainStore();
+      const settingsStore = useSettingsStore();
 
       if (
         payload.target.bgColorName === this.task.bgColor &&
@@ -402,7 +402,7 @@ export const useGameStore = defineStore({
       ) {
         return true;
       } else {
-        if (mainStore.isMusicPlayable) {
+        if (settingsStore.isMusicPlayable) {
           playMistakeSound();
         }
 
@@ -411,7 +411,7 @@ export const useGameStore = defineStore({
     },
 
     handleTargetClick(payload: clickTargetPayload) {
-      const mainStore = useMainStore();
+      const settingsStore = useSettingsStore();
 
       if (
         (payload.target.borderColor !== "transparent" &&
@@ -433,13 +433,13 @@ export const useGameStore = defineStore({
           this.createTargets();
         }
 
-        if (mainStore.isMusicPlayable) {
+        if (settingsStore.isMusicPlayable) {
           playPopSound();
         }
       } else {
         this.lose = true;
 
-        if (mainStore.isMusicPlayable) {
+        if (settingsStore.isMusicPlayable) {
           playMistakeSound();
         }
       }

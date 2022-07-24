@@ -175,7 +175,7 @@ const submit = async () => {
     padding: 30px 40px 20px 40px;
 
     background-color: #fbfaf7;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {
@@ -268,7 +268,7 @@ const submit = async () => {
 
       background-color: #333333;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       outline: none;
 
       cursor: pointer;

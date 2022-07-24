@@ -5,15 +5,15 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from "@/stores/main";
 import { useGameStore } from "@/stores/game";
 import { computed } from "vue";
+import { useSettingsStore } from "@/stores/settings";
 
-const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 
 const time = computed(() =>
-  mainStore.complexity !== 1 ? gameStore.time : "∞"
+  settingsStore.complexity !== 1 ? gameStore.time : "∞"
 );
 </script>
 

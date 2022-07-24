@@ -360,7 +360,7 @@
     scrollbar-color: #333333 #ffffff;
 
     &::-webkit-scrollbar {
-      width: 12px;
+      width: 4px;
     }
 
     &::-webkit-scrollbar-track {

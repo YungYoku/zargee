@@ -2,27 +2,25 @@
   <div class="lvl">
     <h3>Уровень: {{ gameStore.lvl }}</h3>
 
-    <button class="sound" @click="swapSound">
-      <img
-        v-if="mainStore.isMusicPlayable"
-        alt="Sound"
-        src="@/assets/icons/sound.svg"
-      />
+    <button class="sound" type="button" @click="swapSound">
+      <img v-if="settingsStore.isMusicPlayable" :src="soundIcon" alt="Sound" />
 
-      <img v-else alt="No sound" src="@/assets/icons/no-sound.svg" />
+      <img v-else :src="noSoundIcon" alt="No sound" />
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game";
-import { useMainStore } from "@/stores/main";
+import { useSettingsStore } from "@/stores/settings";
+import soundIcon from "@/assets/icons/sound.svg";
+import noSoundIcon from "@/assets/icons/no-sound.svg";
 
-const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 
 const swapSound = () => {
-  mainStore.swapSound();
+  settingsStore.swapSound();
 };
 </script>
 

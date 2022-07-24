@@ -59,8 +59,10 @@ import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
 import { useLoadingStore } from "@/stores/loading";
+import { useSettingsStore } from "@/stores/settings";
 
 const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
@@ -139,7 +141,7 @@ const setIntervals = () => {
 
   setStartTimerInterval();
 
-  if (mainStore.complexity !== 1) {
+  if (settingsStore.complexity !== 1) {
     timeInterval = setInterval(() => {
       if (gameStore.time > 0 && startTimer.value === 0 && !gameStore.lose) {
         gameStore.decreaseTime();
@@ -175,7 +177,7 @@ onMounted(() => {
   } else {
     loadingStore.hide();
 
-    gameStore.setComplexity(mainStore.complexity);
+    gameStore.setComplexity(settingsStore.complexity);
     setIntervals();
   }
 });

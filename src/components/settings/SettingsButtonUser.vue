@@ -8,6 +8,7 @@
       minHeight: size,
     }"
     class="infoButton"
+    type="button"
     @click.prevent="open($event)"
   >
     <img id="infoButtonImg" alt="Heart" src="@/assets/icons/account.svg" />

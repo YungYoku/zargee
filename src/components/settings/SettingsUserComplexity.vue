@@ -1,7 +1,7 @@
 <template>
   <div class="complexity">
     <input
-      v-model.number="mainStore.complexity"
+      v-model.number="settingsStore.complexity"
       max="4"
       min="1"
       step="1"
@@ -12,7 +12,7 @@
       <img
         v-for="complexity in 4"
         :key="complexity"
-        :src="mainStore.complexity >= complexity ? fireOn : fireOff"
+        :src="settingsStore.complexity >= complexity ? fireOn : fireOff"
         alt="Fire"
         @click="changeComplexity(complexity)"
       />
@@ -21,14 +21,14 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from "@/stores/main";
 import fireOn from "@/assets/icons/fireOn.svg";
 import fireOff from "@/assets/icons/fireOff.svg";
+import { useSettingsStore } from "@/stores/settings";
 
-const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 
 const changeComplexity = (complexity: number) => {
-  mainStore.setComplexity(complexity);
+  settingsStore.setComplexity(complexity);
 };
 </script>
 

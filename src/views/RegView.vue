@@ -19,6 +19,7 @@
           v-model.trim="form.email"
           :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          required
           type="email"
         />
       </label>
@@ -29,6 +30,7 @@
           v-model.trim="form.name"
           :placeholder="languagesStore.language.registration.name"
           class="inputLine"
+          required
           type="text"
         />
       </label>
@@ -40,6 +42,7 @@
           v-model.trim="form.password"
           :placeholder="languagesStore.language.registration.password"
           class="inputLine"
+          required
           type="password"
           @keyup="changePower"
         />
@@ -68,10 +71,17 @@
           v-model.trim="form.passwordRep"
           :placeholder="languagesStore.language.registration.passwordRepeat"
           class="inputLine"
+          required
           type="password"
           @keyup="changePower"
         />
       </label>
+
+      <div class="passPower">
+        <span ref="lineI" class="powerLines"></span>
+        <span ref="lineII" class="powerLines"></span>
+        <span ref="lineIII" class="powerLines"></span>
+      </div>
 
       <label class="refCode" for="refInput">
         <input
@@ -82,12 +92,6 @@
           type="text"
         />
       </label>
-
-      <div class="passPower">
-        <span ref="lineI" class="powerLines"></span>
-        <span ref="lineII" class="powerLines"></span>
-        <span ref="lineIII" class="powerLines"></span>
-      </div>
 
       <label class="rules">
         <input v-model="form.rules" type="checkbox" />
@@ -289,7 +293,6 @@ const handleResponse = async (response: AuthResponse) => {
   await setDoc(doc(db, "users", uid), {
     adWatchTime: 0,
     codes: [],
-    complexity: 1,
     gold: bonus ? 1 : 0,
     hearts: bonus ? 10 : 1,
     lvl: 0,
@@ -380,7 +383,7 @@ const submit = async () => {
     overflow: hidden;
 
     background-color: #fbfaf7;
-    border-radius: 15px;
+    border-radius: 10px;
 
     @media screen and (max-width: 480px) {
       width: 90%;
@@ -451,7 +454,7 @@ const submit = async () => {
     .passPower {
       display: grid;
 
-      grid-gap: 5%;
+      grid-gap: 10px;
       grid-template: 100% / 1fr 1fr 1fr;
     }
 
@@ -506,7 +509,7 @@ const submit = async () => {
 
       background-color: #333333;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       outline: none;
 
       cursor: pointer;

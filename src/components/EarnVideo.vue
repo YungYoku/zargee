@@ -1,10 +1,10 @@
 <template>
-  <div class="earn">
+  <div class="earn-video">
     <h3>Реклама</h3>
 
-    <div v-if="timer" class="earnTimer">{{ timer }}</div>
+    <div v-if="timer" class="earn-video__timer">{{ timer }}</div>
 
-    <button v-else class="earnClose" @click="hideAd">
+    <button v-else class="earn-video__close" type="button" @click="hideAd">
       <img alt="Закрыть" src="@/assets/icons/close.svg" />
     </button>
   </div>
@@ -27,7 +27,7 @@ const hideAd = () => {
 </script>
 
 <style lang="scss" scoped>
-.earn {
+.earn-video {
   position: fixed;
   top: 0;
   left: 0;
@@ -45,8 +45,8 @@ const hideAd = () => {
     font-size: 20px;
   }
 
-  .earnTimer,
-  .earnClose {
+  &__timer,
+  &__close {
     position: fixed;
     top: 30px;
     right: 40px;

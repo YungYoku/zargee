@@ -75,7 +75,7 @@ const complexity = ["без времени", "легкий", "средний", "
   }
 
   > div::-webkit-scrollbar {
-    width: 12px;
+    width: 4px;
   }
 
   > div::-webkit-scrollbar-track {
