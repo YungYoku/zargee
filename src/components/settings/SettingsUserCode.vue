@@ -42,22 +42,22 @@ const sendCode = async () => {
       const docRef = doc(db, "codes", code.value);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        if (docSnap.data().hearts && !docSnap.data().gold) {
-          tipStore.update(`Получено ${docSnap.data().hearts} сердец`);
-        }
-        if (!docSnap.data().hearts && docSnap.data().gold) {
-          tipStore.update(`Получено ${docSnap.data().gold} золотых сердец`);
-        }
-        if (docSnap.data().hearts && docSnap.data().gold) {
-          tipStore.update(`Получено ${docSnap.data().hearts} сердец`);
+        const data = docSnap.data();
+
+        if (data.hearts && !data.gold) {
+          tipStore.update(`Получено ${data.hearts} сердец`);
+        } else if (!data.hearts && data.gold) {
+          tipStore.update(`Получено ${data.gold} золотых сердец`);
+        } else if (data.hearts && data.gold) {
+          tipStore.update(`Получено ${data.hearts} сердец`);
           setTimeout(() => {
-            tipStore.update(`Получено ${docSnap.data().gold} золотых сердец`);
+            tipStore.update(`Получено ${data.gold} золотых сердец`);
           }, 2100);
         }
 
         await updateDoc(doc(db, "users", mainStore.uid), {
-          gold: mainStore.user.gold + docSnap.data().gold,
-          hearts: mainStore.user.hearts + docSnap.data().hearts,
+          gold: mainStore.user.gold + data.gold,
+          hearts: mainStore.user.hearts + data.hearts,
           codes: _codes,
         });
       } else {

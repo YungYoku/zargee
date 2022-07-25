@@ -5,40 +5,19 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, watch } from "vue";
-import GameTip from "@/components/GameTip.vue";
+import { computed, onMounted, onUnmounted, watch } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
-import { useLanguagesStore } from "@/stores/languages";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
+import GameTip from "@/components/GameTip.vue";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
 const soundsStore = useSoundsStore();
-const languagesStore = useLanguagesStore();
 const router = useRouter();
 
-const visibility = computed(() => document.visibilityState);
-if (!visibility.value) {
-  settingsStore.offSound();
-}
-
-if (localStorage.language) {
-  languagesStore.swapLanguage(localStorage.language);
-} else {
-  languagesStore.swapLanguage("ru");
-}
-
-onMounted(() => {
-  mainStore.loadUIDFromLocalStorage();
-
-  settingsStore.updateSettings();
-
-  mainStore.loadInfo();
-});
-
-document.addEventListener("visibilitychange", () => {
+const changeVolumeOnPageView = () => {
   if (settingsStore.isMusicChangeable) {
     if (document.visibilityState === "visible") {
       settingsStore.onSound();
@@ -46,6 +25,20 @@ document.addEventListener("visibilitychange", () => {
       settingsStore.offSound();
     }
   }
+};
+
+onMounted(() => {
+  mainStore.loadUIDFromLocalStorage();
+
+  settingsStore.updateSettings();
+
+  mainStore.loadInfo();
+
+  document.addEventListener("visibilitychange", changeVolumeOnPageView);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("visibilitychange", changeVolumeOnPageView);
 });
 
 const audioPlaying = computed(() => {

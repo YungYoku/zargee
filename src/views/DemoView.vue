@@ -48,7 +48,6 @@ import { useGameStore } from "@/stores/game";
 import { useRouter } from "vue-router";
 import { useMainStore } from "@/stores/main";
 import { useLoadingStore } from "@/stores/loading";
-import "../additional/blink.css";
 import GameWinMenu from "@/components/game/GameWinMenu.vue";
 import GameTask from "@/components/game/GameTask.vue";
 import GameLevel from "@/components/game/GameLevel.vue";

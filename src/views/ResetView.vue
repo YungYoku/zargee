@@ -1,9 +1,7 @@
 <template>
   <div class="authWrap">
     <form class="reset" @submit.prevent="submitHandle">
-      <h2 class="title">
-        {{ languagesStore.language.reset.title }}
-      </h2>
+      <h2 class="title">Восстановление</h2>
 
       <label
         v-if="form.mode === 'default' && !isMailSend"
@@ -13,8 +11,8 @@
         <input
           id="emailInput"
           v-model.trim="form.email"
-          :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          placeholder="Почта"
           required
           type="email"
         />
@@ -29,8 +27,8 @@
           id="passwordInput"
           ref="passDom"
           v-model.trim="form.password"
-          :placeholder="languagesStore.language.reset.password"
           class="inputLine"
+          placeholder="Новый пароль"
           required
           type="password"
           @keyup="changePower"
@@ -60,8 +58,8 @@
           id="passwordRepeatInput"
           ref="passRepDom"
           v-model.trim="form.passwordRep"
-          :placeholder="languagesStore.language.reset.passwordRepeat"
           class="inputLine"
+          placeholder="Повторите пароль"
           required
           type="password"
           @keyup="changePower"
@@ -75,25 +73,15 @@
       </div>
 
       <button :class="{ mailSend: isMailSend }" class="btnSubmit" type="submit">
-        {{
-          isMailSend
-            ? languagesStore.language.reset.buttonSend
-            : languagesStore.language.reset.button
-        }}
+        {{ isMailSend ? "Письмо отправлено" : "Восстановить" }}
       </button>
 
-      <animated-link
-        :text="languagesStore.language.reset.toLogin"
-        class="swapMode"
-        link="login"
-      />
+      <animated-link class="swapMode" link="login" text="ЛОГИН" />
     </form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from "@/stores/main";
-import { useLanguagesStore } from "@/stores/languages";
 import { reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
@@ -113,8 +101,6 @@ interface Reset {
   isValid: () => boolean;
 }
 
-const mainStore = useMainStore();
-const languagesStore = useLanguagesStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 

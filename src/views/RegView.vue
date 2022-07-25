@@ -2,23 +2,15 @@
   <div class="authWrap">
     <game-loading v-if="loadingStore.loading" />
 
-    <form
-      :style="{
-        boxShadow: '0 14px 20px 6px ' + theme.shadow,
-      }"
-      class="registration"
-      @submit.prevent="submit"
-    >
-      <h2 class="title">
-        {{ languagesStore.language.registration.title }}
-      </h2>
+    <form class="registration" @submit.prevent="submit">
+      <h2 class="title">Регистрация</h2>
 
       <label class="email" for="emailInput">
         <input
           id="emailInput"
           v-model.trim="form.email"
-          :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          placeholder="Почта"
           required
           type="email"
         />
@@ -28,8 +20,8 @@
         <input
           id="nameInput"
           v-model.trim="form.name"
-          :placeholder="languagesStore.language.registration.name"
           class="inputLine"
+          placeholder="Имя"
           required
           type="text"
         />
@@ -40,8 +32,8 @@
           id="passwordInput"
           ref="passDom"
           v-model.trim="form.password"
-          :placeholder="languagesStore.language.registration.password"
           class="inputLine"
+          placeholder="Пароль"
           required
           type="password"
           @keyup="changePower"
@@ -69,8 +61,8 @@
           id="passwordRepeatInput"
           ref="passRepDom"
           v-model.trim="form.passwordRep"
-          :placeholder="languagesStore.language.registration.passwordRepeat"
           class="inputLine"
+          placeholder="Повторите пароль"
           required
           type="password"
           @keyup="changePower"
@@ -96,9 +88,7 @@
       <label class="rules">
         <input v-model="form.rules" type="checkbox" />
 
-        <span>
-          {{ languagesStore.language.registration.rulesCheck }}
-        </span>
+        <span> Я согласен с правилами. </span>
 
         <button class="politicsBtn" @click="showPolitics">
           <img alt="Политика" src="@/assets/icons/file.svg" />
@@ -107,15 +97,9 @@
         <game-politics v-if="politicsShow" @close="hidePolitics" />
       </label>
 
-      <button class="btnSubmit" type="submit">
-        {{ languagesStore.language.registration.button }}
-      </button>
+      <button class="btnSubmit" type="submit">Отправить</button>
 
-      <animated-link
-        :link="'/login'"
-        :text="languagesStore.language.registration.swapMode"
-        class="swapMode"
-      />
+      <animated-link :link="'/login'" class="swapMode" text="ЛОГИН" />
     </form>
 
     <animated-link :link="'/demo'" :text="'ДЕМО ВЕРСИЯ'" />
@@ -124,21 +108,19 @@
 
 <script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
-import { useLanguagesStore } from "@/stores/languages";
+import { useSettingsStore } from "@/stores/settings";
+import { useLoadingStore } from "@/stores/loading";
+import { useTipStore } from "@/stores/tip";
 import { onMounted, reactive, ref } from "vue";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useRouter } from "vue-router";
-import { theme } from "@/api/theme";
-import { useTipStore } from "@/stores/tip";
-import { useLoadingStore } from "@/stores/loading";
 import GameLoading from "@/components/GameLoading.vue";
-import AnimatedLink from "@/components/AnimatedLink.vue";
-import GamePolitics from "@/components/GamePolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
-import { useSettingsStore } from "@/stores/settings";
+import AnimatedLink from "@/components/AnimatedLink.vue";
+import GamePolitics from "@/components/GamePolitics.vue";
 
 interface Registration {
   mode: string;
@@ -153,7 +135,6 @@ interface Registration {
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
-const languagesStore = useLanguagesStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
@@ -388,6 +369,7 @@ const submit = async () => {
 
     background-color: #fbfaf7;
     border-radius: 10px;
+    box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {
       width: 90%;

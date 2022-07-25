@@ -92,5 +92,17 @@ watch(props, () => blink());
 
 .animate {
   animation: blink 8s;
+
+  @keyframes blink {
+    0% {
+      opacity: 0.8;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0.8;
+    }
+  }
 }
 </style>

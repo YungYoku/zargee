@@ -3,16 +3,14 @@
     <game-loading v-if="loadingStore.loading" />
 
     <form class="login" @submit.prevent="submit">
-      <h2 class="login__item title">
-        {{ languagesStore.language.login.title }}
-      </h2>
+      <h2 class="login__item title">Логин</h2>
 
       <label class="login__item email" for="emailInput">
         <input
           id="emailInput"
           v-model.trim="form.email"
-          :placeholder="languagesStore.language.registration.email"
           class="inputLine"
+          placeholder="Почта"
           required
           type="email"
         />
@@ -23,8 +21,8 @@
           id="passwordInput"
           ref="passDom"
           v-model.trim="form.password"
-          :placeholder="languagesStore.language.registration.password"
           class="inputLine"
+          placeholder="Пароль"
           required
           type="password"
         />
@@ -48,14 +46,12 @@
         <router-link to="/reset">Забыли пароль?</router-link>
       </div>
 
-      <button class="login__item btnSubmit" type="submit">
-        {{ languagesStore.language.login.button }}
-      </button>
+      <button class="login__item btnSubmit" type="submit">Войти</button>
 
       <animated-link
         :link="'/reg'"
-        :text="languagesStore.language.login.swapMode"
         class="login__item swapMode"
+        text="РЕГИСТРАЦИЯ"
       />
     </form>
 
@@ -65,17 +61,16 @@
 
 <script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
-import { useLanguagesStore } from "@/stores/languages";
+import { useSettingsStore } from "@/stores/settings";
+import { useLoadingStore } from "@/stores/loading";
+import { useTipStore } from "@/stores/tip";
 import { reactive, ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
-import AnimatedLink from "@/components/AnimatedLink.vue";
-import { useLoadingStore } from "@/stores/loading";
-import { useTipStore } from "@/stores/tip";
-import GameLoading from "@/components/GameLoading.vue";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import type { AuthError } from "@/interfaces/authError";
-import { useSettingsStore } from "@/stores/settings";
+import AnimatedLink from "@/components/AnimatedLink.vue";
+import GameLoading from "@/components/GameLoading.vue";
 
 interface Login {
   email: string;
@@ -85,7 +80,6 @@ interface Login {
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
-const languagesStore = useLanguagesStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
