@@ -10,7 +10,7 @@
       <auth-options
         v-else
         @email="setLoginType('email')"
-        @google="setLoginType('google')"
+        @google="loginGoogle"
       />
 
       <animated-link :link="'/reg'" class="swapMode" text="РЕГИСТРАЦИЯ" />
@@ -22,18 +22,57 @@
 
 <script lang="ts" setup>
 import { useLoadingStore } from "@/stores/loading";
+import { ref } from "vue";
 import AnimatedLink from "@/components/AnimatedLink.vue";
 import GameLoading from "@/components/AppLoading.vue";
-import { ref } from "vue";
 import AuthOptions from "@/components/auth/AuthOptions.vue";
 import LoginEmail from "@/components/login/LoginEmail.vue";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useMainStore } from "@/stores/main";
+import { useSettingsStore } from "@/stores/settings";
+import { useRouter } from "vue-router";
+import type { AuthResponse } from "@/interfaces/authResponse";
 
+const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
+const router = useRouter();
 
 const loginType = ref("not specified");
 
 const setLoginType = (type: "email" | "google") => {
   loginType.value = type;
+};
+
+const handleResponse = async (response: AuthResponse) => {
+  mainStore.login(response.user.uid);
+  settingsStore.updateSettings();
+  settingsStore.swapSound();
+  await mainStore.loadInfo();
+  await router.push("/");
+
+  loadingStore.hide();
+};
+
+const loginGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth();
+
+  signInWithPopup(auth, provider)
+    .then((response) => {
+      //const credential = GoogleAuthProvider.credentialFromResult(result);
+      //const token = credential.accessToken;
+
+      handleResponse(response);
+    })
+    .catch((error) => {
+      // const errorCode = error.code;
+      // const errorMessage = error.message;
+      //
+      // const email = error.customData.email;
+      //
+      // const credential = GoogleAuthProvider.credentialFromError(error);
+    });
 };
 </script>
 
