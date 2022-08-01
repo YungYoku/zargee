@@ -171,7 +171,7 @@ const logout = () => {
 
     width: 30%;
     min-width: 300px;
-    max-width: 360px;
+    max-width: 320px;
     padding: 10px;
     overflow: hidden;
 
@@ -181,16 +181,15 @@ const logout = () => {
     a,
     button {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
 
       width: 100%;
       height: 100%;
       padding: 20px;
 
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 500;
-      text-align: center;
       color: #333333;
 
       background-color: transparent;
