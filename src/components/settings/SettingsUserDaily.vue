@@ -3,7 +3,7 @@
     <button @click="swapCalendar">Получить жизнь</button>
 
     <div class="heartsWrap">
-      <img v-if="imageShowing" alt="Approve" src="@/assets/icons/approve.svg" />
+      <img v-if="imageShowing" alt="Approve" src="@/assets/img/approve.svg" />
 
       <h4 v-if="rewardShowing">+{{ mainStore.user.rewardDay }}</h4>
     </div>
@@ -11,11 +11,7 @@
 
   <div v-if="calendar" class="calendar">
     <button class="calendar__leave" @click="swapCalendar">
-      <img
-        alt="Back"
-        class="calendar__leave-img"
-        src="@/assets/icons/back.svg"
-      />
+      <img alt="Back" class="calendar__leave-img" src="@/assets/img/back.svg" />
     </button>
 
     <span class="leftTime">{{ formattedTime }}</span>

@@ -11,7 +11,7 @@
     type="button"
     @click.prevent="open($event)"
   >
-    <img id="infoButtonImg" alt="Heart" src="@/assets/icons/account.svg" />
+    <img id="infoButtonImg" alt="Heart" src="@/assets/img/account.svg" />
   </button>
 </template>
 

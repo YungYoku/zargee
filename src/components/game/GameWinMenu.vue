@@ -5,7 +5,7 @@
 
       <router-link to="/" @click="clearIntervals">
         Меню
-        <img alt="Menu" src="@/assets/icons/menu.svg" />
+        <img alt="Menu" src="@/assets/img/menu.svg" />
       </router-link>
 
       <the-share />

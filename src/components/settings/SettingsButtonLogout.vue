@@ -10,7 +10,7 @@
     type="button"
     @click.prevent="logout"
   >
-    <img alt="Logout" class="logoutButtonImg" src="@/assets/icons/logout.svg" />
+    <img alt="Logout" class="logoutButtonImg" src="@/assets/img/logout.svg" />
   </button>
 </template>
 

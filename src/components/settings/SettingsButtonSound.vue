@@ -17,8 +17,8 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { useSettingsStore } from "@/stores/settings";
-import sound from "@/assets/icons/sound.svg";
-import noSound from "@/assets/icons/no-sound.svg";
+import sound from "@/assets/img/sound.svg";
+import noSound from "@/assets/img/no-sound.svg";
 
 defineProps({
   size: {

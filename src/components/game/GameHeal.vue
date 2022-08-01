@@ -3,7 +3,7 @@
     <game-loading v-if="loadingStore.loading" />
 
     <button class="leaveHeal" @click="close">
-      <img alt="Back" src="@/assets/icons/back.svg" />
+      <img alt="Back" src="@/assets/img/back.svg" />
     </button>
 
     <span>{{ timeKick }}</span>
@@ -17,7 +17,7 @@
     <div class="heal__option" @click="reborn.heart">
       <button>
         {{ heartPrice }}
-        <img alt="Heart" src="@/assets/icons/heart.svg" />
+        <img alt="Heart" src="@/assets/img/heart.svg" />
       </button>
 
       <span>Доступно: {{ mainStore.user.hearts }}</span>
@@ -38,7 +38,7 @@ import { useMainStore } from "@/stores/main";
 import { computed } from "vue";
 import { useTipStore } from "@/stores/tip";
 import { useLoadingStore } from "@/stores/loading";
-import GameLoading from "@/components/GameLoading.vue";
+import GameLoading from "@/components/AppLoading.vue";
 
 const props = defineProps({
   timeKick: {

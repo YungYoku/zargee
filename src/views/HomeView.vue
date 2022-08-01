@@ -8,7 +8,7 @@
       class="home__link"
       to="/game"
     >
-      <img alt="Play" class="home__link-img" src="@/assets/icons/play.svg" />
+      <img alt="Play" class="home__link-img" src="@/assets/img/play.svg" />
     </router-link>
 
     <router-link
@@ -22,7 +22,7 @@
       <img
         alt="Settings"
         class="home__link-img"
-        src="@/assets/icons/settings.svg"
+        src="@/assets/img/settings.svg"
       />
     </router-link>
   </div>

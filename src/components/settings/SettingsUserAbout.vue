@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <button class="about__leave-btn" type="button" @click="$emit('close')">
-      <img alt="Back" src="../../assets/icons/back.svg" />
+      <img alt="Back" src="../../assets/img/back.svg" />
     </button>
 
     <div class="about__content">
@@ -45,8 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-import fireOn from "@/assets/icons/fireOn.svg";
-import fireOff from "@/assets/icons/fireOff.svg";
+import fireOn from "@/assets/img/fireOn.svg";
+import fireOff from "@/assets/img/fireOff.svg";
 
 const complexity = ["без времени", "легкий", "средний", "сложный"];
 </script>

@@ -43,7 +43,7 @@
           v-if="passIcon === 'passVisible'"
           alt="view"
           class="pass__image"
-          src="@/assets/icons/passVisible.svg"
+          src="@/assets/img/passVisible.svg"
           @click="showPass"
         />
 
@@ -51,7 +51,7 @@
           v-if="passIcon === 'passInvisible'"
           alt="view"
           class="pass__image"
-          src="@/assets/icons/passInvisible.svg"
+          src="@/assets/img/passInvisible.svg"
           @click="showPass"
         />
       </label>
@@ -91,7 +91,7 @@
         <span> Я согласен с правилами. </span>
 
         <button class="politicsBtn" @click="showPolitics">
-          <img alt="Политика" src="@/assets/icons/file.svg" />
+          <img alt="Политика" src="@/assets/img/file.svg" />
         </button>
 
         <game-politics v-if="politicsShow" @close="hidePolitics" />
@@ -116,11 +116,11 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useRouter } from "vue-router";
-import GameLoading from "@/components/GameLoading.vue";
+import GameLoading from "@/components/AppLoading.vue";
+import AnimatedLink from "@/components/AnimatedLink.vue";
+import GamePolitics from "@/components/AppPolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
-import AnimatedLink from "@/components/AnimatedLink.vue";
-import GamePolitics from "@/components/GamePolitics.vue";
 
 interface Registration {
   mode: string;

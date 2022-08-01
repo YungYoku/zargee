@@ -3,7 +3,7 @@
     <div class="end__content">
       <button @click="restart('', 1)">
         Повторить
-        <img alt="Restart" src="@/assets/icons/restart.svg" />
+        <img alt="Restart" src="@/assets/img/restart.svg" />
       </button>
 
       <button class="reborn" @click="swapHeal">
@@ -19,7 +19,7 @@
 
       <router-link v-if="!mainStore.demo" to="/" @click="clearIntervals">
         Меню
-        <img alt="Menu" src="@/assets/icons/menu.svg" />
+        <img alt="Menu" src="@/assets/img/menu.svg" />
       </router-link>
 
       <game-heal

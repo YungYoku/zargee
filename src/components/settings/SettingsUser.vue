@@ -8,7 +8,7 @@
 
         <div class="name__info">
           <div @click="showPolitics">
-            <img alt="Политика" src="@/assets/icons/file.svg" />
+            <img alt="Политика" src="@/assets/img/file.svg" />
           </div>
 
           <h5 @click="showAbout">i</h5>
@@ -43,7 +43,7 @@ import SettingsUserEarn from "@/components/settings/SettingsUserEarn.vue";
 import SettingsUserRefCode from "@/components/settings/SettingsUserRefCode.vue";
 import SettingsUserDaily from "@/components/settings/SettingsUserDaily.vue";
 import SettingsUserAbout from "@/components/settings/SettingsUserAbout.vue";
-import GamePolitics from "@/components/GamePolitics.vue";
+import GamePolitics from "@/components/AppPolitics.vue";
 import SettingsUserComplexity from "@/components/settings/SettingsUserComplexity.vue";
 import { ref } from "vue";
 

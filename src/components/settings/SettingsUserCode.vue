@@ -11,7 +11,7 @@
     </label>
 
     <button class="approveWrap" type="submit">
-      <img alt="Approve" src="@/assets/icons/approve.svg" />
+      <img alt="Approve" src="@/assets/img/approve.svg" />
     </button>
   </form>
 </template>

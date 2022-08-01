@@ -5,6 +5,8 @@ import "./assets/main.scss";
 import App from "./App.vue";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
+
 import router from "./router";
 
 const app = createApp(App);
@@ -21,7 +23,8 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
 };
 
-initializeApp(firebaseConfig);
+const fbApp = initializeApp(firebaseConfig);
 export const db = getFirestore();
+getAnalytics(fbApp);
 
 app.mount("#app");

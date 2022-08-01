@@ -10,7 +10,7 @@ import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
-import GameTip from "@/components/GameTip.vue";
+import GameTip from "@/components/AppTip.vue";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();

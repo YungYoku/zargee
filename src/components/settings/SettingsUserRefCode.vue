@@ -3,7 +3,7 @@
     <h4>Реф. код: {{ mainStore.user.ref }}</h4>
 
     <button>
-      <img alt="Copy" src="@/assets/icons/copy.svg" />
+      <img alt="Copy" src="@/assets/img/copy.svg" />
     </button>
   </div>
 </template>

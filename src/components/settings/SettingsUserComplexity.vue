@@ -21,8 +21,8 @@
 </template>
 
 <script lang="ts" setup>
-import fireOn from "@/assets/icons/fireOn.svg";
-import fireOff from "@/assets/icons/fireOff.svg";
+import fireOn from "@/assets/img/fireOn.svg";
+import fireOff from "@/assets/img/fireOff.svg";
 import { useSettingsStore } from "@/stores/settings";
 
 const settingsStore = useSettingsStore();

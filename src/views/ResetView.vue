@@ -37,14 +37,14 @@
         <img
           v-if="passIcon === 'passVisible'"
           alt="view"
-          src="@/assets/icons/passVisible.svg"
+          src="@/assets/img/passVisible.svg"
           @click="showPass"
         />
 
         <img
           v-if="passIcon === 'passInvisible'"
           alt="view"
-          src="@/assets/icons/passInvisible.svg"
+          src="@/assets/img/passInvisible.svg"
           @click="showPass"
         />
       </label>

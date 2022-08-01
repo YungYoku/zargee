@@ -13,8 +13,8 @@
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game";
 import { useSettingsStore } from "@/stores/settings";
-import soundIcon from "@/assets/icons/sound.svg";
-import noSoundIcon from "@/assets/icons/no-sound.svg";
+import soundIcon from "@/assets/img/sound.svg";
+import noSoundIcon from "@/assets/img/no-sound.svg";
 
 const settingsStore = useSettingsStore();
 const gameStore = useGameStore();

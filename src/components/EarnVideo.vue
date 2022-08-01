@@ -5,7 +5,7 @@
     <div v-if="timer" class="earn-video__timer">{{ timer }}</div>
 
     <button v-else class="earn-video__close" type="button" @click="hideAd">
-      <img alt="Закрыть" src="@/assets/icons/close.svg" />
+      <img alt="Закрыть" src="@/assets/img/close.svg" />
     </button>
   </div>
 </template>

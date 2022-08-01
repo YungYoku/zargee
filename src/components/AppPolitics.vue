@@ -1,7 +1,7 @@
 <template>
   <div class="politics">
     <button class="politics__leave-btn" type="button" @click="$emit('close')">
-      <img alt="Back" src="@/assets/icons/back.svg" />
+      <img alt="Back" src="@/assets/img/back.svg" />
     </button>
 
     <div>
@@ -318,8 +318,6 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .politics {

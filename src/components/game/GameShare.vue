@@ -1,7 +1,7 @@
 <template>
   <button @click="share">
     Поделиться
-    <img alt="Share" src="@/assets/icons/share.svg" />
+    <img alt="Share" src="@/assets/img/share.svg" />
   </button>
 </template>
 

@@ -1,11 +1,9 @@
 <template>
-  <div
-    :style="{
-      opacity: tipStore.tip !== '' ? 1 : 0,
-    }"
-  >
-    <h3 v-show="tipStore.tip !== ''">{{ tipStore.tip }}</h3>
-  </div>
+  <Transition>
+    <div v-if="tipStore.tip" class="tip">
+      <h3 class="tip__text">{{ tipStore.tip }}</h3>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
@@ -15,7 +13,17 @@ const tipStore = useTipStore();
 </script>
 
 <style lang="scss" scoped>
-div {
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.tip {
   position: absolute;
   bottom: 30px;
   z-index: 6;
@@ -28,7 +36,7 @@ div {
 
   transition: all 0.3s;
 
-  h3 {
+  &__text {
     padding: 10px;
 
     font-size: 20px;

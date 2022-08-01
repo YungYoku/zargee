@@ -3,7 +3,7 @@
     <game-loading v-if="loadingStore.loading" />
 
     <router-link class="back" to="/">
-      <img alt="Back" src="@/assets/icons/back.svg" />
+      <img alt="Back" src="@/assets/img/back.svg" />
     </router-link>
 
     <settings-button-user :size="buttonSize" @open="showInfo" />
@@ -26,7 +26,7 @@ import { useRoute } from "vue-router";
 import SettingsButtonSound from "@/components/settings/SettingsButtonSound.vue";
 import SettingsButtonUser from "@/components/settings/SettingsButtonUser.vue";
 import SettingsButtonLogout from "@/components/settings/SettingsButtonLogout.vue";
-import GameLoading from "@/components/GameLoading.vue";
+import GameLoading from "@/components/AppLoading.vue";
 import SettingsUser from "@/components/settings/SettingsUser.vue";
 
 const mainStore = useMainStore();
