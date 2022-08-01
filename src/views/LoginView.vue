@@ -5,7 +5,10 @@
     <div class="login__form-wrap">
       <h2 class="title">Логин</h2>
 
-      <login-email v-if="loginType === 'email'" />
+      <login-email
+        @close="setLoginType('not specified')"
+        v-if="loginType === 'email'"
+      />
 
       <auth-options
         v-else
@@ -40,7 +43,7 @@ const router = useRouter();
 
 const loginType = ref("not specified");
 
-const setLoginType = (type: "email" | "google") => {
+const setLoginType = (type: "email" | "google" | "not specified") => {
   loginType.value = type;
 };
 
@@ -100,7 +103,7 @@ const loginGoogle = () => {
     padding: 30px 40px 20px 40px;
 
     background-color: #fbfaf7;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
     gap: 20px;

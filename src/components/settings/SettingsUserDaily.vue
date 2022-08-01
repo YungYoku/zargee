@@ -10,10 +10,6 @@
   </div>
 
   <div v-if="calendar" class="calendar">
-    <button class="calendar__leave" @click="swapCalendar">
-      <img alt="Back" class="calendar__leave-img" src="@/assets/img/back.svg" />
-    </button>
-
     <span class="leftTime">{{ formattedTime }}</span>
 
     <div v-for="day in week" :key="day" class="calendar__day">
@@ -31,6 +27,8 @@
       </button>
     </div>
 
+    <button-close @close="swapCalendar" />
+
     <ad-video v-if="adShowing" :timer="timer" class="earn" @hideAd="hideAd" />
   </div>
 </template>
@@ -42,6 +40,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
 import AdVideo from "@/components/EarnVideo.vue";
+import ButtonClose from "@/components/ButtonClose.vue";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -267,33 +266,12 @@ const hideAd = () => {
 
   width: 100%;
   height: 100%;
-  padding: 44px 10px 10px 10px;
+  padding: 10px;
 
   background-color: #f5eee9;
 
   gap: 10px;
   justify-items: center;
-
-  &__leave {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-
-    width: 36px;
-    height: 36px;
-    padding: 7px;
-
-    background-color: transparent;
-    border: 2px solid #333333;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    &-img {
-      width: 16px;
-      height: 16px;
-    }
-  }
 
   &__day {
     position: relative;

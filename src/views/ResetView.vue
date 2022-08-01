@@ -259,7 +259,7 @@ const resetPassword = async () => {
     gap: 18px;
 
     background-color: #fbfaf7;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
     @media screen and (max-width: 480px) {

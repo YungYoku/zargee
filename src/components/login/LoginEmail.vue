@@ -1,5 +1,7 @@
 <template>
   <form class="login-email" @submit.prevent="submit">
+    <button-close @close="close" />
+
     <label class="email" for="emailInput">
       <input
         id="emailInput"
@@ -55,6 +57,7 @@ import { reactive, ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import type { AuthError } from "@/interfaces/authError";
+import ButtonClose from "@/components/ButtonClose.vue";
 
 interface Login {
   email: string;
@@ -67,6 +70,8 @@ const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
+
+const emit = defineEmits(["close"]);
 
 const emailReg = new RegExp(
   /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
@@ -134,16 +139,23 @@ const submit = async () => {
     loadingStore.hide();
   }
 };
+
+const close = () => {
+  emit("close");
+};
 </script>
 
 <style lang="scss" scoped>
 .login-email {
+  position: relative;
+
   display: flex;
   flex-direction: column;
-  gap: 18px;
 
   width: 100%;
   height: 100%;
+  margin-right: auto;
+  gap: 18px;
 
   .pass {
     position: relative;
