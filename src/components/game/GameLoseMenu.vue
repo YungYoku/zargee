@@ -189,11 +189,11 @@ const logout = () => {
       padding: 20px;
 
       font-size: 22px;
-      font-weight: 500;
+      font-weight: 400;
       color: #333333;
 
       background-color: transparent;
-      border: 3px solid #333333;
+      border: 1px solid #333333;
       border-radius: 5px;
 
       cursor: pointer;
@@ -223,9 +223,9 @@ const logout = () => {
       padding: 5px;
 
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 400;
 
-      border: 2px solid #333333;
+      border: 1px solid #333333;
       border-radius: 50%;
     }
   }

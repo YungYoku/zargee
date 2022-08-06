@@ -468,7 +468,7 @@ const submit = async () => {
         height: 14px;
         margin: 0 5px 0 0;
 
-        border: 2px solid #333333;
+        border: 1px solid #333333;
         border-radius: 2px;
 
         cursor: pointer;
@@ -525,7 +525,7 @@ const submit = async () => {
     h5 {
       position: relative;
 
-      font-weight: 600;
+      font-weight: 700;
       color: gray;
 
       cursor: pointer;
@@ -563,7 +563,7 @@ const submit = async () => {
 
     color: #333333;
 
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
 
     cursor: pointer;

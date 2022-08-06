@@ -35,7 +35,7 @@ button {
   padding: 20px;
 
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 400;
   text-align: center;
   color: #333333;
 

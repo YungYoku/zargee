@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute } from "vue-router";
@@ -29,21 +29,54 @@ import SettingsButtonLogout from "@/components/settings/SettingsButtonLogout.vue
 import GameLoading from "@/components/AppLoading.vue";
 import SettingsUser from "@/components/settings/SettingsUser.vue";
 
+const enum ButtonSize {
+  min = 80,
+  max = 160,
+}
+
 const mainStore = useMainStore();
 const loadingStore = useLoadingStore();
 const route = useRoute();
 
 mainStore.setFirstPage(route.name as string);
 
+const tabWidth = ref(ButtonSize.min);
+const tabHeight = ref(ButtonSize.min);
+
 const infoShow = ref(false);
 // eslint-disable-next-line no-undef
 const version = APP_VERSION;
 
 const buttonSize = computed(() => {
-  const tabWidth = window.screen.availWidth * 0.25;
-  const tabHeight = window.screen.availHeight * 0.25;
+  return tabWidth.value < tabHeight.value
+    ? tabWidth.value + "px"
+    : tabHeight.value + "px";
+});
 
-  return tabWidth < tabHeight ? tabWidth + "px" : tabHeight + "px";
+const resizeLinksSize = () => {
+  tabWidth.value = formatLinkSize(window.screen.availWidth * 0.3);
+  tabHeight.value = formatLinkSize(window.screen.availHeight * 0.3);
+};
+
+const formatLinkSize = (size: number) => {
+  if (size > ButtonSize.max) {
+    return ButtonSize.max;
+  }
+
+  if (size < ButtonSize.min) {
+    return ButtonSize.min;
+  }
+  return size;
+};
+
+window.addEventListener("resize", resizeLinksSize);
+
+onMounted(() => {
+  resizeLinksSize();
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", resizeLinksSize);
 });
 
 const showInfo = (id: string) => {
@@ -86,7 +119,7 @@ const hideInfo = (e: Event) => {
     width: 46px;
     height: 46px;
 
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
 
     cursor: pointer;

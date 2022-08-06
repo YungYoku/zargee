@@ -27,7 +27,7 @@
     height: 60px;
 
     background-color: transparent;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
 
     animation: loading 1s infinite linear;

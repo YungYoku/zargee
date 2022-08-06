@@ -31,10 +31,10 @@ const copyToClipboard = () => {
   padding: 10px;
 
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   color: #333333;
 
-  border: 2px solid #333333;
+  border: 1px solid #333333;
   border-radius: 5px;
 }
 

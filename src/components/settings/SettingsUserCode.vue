@@ -4,7 +4,7 @@
       <input
         id="code"
         v-model.trim="code"
-        placeholder="Ввести код"
+        placeholder="Бонусный код"
         required
         type="text"
       />
@@ -89,18 +89,22 @@ const sendCode = async () => {
       padding: 10px;
 
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 400;
       text-align: left;
       color: #333333;
 
       background-color: transparent;
-      border: 2px solid #333333;
-      border-radius: 5px;
 
       cursor: text;
 
       user-select: text;
     }
+  }
+
+  label,
+  .approveWrap {
+    border: 1px solid #333333;
+    border-radius: 5px;
   }
 
   .approveWrap {
@@ -112,13 +116,7 @@ const sendCode = async () => {
     height: 50px;
     padding: 10px;
 
-    font-size: 16px;
-    font-weight: 600;
-    color: #333333;
-
     background-color: transparent;
-    border: 2px solid #333333;
-    border-radius: 5px;
 
     cursor: pointer;
 

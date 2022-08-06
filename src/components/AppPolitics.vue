@@ -1,10 +1,8 @@
 <template>
   <div class="politics">
-    <button class="politics__leave-btn" type="button" @click="$emit('close')">
-      <img alt="Back" src="@/assets/img/back.svg" />
-    </button>
+    <button-close @close="$emit('close')" />
 
-    <div>
+    <div class="politics__content">
       Политика в отношении обработки персональных данных 1. Общие положения
       Настоящая политика обработки персональных данных составлена в соответствии
       с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных
@@ -319,6 +317,18 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+import ButtonClose from "@/components/ButtonClose.vue";
+
+defineProps({
+  backgroundColor: {
+    type: String,
+    required: false,
+    default: "#ffffff",
+  },
+});
+</script>
+
 <style lang="scss" scoped>
 .politics {
   position: absolute;
@@ -330,30 +340,17 @@
 
   width: 100%;
   height: 100%;
-  padding: 50px 10px 10px 10px;
+  padding: 10px;
 
   text-align: left;
 
-  background-color: #f5eee9;
+  background-color: v-bind(backgroundColor);
 
-  &__leave-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-
-    width: 36px;
-    height: 36px;
-    padding: 7px;
-
-    background-color: transparent;
-    border: 2px solid #333333;
-    border-radius: 50%;
-
-    cursor: pointer;
-  }
-
-  div {
+  &__content {
     overflow-y: scroll;
+
+    font-size: 12px;
+    font-weight: 400;
     scrollbar-width: thin;
     scrollbar-color: #333333 #ffffff;
 

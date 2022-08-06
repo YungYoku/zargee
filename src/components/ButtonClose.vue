@@ -25,7 +25,7 @@ const close = () => {
   margin-right: auto;
 
   background-color: transparent;
-  border: 2px solid #333333;
+  border: 1px solid #333333;
   border-radius: 50%;
 
   cursor: pointer;

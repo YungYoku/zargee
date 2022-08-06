@@ -6,13 +6,13 @@
       <h2 class="title">Логин</h2>
 
       <login-email
-        @close="setLoginType('not specified')"
+        @close="setLoginType(LoginType.notSpecified)"
         v-if="loginType === 'email'"
       />
 
       <auth-options
         v-else
-        @email="setLoginType('email')"
+        @email="setLoginType(LoginType.email)"
         @google="loginGoogle"
       />
 
@@ -36,6 +36,12 @@ import { useSettingsStore } from "@/stores/settings";
 import { useRouter } from "vue-router";
 import type { AuthResponse } from "@/interfaces/authResponse";
 
+const enum LoginType {
+  email = "email",
+  google = "google",
+  notSpecified = "not specified",
+}
+
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
@@ -43,7 +49,7 @@ const router = useRouter();
 
 const loginType = ref("not specified");
 
-const setLoginType = (type: "email" | "google" | "not specified") => {
+const setLoginType = (type: LoginType) => {
   loginType.value = type;
 };
 

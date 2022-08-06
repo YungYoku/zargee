@@ -216,12 +216,12 @@ const hideAd = () => {
     padding: 10px;
 
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     text-align: left;
     color: #333333;
 
     background-color: transparent;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
 
     cursor: pointer;
@@ -237,7 +237,7 @@ const hideAd = () => {
   height: 50px;
   padding: 10px;
 
-  border: 2px solid #333333;
+  border: 1px solid #333333;
   border-radius: 5px;
 
   img {
@@ -247,7 +247,7 @@ const hideAd = () => {
 
   h4 {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     color: #333333;
   }
@@ -271,7 +271,6 @@ const hideAd = () => {
   background-color: #f5eee9;
 
   gap: 10px;
-  justify-items: center;
 
   &__day {
     position: relative;
@@ -285,13 +284,16 @@ const hideAd = () => {
     font-size: 20px;
     color: #333333;
 
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
 
     gap: 10px;
 
     span {
       width: 62px;
+
+      font-size: 18px;
+      font-weight: 400;
     }
 
     .receiveButton {
@@ -315,7 +317,7 @@ const hideAd = () => {
     .received,
     .cantBeReceived {
       background-color: #333333;
-      border: 2px solid #333333;
+      border: 1px solid #333333;
 
       cursor: not-allowed;
     }

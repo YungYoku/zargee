@@ -51,7 +51,7 @@ const logout = async () => {
   overflow: hidden;
 
   background-color: transparent;
-  border: 6px solid #333333;
+  border: 4px solid #333333;
   border-radius: 50%;
 
   cursor: pointer;

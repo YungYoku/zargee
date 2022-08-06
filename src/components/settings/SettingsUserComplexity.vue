@@ -9,13 +9,18 @@
     />
 
     <div class="complexity__fire">
-      <img
+      <button
+        type="button"
+        class="complexity__fire-button"
         v-for="complexity in 4"
         :key="complexity"
-        :src="settingsStore.complexity >= complexity ? fireOn : fireOff"
-        alt="Fire"
         @click="changeComplexity(complexity)"
-      />
+      >
+        <img
+          :src="settingsStore.complexity >= complexity ? fireOn : fireOff"
+          alt="Fire"
+        />
+      </button>
     </div>
   </div>
 </template>
@@ -40,7 +45,7 @@ const changeComplexity = (complexity: number) => {
 
   padding: 10px;
 
-  border: 2px solid #333333;
+  border: 1px solid #333333;
   border-radius: 5px;
 
   input {
@@ -48,15 +53,17 @@ const changeComplexity = (complexity: number) => {
     height: 5px;
 
     background-color: #333333;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
+
+    user-select: auto;
 
     &::-webkit-slider-thumb {
       width: 14px;
       height: 14px;
 
       background: #ffffff;
-      border: 2px solid #333333;
+      border: 1px solid #333333;
       border-radius: 50%;
 
       cursor: pointer;
@@ -69,7 +76,7 @@ const changeComplexity = (complexity: number) => {
       height: 14px;
 
       background: #ffffff;
-      border: 2px solid #333333;
+      border: 1px solid #333333;
       border-radius: 50%;
 
       cursor: pointer;
@@ -83,13 +90,21 @@ const changeComplexity = (complexity: number) => {
 
     width: 96px;
 
-    img {
-      width: 24px;
-      height: 24px;
-      overflow: hidden;
+    &-button {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
 
-      cursor: pointer;
-      transition: all 0.2s;
+      user-select: auto;
+
+      img {
+        width: 24px;
+        height: 24px;
+        overflow: hidden;
+
+        cursor: pointer;
+        transition: all 0.2s;
+      }
     }
   }
 }

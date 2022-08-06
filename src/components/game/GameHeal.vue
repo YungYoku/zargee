@@ -158,10 +158,10 @@ const reborn = {
     padding: 5px;
 
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
 
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
   }
 
@@ -176,11 +176,11 @@ const reborn = {
     height: 100%;
     padding: 20px;
 
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
     color: #333333;
 
-    border: 3px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
 
     cursor: pointer;
@@ -233,12 +233,12 @@ const reborn = {
     padding: 20px;
 
     font-size: 32px;
-    font-weight: 500;
+    font-weight: 400;
     text-align: center;
     color: #333333;
 
     background-color: transparent;
-    border: 3px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
 
     cursor: pointer;
@@ -249,12 +249,16 @@ const reborn = {
     top: 10px;
     left: 10px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 36px;
     height: 36px;
     padding: 7px;
 
     background-color: transparent;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
 
     cursor: pointer;

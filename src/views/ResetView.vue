@@ -402,7 +402,7 @@ const resetPassword = async () => {
   h5 {
     position: relative;
 
-    font-weight: 600;
+    font-weight: 700;
     color: gray;
 
     cursor: pointer;

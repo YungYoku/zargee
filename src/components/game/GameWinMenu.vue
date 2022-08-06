@@ -1,6 +1,6 @@
 <template>
-  <div class="winWrap">
-    <div class="win">
+  <div class="win">
+    <div class="win__content">
       <h2>Конец игры</h2>
 
       <router-link to="/" @click="clearIntervals">
@@ -24,7 +24,7 @@ const clearIntervals = () => {
 </script>
 
 <style lang="scss" scoped>
-.winWrap {
+.win {
   position: absolute;
   top: 0;
   left: 0;
@@ -38,59 +38,58 @@ const clearIntervals = () => {
   height: 100vh;
 
   background-color: rgba(0, 0, 0, 0.5);
-}
 
-.win {
-  position: relative;
+  &__content {
+    position: relative;
 
-  display: grid;
+    display: grid;
 
-  grid-gap: 10px;
-  grid-template: repeat(3, 1fr) / 1fr;
+    grid-gap: 10px;
+    grid-template: repeat(3, auto) / 1fr;
 
-  width: 30%;
-  min-width: 300px;
-  padding: 10px;
-  overflow: hidden;
+    width: 30%;
+    min-width: 300px;
+    padding: 10px;
+    overflow: hidden;
 
-  background-color: #f5eee9;
-  border-radius: 5px;
-}
+    background-color: #f5eee9;
+    border-radius: 5px;
 
-.win > a,
-.win > button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    h2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  width: 100%;
-  height: 100%;
-  padding: 20px;
+      font-size: 52px;
+    }
 
-  font-size: 28px;
-  font-weight: 500;
-  text-align: center;
-  color: #333333;
+    > a,
+    > button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  background-color: transparent;
-  border: 6px solid #333333;
-  border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
 
-  cursor: pointer;
-}
+      font-size: 28px;
+      font-weight: 400;
+      text-align: center;
+      color: #333333;
 
-.win > a > img,
-.win > button > img {
-  width: 32px;
-  height: 32px;
-  margin-left: 20px;
-}
+      background-color: transparent;
+      border: 6px solid #333333;
+      border-radius: 5px;
 
-.win h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+      cursor: pointer;
 
-  font-size: 52px;
+      > img {
+        width: 32px;
+        height: 32px;
+        margin-left: 20px;
+      }
+    }
+  }
 }
 </style>

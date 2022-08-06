@@ -40,7 +40,7 @@ const tipStore = useTipStore();
     padding: 10px;
 
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 400;
     color: #333333;
 
     background-color: #f5eee9;

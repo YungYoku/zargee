@@ -2,16 +2,14 @@
   <div id="info" class="info">
     <div class="info__content">
       <div class="name">
-        <h2>{{ mainStore.user.name }}</h2>
-
-        <div class="name__lvl">{{ mainStore.user.lvl }}</div>
+        <settings-user-name />
 
         <div class="name__info">
-          <div @click="showPolitics">
+          <button type="button" @click="showPolitics">
             <img alt="Политика" src="@/assets/img/file.svg" />
-          </div>
+          </button>
 
-          <h5 @click="showAbout">i</h5>
+          <button type="button" @click="showAbout">i</button>
         </div>
       </div>
 
@@ -29,7 +27,11 @@
 
       <settings-user-complexity />
 
-      <game-politics v-if="politicsShow" @close="hidePolitics" />
+      <game-politics
+        background-color="#f5eee9"
+        v-if="politicsShow"
+        @close="hidePolitics"
+      />
 
       <settings-user-about v-if="aboutShow" @close="hideAbout" />
     </div>
@@ -46,6 +48,7 @@ import SettingsUserAbout from "@/components/settings/SettingsUserAbout.vue";
 import GamePolitics from "@/components/AppPolitics.vue";
 import SettingsUserComplexity from "@/components/settings/SettingsUserComplexity.vue";
 import { ref } from "vue";
+import SettingsUserName from "@/components/settings/SettingsUserName.vue";
 
 const mainStore = useMainStore();
 
@@ -90,8 +93,8 @@ const hideAbout = () => {
     display: grid;
     align-items: center;
 
-    grid-gap: 5px;
-    grid-template: repeat(8, 1fr) / 1fr;
+    grid-gap: 15px;
+    grid-template: repeat(8, auto) / 1fr;
 
     width: 50%;
     min-width: 300px;
@@ -109,27 +112,7 @@ const hideAbout = () => {
       align-items: center;
 
       grid-gap: 10px;
-      grid-template: 100% / auto 1fr 1fr;
-
-      h2 {
-        font-size: 40px;
-        font-weight: 600;
-        text-align: left;
-      }
-
-      &__lvl {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 40px;
-        height: 40px;
-
-        color: #333333;
-
-        border: 2px solid #333333;
-        border-radius: 50%;
-      }
+      grid-template: 100% / 1fr 62px;
     }
 
     .name__info {
@@ -137,39 +120,39 @@ const hideAbout = () => {
       justify-content: right;
       align-items: center;
 
-      img {
-        width: 16px;
-        height: 16px;
+      gap: 10px;
+
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 26px;
+        height: 26px;
+
+        color: #333333;
+
+        border: 1px solid #333333;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        img {
+          width: 16px;
+          height: 16px;
+        }
       }
-    }
-
-    .name h5,
-    .name__info div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      width: 26px;
-      height: 26px;
-      margin-left: 10px;
-
-      color: #333333;
-
-      border: 2px solid #333333;
-      border-radius: 50%;
-
-      cursor: pointer;
     }
 
     .life {
       padding: 10px;
 
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 400;
       text-align: left;
       color: #333333;
 
-      border: 2px solid #333333;
+      border: 1px solid #333333;
       border-radius: 5px;
     }
   }

@@ -81,12 +81,12 @@ const claimReward = async () => {
     padding: 10px;
 
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 400;
     text-align: left;
     color: #333333;
 
     background-color: transparent;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
 
     cursor: pointer;
@@ -98,11 +98,11 @@ const claimReward = async () => {
     padding: 10px;
 
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
     color: #333333;
 
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 5px;
   }
 }

@@ -1,8 +1,6 @@
 <template>
   <div class="about">
-    <button class="about__leave-btn" type="button" @click="$emit('close')">
-      <img alt="Back" src="../../assets/img/back.svg" />
-    </button>
+    <button-close @close="$emit('close')" />
 
     <div class="about__content">
       Добро пожаловать Zargee - Popping shapes!
@@ -24,7 +22,8 @@
           :src="i + 1 >= img ? fireOn : fireOff"
           alt="Fire"
         />
-        {{ i + 1 }} уровень - {{ item }}
+
+        <span> {{ i + 1 }} уровень - {{ item }} </span>
       </div>
 
       <br />
@@ -47,6 +46,7 @@
 <script lang="ts" setup>
 import fireOn from "@/assets/img/fireOn.svg";
 import fireOff from "@/assets/img/fireOff.svg";
+import ButtonClose from "@/components/ButtonClose.vue";
 
 const complexity = ["без времени", "легкий", "средний", "сложный"];
 </script>
@@ -62,7 +62,7 @@ const complexity = ["без времени", "легкий", "средний", "
 
   width: 100%;
   height: 100%;
-  padding: 50px 10px 10px 10px;
+  padding: 10px;
 
   text-align: left;
 
@@ -91,18 +91,25 @@ const complexity = ["без времени", "легкий", "средний", "
     top: 10px;
     left: 10px;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 36px;
     height: 36px;
     padding: 7px;
 
     background-color: transparent;
-    border: 2px solid #333333;
+    border: 1px solid #333333;
     border-radius: 50%;
 
     cursor: pointer;
   }
 
   &__content {
+    font-size: 14px;
+    font-weight: 400;
+
     .complexity__fire {
       display: flex;
       justify-content: flex-start;
@@ -116,6 +123,10 @@ const complexity = ["без времени", "легкий", "средний", "
         overflow: hidden;
 
         transition: all 0.2s;
+      }
+
+      span {
+        margin-left: 10px;
       }
     }
   }
