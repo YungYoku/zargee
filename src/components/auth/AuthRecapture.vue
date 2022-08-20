@@ -1,23 +1,23 @@
 <template>
   <div class="recaptcha">
-    <button class="recaptcha__button" type="button" @click="recaptcha">
-      Recaptcha
-    </button>
+    <vue-recaptcha
+      :sitekey="'6Ld3yVIhAAAAAGk3si4mQCHfbfIBOqZFLmkVtAnK'"
+      :load-recaptcha-script="true"
+      @verify="handleSuccess"
+      @error="handleError"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useReCaptcha } from "vue-recaptcha-v3";
+import { VueRecaptcha } from "vue-recaptcha";
 
-const { executeRecaptcha, recaptchaLoaded } = useReCaptcha();
-const recaptcha = async () => {
-  // (optional) Wait until recaptcha has been loaded.
-  await recaptchaLoaded();
+const handleSuccess = () => {
+  return;
+};
 
-  // Execute reCAPTCHA with action "login".
-  const token = await executeRecaptcha("login");
-
-  // Do stuff with the received token.
+const handleError = () => {
+  return;
 };
 </script>
 

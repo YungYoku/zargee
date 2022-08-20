@@ -50,7 +50,7 @@ const auth = (type: authOption) => {
 
   width: 100%;
 
-  gap: 10px;
+  gap: 15px;
 
   button {
     cursor: pointer;

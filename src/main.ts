@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import { VueReCaptcha } from "vue-recaptcha-v3";
 import "./assets/main.scss";
 
 import App from "./App.vue";
@@ -15,8 +14,6 @@ app.use(createPinia());
 
 // For more options see below
 app.use(router);
-
-app.use(VueReCaptcha, { siteKey: "6Ld3yVIhAAAAAGk3si4mQCHfbfIBOqZFLmkVtAnK" });
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FB_KEY,

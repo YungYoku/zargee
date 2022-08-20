@@ -148,6 +148,7 @@ export const useGameStore = defineStore({
         this.task.figure = this.targets[randIndex].figureName;
         this.task.title[1] = this.task.bgColor;
         this.task.title[2] = this.task.figure;
+
         if (
           (this.lvl >= 10 && this.lvl <= 18) ||
           (this.lvl >= 37 && this.lvl <= 54) ||

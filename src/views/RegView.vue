@@ -113,14 +113,13 @@ import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
 import { onMounted, reactive, ref } from "vue";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "@/main";
 import { useRouter } from "vue-router";
 import GameLoading from "@/components/AppLoading.vue";
 import AnimatedLink from "@/components/AnimatedLink.vue";
 import GamePolitics from "@/components/AppPolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
+import { useAuthStore } from "@/stores/auth";
 
 interface Registration {
   mode: string;
@@ -134,6 +133,7 @@ interface Registration {
 }
 
 const mainStore = useMainStore();
+const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
@@ -256,44 +256,9 @@ const rightPass = () => {
 const handleResponse = async (response: AuthResponse) => {
   const uid = response.user.uid;
 
-  let _refCode = 0;
-  for (let i = 0; i < 8; i++) {
-    _refCode += Math.floor(Math.random() * 9) * i ** 10;
-  }
+  const bonus = await authStore.isUsedRefCodeReal(form.name, form.refCode);
 
-  let bonus = false;
-  if (form.refCode) {
-    try {
-      await updateDoc(doc(db, "refs", form.refCode), {
-        refs: arrayUnion(form.name),
-      });
-      bonus = true;
-    } catch (e) {
-      tipStore.update("Такой код не существует");
-    }
-  }
-
-  await setDoc(doc(db, "users", uid), {
-    adWatchTime: 0,
-    codes: [],
-    gold: bonus ? 1 : 0,
-    hearts: bonus ? 10 : 1,
-    lvl: 0,
-    name: form.name,
-    ref: _refCode,
-    refUsers: 0,
-    resetDay: 0,
-    rewardDay: 1,
-    rewardParts: {
-      first: false,
-      second: false,
-    },
-  });
-
-  await setDoc(doc(db, "refs", _refCode.toString()), {
-    name: form.name,
-    refs: [],
-  });
+  await authStore.addEmptyUserToDb(uid, form.name, bonus);
 
   mainStore.login(uid);
   settingsStore.updateSettings();

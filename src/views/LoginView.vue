@@ -16,6 +16,8 @@
         @google="loginGoogle"
       />
 
+      <auth-recapture />
+
       <animated-link :link="'/reg'" class="swapMode" text="РЕГИСТРАЦИЯ" />
     </div>
 
@@ -35,6 +37,10 @@ import { useMainStore } from "@/stores/main";
 import { useSettingsStore } from "@/stores/settings";
 import { useRouter } from "vue-router";
 import type { AuthResponse } from "@/interfaces/authResponse";
+import AuthRecapture from "@/components/auth/AuthRecapture.vue";
+import { useAuthStore } from "@/stores/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/main";
 
 const enum LoginType {
   email = "email",
@@ -43,6 +49,7 @@ const enum LoginType {
 }
 
 const mainStore = useMainStore();
+const authStore = useAuthStore();
 const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
@@ -53,8 +60,27 @@ const setLoginType = (type: LoginType) => {
   loginType.value = type;
 };
 
-const handleResponse = async (response: AuthResponse) => {
-  mainStore.login(response.user.uid);
+const isUserInfoExist = async (uid: string) => {
+  let userInfoExist = false;
+
+  const docRef = doc(db, "users", uid);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    userInfoExist = true;
+  }
+
+  return userInfoExist;
+};
+
+const handleGoogleResponse = async (response: AuthResponse) => {
+  const uid = response.user.uid;
+
+  const userInfoExist = await isUserInfoExist(uid);
+  if (!userInfoExist) {
+    await authStore.addEmptyUserToDb(uid, "Имя", false);
+  }
+
+  mainStore.login(uid);
   settingsStore.updateSettings();
   settingsStore.swapSound();
   await mainStore.loadInfo();
@@ -63,24 +89,25 @@ const handleResponse = async (response: AuthResponse) => {
   loadingStore.hide();
 };
 
-const loginGoogle = () => {
+const loginGoogle = async () => {
+  loadingStore.show();
+
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
 
-  signInWithPopup(auth, provider)
-    .then((response) => {
+  await signInWithPopup(auth, provider)
+    .then(async (response) => {
       //const credential = GoogleAuthProvider.credentialFromResult(result);
       //const token = credential.accessToken;
-
-      handleResponse(response);
+      await handleGoogleResponse(response);
     })
     .catch((error) => {
-      // const errorCode = error.code;
-      // const errorMessage = error.message;
-      //
-      // const email = error.customData.email;
-      //
-      // const credential = GoogleAuthProvider.credentialFromError(error);
+      //const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      //const email = error.customData.email;
+
+      //const credential = GoogleAuthProvider.credentialFromError(error);
     });
 };
 </script>
@@ -97,6 +124,8 @@ const loginGoogle = () => {
   gap: 30px;
 
   &__form-wrap {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -112,7 +141,7 @@ const loginGoogle = () => {
     border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
-    gap: 20px;
+    gap: 15px;
 
     @media screen and (max-width: 480px) {
       width: 90%;

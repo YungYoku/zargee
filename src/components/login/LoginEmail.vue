@@ -1,6 +1,6 @@
 <template>
   <form class="login-email" @submit.prevent="submit">
-    <button-close @close="close" />
+    <button-close class="close" @close="close" />
 
     <label class="email" for="emailInput">
       <input
@@ -147,8 +147,6 @@ const close = () => {
 
 <style lang="scss" scoped>
 .login-email {
-  position: relative;
-
   display: flex;
   flex-direction: column;
 
@@ -156,6 +154,12 @@ const close = () => {
   height: 100%;
   margin-right: auto;
   gap: 18px;
+
+  .close {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+  }
 
   .pass {
     position: relative;
