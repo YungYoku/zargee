@@ -13,6 +13,11 @@ export interface State {
   subscribedToNewRefs: boolean;
 }
 
+interface DBRef {
+  name: string;
+  refs: string[];
+}
+
 const monthDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export const useMainStore = defineStore({
@@ -30,12 +35,12 @@ export const useMainStore = defineStore({
 
   actions: {
     loadUIDFromLocalStorage() {
-      const LocalStorageUID = localStorage.uid;
+      const LocalStorageUID = localStorage["uid"];
 
       if (LocalStorageUID) {
         this.uid = LocalStorageUID;
       } else {
-        localStorage.uid = "";
+        localStorage["uid"] = "";
         this.uid = "";
       }
     },
@@ -43,12 +48,12 @@ export const useMainStore = defineStore({
     login(uid: string) {
       this.demo = false;
       this.uid = uid;
-      localStorage.uid = uid;
+      localStorage["uid"] = uid;
     },
 
     async loginDemo() {
       this.demo = true;
-      localStorage.uid = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+      localStorage["uid"] = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
       this.uid = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
       await this.loadInfo();
     },
@@ -64,7 +69,7 @@ export const useMainStore = defineStore({
     getCurrentDayInYear(day = 0) {
       let days = new Date().getDate();
       for (let i = 0; i < new Date().getMonth(); i++) {
-        days += monthDays[i];
+        days += monthDays[i] || 0;
       }
 
       return days + day;
@@ -92,10 +97,10 @@ export const useMainStore = defineStore({
         doc(db, "refs", this.user.ref.toString()),
         async (response) => {
           if (response.exists()) {
-            const refUsers = response.data();
+            const refUsers = response.data() as DBRef;
 
             if (this.user.refUsers < refUsers.refs.length) {
-              await updateDoc(doc(db, "users", localStorage.uid), {
+              await updateDoc(doc(db, "users", localStorage["uid"]), {
                 gold:
                   this.user.gold + refUsers.refs.length - this.user.refUsers,
                 hearts:

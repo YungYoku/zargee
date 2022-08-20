@@ -78,14 +78,14 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const logged = !!localStorage.uid;
+router.beforeEach((to, _, next) => {
+  const logged = !!localStorage["uid"];
 
   if (to.name === "Demo") {
-    localStorage.uid = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+    localStorage["uid"] = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
   }
 
-  const loggedDemo = localStorage.uid === "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+  const loggedDemo = localStorage["uid"] === "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
 
   if (loggedDemo) {
     if (to.name === "Demo") {
@@ -93,7 +93,7 @@ router.beforeEach((to, from, next) => {
     } else {
       next("/demo");
     }
-  } else if (to.meta.auth) {
+  } else if (to.meta["auth"]) {
     if (logged) {
       next();
     } else {

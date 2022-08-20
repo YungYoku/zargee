@@ -43,21 +43,23 @@ const sendCode = async () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
+        const hearts = data.hearts;
+        const gold = data.gold;
 
-        if (data.hearts && !data.gold) {
-          tipStore.update(`Получено ${data.hearts} сердец`);
-        } else if (!data.hearts && data.gold) {
-          tipStore.update(`Получено ${data.gold} золотых сердец`);
-        } else if (data.hearts && data.gold) {
-          tipStore.update(`Получено ${data.hearts} сердец`);
+        if (hearts && !gold) {
+          tipStore.update(`Получено ${hearts} сердец`);
+        } else if (!hearts && gold) {
+          tipStore.update(`Получено ${gold} золотых сердец`);
+        } else if (hearts && gold) {
+          tipStore.update(`Получено ${hearts} сердец`);
           setTimeout(() => {
-            tipStore.update(`Получено ${data.gold} золотых сердец`);
+            tipStore.update(`Получено ${gold} золотых сердец`);
           }, 2100);
         }
 
         await updateDoc(doc(db, "users", mainStore.uid), {
-          gold: mainStore.user.gold + data.gold,
-          hearts: mainStore.user.hearts + data.hearts,
+          gold: mainStore.user.gold + gold,
+          hearts: mainStore.user.hearts + hearts,
           codes: _codes,
         });
       } else {

@@ -19,12 +19,12 @@ export const useSettingsStore = defineStore({
 
   actions: {
     resetIsMusicPlayable() {
-      localStorage.isMusicPlayable = false;
+      localStorage["isMusicPlayable"] = false;
       this.isMusicPlayable = false;
     },
 
     updateIsMusicPlayable() {
-      const LocalStorageIsMusicPlayable = localStorage.isMusicPlayable;
+      const LocalStorageIsMusicPlayable = localStorage["isMusicPlayable"];
 
       if (LocalStorageIsMusicPlayable) {
         if (LocalStorageIsMusicPlayable === "true") {
@@ -40,12 +40,12 @@ export const useSettingsStore = defineStore({
     },
 
     resetIsMusicChangeable() {
-      localStorage.isMusicChangeable = false;
+      localStorage["isMusicChangeable"] = false;
       this.isMusicChangeable = false;
     },
 
     updateIsMusicChangeable() {
-      const LocalStorageIsMusicChangeable = localStorage.isMusicChangeable;
+      const LocalStorageIsMusicChangeable = localStorage["isMusicChangeable"];
 
       if (LocalStorageIsMusicChangeable) {
         if (LocalStorageIsMusicChangeable === "true") {
@@ -66,7 +66,7 @@ export const useSettingsStore = defineStore({
     },
 
     updateComplexitySettings() {
-      const LocalStorageComplexity = parseInt(localStorage.complexity);
+      const LocalStorageComplexity = parseInt(localStorage["complexity"]);
 
       if (
         LocalStorageComplexity &&
@@ -75,14 +75,14 @@ export const useSettingsStore = defineStore({
       ) {
         this.complexity = LocalStorageComplexity;
       } else {
-        localStorage.complexity = "1";
+        localStorage["complexity"] = "1";
         this.complexity = 1;
       }
     },
 
     setComplexity(complexity: number) {
       this.complexity = complexity;
-      localStorage.complexity = complexity;
+      localStorage["complexity"] = complexity;
     },
 
     updateSettings() {
@@ -95,8 +95,8 @@ export const useSettingsStore = defineStore({
       this.isMusicPlayable = !this.isMusicPlayable;
       this.isMusicChangeable = this.isMusicPlayable;
 
-      localStorage.isMusicPlayable = this.isMusicPlayable;
-      localStorage.isMusicChangeable = this.isMusicChangeable;
+      localStorage["isMusicPlayable"] = this.isMusicPlayable;
+      localStorage["isMusicChangeable"] = this.isMusicChangeable;
     },
 
     offSound() {

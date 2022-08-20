@@ -138,31 +138,70 @@ export const useGameStore = defineStore({
       this.lose = value;
     },
 
+    updateTaskFigureFakeColor(index: number) {
+      const figureFakeColor = this.gameProps.colors[index % 5];
+
+      if (figureFakeColor) {
+        this.task.figureFakeColor = figureFakeColor;
+      }
+    },
+
+    updateTaskBorderFakeColor(index: number) {
+      const borderFakeColor = this.gameProps.colors[index % 5];
+
+      if (borderFakeColor) {
+        this.task.borderFakeColor = borderFakeColor;
+      }
+    },
+
+    updateTaskBgColor(index: number) {
+      const bgColorName = this.targets[index]?.bgColorName;
+
+      if (bgColorName) {
+        this.task.bgColor = bgColorName;
+      }
+    },
+
+    updateTaskFigure(index: number) {
+      const figure = this.targets[index]?.figureName;
+
+      if (figure) {
+        this.task.figure = figure;
+      }
+    },
+
+    updateTaskTitle() {
+      this.task.title[1] = this.task.bgColor;
+      this.task.title[2] = this.task.figure;
+    },
+
+    updateTaskBorderColor(index: number) {
+      if (
+        (this.lvl >= 10 && this.lvl <= 18) ||
+        (this.lvl >= 37 && this.lvl <= 54) ||
+        (this.lvl >= 64 && this.lvl <= 72)
+      ) {
+        const borderColorName = this.targets[index]?.borderColorName;
+
+        if (borderColorName && borderColorName !== "transparent") {
+          this.task.borderColor = borderColorName;
+          this.task.title[4] = borderColorName;
+        } else if (borderColorName) {
+          this.task.borderColor = "transparent";
+        }
+      }
+    },
+
     createTask() {
       if (this.targets.length) {
         const randIndex = Math.floor(Math.random() * (this.targets.length - 1));
 
-        this.task.figureFakeColor = this.gameProps.colors[randIndex % 5];
-        this.task.borderFakeColor = this.gameProps.colors[randIndex % 5];
-        this.task.bgColor = this.targets[randIndex].bgColorName;
-        this.task.figure = this.targets[randIndex].figureName;
-        this.task.title[1] = this.task.bgColor;
-        this.task.title[2] = this.task.figure;
-
-        if (
-          (this.lvl >= 10 && this.lvl <= 18) ||
-          (this.lvl >= 37 && this.lvl <= 54) ||
-          (this.lvl >= 64 && this.lvl <= 72)
-        ) {
-          const borderColorName = this.targets[randIndex].borderColorName;
-
-          if (borderColorName !== "transparent") {
-            this.task.borderColor = borderColorName;
-            this.task.title[4] = borderColorName;
-          } else {
-            this.task.borderColor = "transparent";
-          }
-        }
+        this.updateTaskFigureFakeColor(randIndex);
+        this.updateTaskBorderFakeColor(randIndex);
+        this.updateTaskBgColor(randIndex);
+        this.updateTaskFigure(randIndex);
+        this.updateTaskTitle();
+        this.updateTaskBorderColor(randIndex);
       }
     },
 
@@ -212,11 +251,11 @@ export const useGameStore = defineStore({
         (lvl >= 37 && lvl <= 54) ||
         (lvl >= 64 && lvl <= 72)
       ) {
-        borderColor = colors[Math.round(Math.random() * 4)];
+        borderColor = colors[Math.round(Math.random() * 4)] || "transparent";
       }
 
       while (bgColor === borderColor) {
-        borderColor = colors[Math.round(Math.random() * 4)];
+        borderColor = colors[Math.round(Math.random() * 4)] || "transparent";
       }
 
       return borderColor;
@@ -236,32 +275,38 @@ export const useGameStore = defineStore({
             Math.random() * (this.targets.length - this.score.current)
           );
 
-          if (!this.targets[idx]) continue;
+          if (this.targets[idx]) {
+            this.targets[idx].blink = true;
+            this.targets[idx].blinkDelay = Math.floor(Math.random() * 4) + 1;
 
-          this.targets[idx].blink = true;
-          this.targets[idx].blinkDelay = Math.floor(Math.random() * 4) + 1;
-          setTimeout(() => {
-            if (this.targets[idx]) {
-              this.targets[idx].bgColor =
-                this.gameProps.colors[Math.round(Math.random() * 4)];
-              this.targets[idx].bgColorName = generateBgColorName(
-                this.targets[idx].bgColor
-              );
-              this.targets[idx].figure = generateFigure(this.lvl);
-              this.targets[idx].figureName = generateFigureName(
-                this.targets[idx].figure
-              );
-              this.targets[idx].d =
-                this.gameProps.figures[this.targets[idx].figure];
+            setTimeout(() => {
+              if (this.targets[idx]) {
+                this.targets[idx].bgColor =
+                  this.gameProps.colors[Math.round(Math.random() * 4)];
 
-              this.targets[idx].borderColor = this.generateBorderColor(
-                this.targets[idx].bgColor
-              );
-              this.targets[idx].borderColorName = generateBorderColorName(
-                this.targets[idx].borderColor
-              );
-            }
-          }, this.targets[idx].blinkDelay * 1000 + 4000);
+                this.targets[idx].bgColorName = generateBgColorName(
+                  this.targets[idx].bgColor
+                );
+
+                this.targets[idx].figure = generateFigure(this.lvl);
+
+                this.targets[idx].figureName = generateFigureName(
+                  this.targets[idx].figure
+                );
+
+                this.targets[idx].d =
+                  this.gameProps.figures[this.targets[idx].figure];
+
+                this.targets[idx].borderColor = this.generateBorderColor(
+                  this.targets[idx].bgColor
+                );
+
+                this.targets[idx].borderColorName = generateBorderColorName(
+                  this.targets[idx].borderColor
+                );
+              }
+            }, this.targets[idx].blinkDelay * 1000 + 4000);
+          }
         }
       }
     },

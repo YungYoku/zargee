@@ -42,7 +42,9 @@ onUnmounted(() => {
 });
 
 const audioPlaying = computed(() => {
-  return router.currentRoute.value.meta.audio && settingsStore.isMusicPlayable;
+  return (
+    router.currentRoute.value.meta["audio"] && settingsStore.isMusicPlayable
+  );
 });
 
 watch(
