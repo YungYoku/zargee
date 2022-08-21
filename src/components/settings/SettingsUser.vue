@@ -75,15 +75,15 @@ const hideAbout = () => {
 <style lang="scss" scoped>
 .info {
   position: absolute;
-  top: -100vh;
-  left: -100%;
+  top: 0;
+  left: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  width: 300%;
-  height: 300vh;
+  width: 100%;
+  height: 100vh;
 
   background-color: rgba(0, 0, 0, 0.5);
 
