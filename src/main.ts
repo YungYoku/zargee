@@ -6,6 +6,7 @@ import App from "./App.vue";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 import router from "./router";
 
@@ -27,5 +28,9 @@ const firebaseConfig = {
 const fbApp = initializeApp(firebaseConfig);
 export const db = getFirestore();
 getAnalytics(fbApp);
+initializeAppCheck(fbApp, {
+  provider: new ReCaptchaV3Provider("6Ld3yVIhAAAAAGk3si4mQCHfbfIBOqZFLmkVtAnK"),
+  isTokenAutoRefreshEnabled: true,
+});
 
 app.mount("#app");

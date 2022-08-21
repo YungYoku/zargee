@@ -16,8 +16,6 @@
         @google="loginGoogle"
       />
 
-      <auth-recapture />
-
       <animated-link :link="'/reg'" class="swapMode" text="РЕГИСТРАЦИЯ" />
     </div>
 
@@ -37,7 +35,6 @@ import { useMainStore } from "@/stores/main";
 import { useSettingsStore } from "@/stores/settings";
 import { useRouter } from "vue-router";
 import type { AuthResponse } from "@/interfaces/authResponse";
-import AuthRecapture from "@/components/auth/AuthRecapture.vue";
 import { useAuthStore } from "@/stores/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/main";

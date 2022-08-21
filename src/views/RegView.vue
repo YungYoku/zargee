@@ -39,21 +39,9 @@
           @keyup="changePower"
         />
 
-        <img
-          v-if="passIcon === 'passVisible'"
-          alt="view"
-          class="pass__image"
-          src="@/assets/img/passVisible.svg"
-          @click="showPass"
-        />
-
-        <img
-          v-if="passIcon === 'passInvisible'"
-          alt="view"
-          class="pass__image"
-          src="@/assets/img/passInvisible.svg"
-          @click="showPass"
-        />
+        <button type="button" @click="swapPassShowing">
+          <img alt="view" :src="passShowingIcon" />
+        </button>
       </label>
 
       <label class="passRep" for="passwordRepeatInput">
@@ -111,7 +99,7 @@ import { useMainStore } from "@/stores/main";
 import { useSettingsStore } from "@/stores/settings";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
-import { onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "vue-router";
 import GameLoading from "@/components/AppLoading.vue";
@@ -120,6 +108,8 @@ import GamePolitics from "@/components/AppPolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import { useAuthStore } from "@/stores/auth";
+import passVisible from "@/assets/img/passVisible.svg";
+import passInvisible from "@/assets/img/passInvisible.svg";
 
 interface Registration {
   mode: string;
@@ -171,7 +161,7 @@ const passIcon = ref("passInvisible");
 const politicsShow = ref(false);
 
 onMounted(() => {
-  const queryRef = router.currentRoute.value.query.ref as string;
+  const queryRef = router.currentRoute.value.query["ref"] as string;
   if (queryRef) {
     if (queryRef.length === 9) {
       form.refCode = queryRef;
@@ -189,7 +179,14 @@ const hidePolitics = () => {
   politicsShow.value = false;
 };
 
-const showPass = () => {
+const passShowingIcon = computed(() => {
+  if (passIcon.value === "passVisible") {
+    return passVisible;
+  }
+  return passInvisible;
+});
+
+const swapPassShowing = () => {
   if (passDom.value.type === "text") {
     passIcon.value = "passInvisible";
     passDom.value.type = "password";
@@ -387,10 +384,32 @@ const submit = async () => {
       }
     }
 
+    .politicsBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 26px;
+      height: 26px;
+      margin-left: 10px;
+
+      color: #333333;
+
+      border: 1px solid #333333;
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
     .pass {
       position: relative;
 
-      &__image {
+      button {
         position: absolute;
         top: 0;
         right: 0;
@@ -398,7 +417,12 @@ const submit = async () => {
         width: 20px;
         height: 20px;
 
-        cursor: pointer;
+        img {
+          width: 100%;
+          height: 100%;
+
+          cursor: pointer;
+        }
       }
     }
 
@@ -514,28 +538,6 @@ const submit = async () => {
 
         transition: all 0.4s;
       }
-    }
-  }
-
-  .politicsBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 26px;
-    height: 26px;
-    margin-left: 10px;
-
-    color: #333333;
-
-    border: 1px solid #333333;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-    img {
-      width: 16px;
-      height: 16px;
     }
   }
 }

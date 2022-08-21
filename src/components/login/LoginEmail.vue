@@ -24,19 +24,9 @@
         type="password"
       />
 
-      <img
-        v-if="passIcon === 'passVisible'"
-        alt="view"
-        src="@/assets/img/passVisible.svg"
-        @click="showPass"
-      />
-
-      <img
-        v-if="passIcon === 'passInvisible'"
-        alt="view"
-        src="@/assets/img/passInvisible.svg"
-        @click="showPass"
-      />
+      <button type="button" @click="swapPassShowing">
+        <img alt="view" :src="passShowingIcon" />
+      </button>
     </label>
 
     <div class="passForgot">
@@ -53,11 +43,13 @@ import { useSettingsStore } from "@/stores/settings";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
 import { useRouter } from "vue-router";
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import type { AuthError } from "@/interfaces/authError";
 import ButtonClose from "@/components/ButtonClose.vue";
+import passVisible from "@/assets/img/passVisible.svg";
+import passInvisible from "@/assets/img/passInvisible.svg";
 
 interface Login {
   email: string;
@@ -89,7 +81,14 @@ const passDom = ref();
 
 const passIcon = ref("passInvisible");
 
-const showPass = () => {
+const passShowingIcon = computed(() => {
+  if (passIcon.value === "passVisible") {
+    return passVisible;
+  }
+  return passInvisible;
+});
+
+const swapPassShowing = () => {
   if (passDom.value.type === "text") {
     passIcon.value = "passInvisible";
     passDom.value.type = "password";
@@ -200,7 +199,7 @@ const close = () => {
   }
 
   label {
-    > img {
+    button {
       position: absolute;
       top: 0;
       right: 0;
@@ -208,7 +207,12 @@ const close = () => {
       width: 20px;
       height: 20px;
 
-      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+
+        cursor: pointer;
+      }
     }
   }
 
