@@ -93,6 +93,10 @@ const claimReward = async () => {
   }
 
   &__counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 50px;
     height: 50px;
     padding: 10px;
