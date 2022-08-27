@@ -131,7 +131,8 @@ const hideInfo = (e: Event) => {
   }
 
   .version {
-    margin-top: 20px;
+    position: absolute;
+    bottom: 20px;
 
     font-size: 16px;
   }

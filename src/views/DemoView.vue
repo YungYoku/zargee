@@ -86,7 +86,6 @@ const clearIntervals = () => {
 
 const setStartTimerInterval = () => {
   startTimer.value = 3;
-
   startTimerInterval = setInterval(() => {
     if (startTimer.value > 0) {
       startTimer.value--;
@@ -131,10 +130,10 @@ const setIntervals = () => {
 };
 
 onMounted(() => {
-  loadingStore.hide();
   mainStore.loginDemo();
   gameStore.setComplexity(2);
   setIntervals();
+  loadingStore.hide();
 });
 
 onUnmounted(() => {

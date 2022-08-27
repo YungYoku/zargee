@@ -210,7 +210,7 @@ const hideAd = () => {
   align-items: center;
 
   grid-gap: 5px;
-  grid-template: 100% / 1fr 50px;
+  grid-template: 100% / 1fr 46px;
 
   button {
     padding: 10px;
@@ -233,8 +233,8 @@ const hideAd = () => {
   justify-content: center;
   align-items: center;
 
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   padding: 10px;
 
   border: 1px solid #333333;
@@ -270,7 +270,7 @@ const hideAd = () => {
 
   background-color: #f5eee9;
 
-  gap: 10px;
+  gap: 8px;
 
   &__day {
     position: relative;

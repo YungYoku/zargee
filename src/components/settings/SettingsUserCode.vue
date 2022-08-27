@@ -79,11 +79,10 @@ const sendCode = async () => {
   align-items: center;
 
   grid-gap: 5px;
-  grid-template: 100% / 1fr 50px;
+  grid-template: 100% / 1fr 46px;
 
   label {
     width: 100%;
-    height: 100%;
 
     input {
       width: 100%;
@@ -114,8 +113,8 @@ const sendCode = async () => {
     justify-content: center;
     align-items: center;
 
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     padding: 10px;
 
     background-color: transparent;

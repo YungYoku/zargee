@@ -75,7 +75,7 @@ const claimReward = async () => {
   align-items: center;
 
   grid-gap: 5px;
-  grid-template: 100% / 1fr 50px;
+  grid-template: 100% / 1fr 46px;
 
   &__button {
     padding: 10px;
@@ -97,8 +97,8 @@ const claimReward = async () => {
     justify-content: center;
     align-items: center;
 
-    width: 50px;
-    height: 50px;
+    width: 46px;
+    height: 46px;
     padding: 10px;
 
     font-size: 16px;

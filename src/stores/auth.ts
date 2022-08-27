@@ -51,6 +51,7 @@ export const useAuthStore = defineStore({
           hearts: bonus ? 10 : 1,
           lvl: 0,
           name: name,
+          changeNameDate: 0,
           ref: refCode,
           refUsers: 0,
           resetDay: 0,
