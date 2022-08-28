@@ -15,8 +15,8 @@ defineProps({
   timer: {
     type: Number,
     required: true,
-    default: 5,
-  },
+    default: 5
+  }
 });
 
 const emit = defineEmits(["hideAd"]);
@@ -48,8 +48,8 @@ const hideAd = () => {
   &__timer,
   &__close {
     position: fixed;
-    top: 30px;
-    right: 40px;
+    top: 20px;
+    right: 20px;
 
     display: flex;
     justify-content: center;

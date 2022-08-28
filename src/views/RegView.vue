@@ -99,7 +99,7 @@ import { useMainStore } from "@/stores/main";
 import { useSettingsStore } from "@/stores/settings";
 import { useLoadingStore } from "@/stores/loading";
 import { useTipStore } from "@/stores/tip";
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, watch } from "vue";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "vue-router";
 import GameLoading from "@/components/AppLoading.vue";
@@ -149,7 +149,7 @@ const form = reactive<Registration>({
       this.name !== "" &&
       this.rules
     );
-  },
+  }
 });
 const passDom = ref();
 const passRepDom = ref();
@@ -169,6 +169,10 @@ onMounted(() => {
       router.push("/reg");
     }
   }
+});
+
+watch(() => form.name, () => {
+  form.name = form.name.slice(0, 8);
 });
 
 const showPolitics = () => {
@@ -202,7 +206,7 @@ const colors = {
   main: "#333333",
   additional: "#d3d3d3",
   error: "#cc6666",
-  valid: "#66cc68",
+  valid: "#66cc68"
 };
 
 const changePower = () => {

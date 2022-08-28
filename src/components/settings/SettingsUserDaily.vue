@@ -49,9 +49,9 @@ const week = [1, 2, 3, 4, 5, 6, 7];
 const calendar = ref(false);
 const time = ref(
   86400 -
-    new Date().getHours() * 3600 -
-    new Date().getMinutes() * 60 -
-    new Date().getSeconds()
+  new Date().getHours() * 3600 -
+  new Date().getMinutes() * 60 -
+  new Date().getSeconds()
 );
 const adShowing = ref(false);
 const timer = ref(5);
@@ -116,13 +116,13 @@ const getButtonText = (weekDay: number) => {
   return isItClaimable(weekDay)
     ? "Получить"
     : isItDoubleClaimable(weekDay)
-    ? "Получить x2"
-    : mainStore.user.rewardDay < weekDay ||
+      ? "Получить x2"
+      : mainStore.user.rewardDay < weekDay ||
       (mainStore.user.rewardDay === weekDay && isItReceived(weekDay))
-    ? "Недоступно"
-    : isItReceived(weekDay) || isItOldReceived(weekDay)
-    ? "Получено"
-    : "";
+        ? "Недоступно"
+        : isItReceived(weekDay) || isItOldReceived(weekDay)
+          ? "Получено"
+          : "";
 };
 
 const interval = setInterval(() => {
@@ -155,8 +155,8 @@ const claimReward = async (first: boolean, second: boolean) => {
     resetDay: mainStore.getCurrentDayInYear() + 1,
     rewardParts: {
       first: first,
-      second: second,
-    },
+      second: second
+    }
   }).then(() => {
     tipStore.update(`Получено ${reward} сердец`);
   });
@@ -306,9 +306,10 @@ const hideAd = () => {
       padding: 5px 10px;
 
       font-size: 16px;
-      color: #ffffff;
+      color: #000000;
 
-      background-color: #4ae32f;
+      background-color: transparent;
+      border: 1px solid #4ae32f;
       border-radius: 5px;
 
       cursor: pointer;
@@ -316,7 +317,7 @@ const hideAd = () => {
 
     .received,
     .cantBeReceived {
-      background-color: #333333;
+      //background-color: transparent;
       border: 1px solid #333333;
 
       cursor: not-allowed;

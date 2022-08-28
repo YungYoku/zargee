@@ -37,10 +37,12 @@ const tipStore = useTipStore();
   transition: all 0.3s;
 
   &__text {
+    max-width: 300px;
     padding: 10px;
 
     font-size: 20px;
     font-weight: 400;
+    text-align: center;
     color: #333333;
 
     background-color: #f5eee9;

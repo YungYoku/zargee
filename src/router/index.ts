@@ -82,10 +82,10 @@ router.beforeEach((to, _, next) => {
   const logged = !!localStorage["uid"];
 
   if (to.name === "Demo") {
-    localStorage["uid"] = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+    localStorage["uid"] = "8gS1vixzWIaTOQZNz5IzG0PGfMr2";
   }
 
-  const loggedDemo = localStorage["uid"] === "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+  const loggedDemo = localStorage["uid"] === "8gS1vixzWIaTOQZNz5IzG0PGfMr2";
 
   if (loggedDemo) {
     if (to.name === "Demo") {

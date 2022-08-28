@@ -53,8 +53,8 @@ export const useMainStore = defineStore({
 
     async loginDemo() {
       this.demo = true;
-      localStorage["uid"] = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
-      this.uid = "JyLHqEGLjAeEyVUUMjEK6U3PC4b2";
+      localStorage["uid"] = "8gS1vixzWIaTOQZNz5IzG0PGfMr2";
+      this.uid = "8gS1vixzWIaTOQZNz5IzG0PGfMr2";
       await this.loadInfo();
     },
 

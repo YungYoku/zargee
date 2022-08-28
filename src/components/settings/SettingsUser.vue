@@ -96,7 +96,7 @@ const hideAbout = () => {
     grid-gap: 15px;
     grid-template: repeat(8, auto) / 1fr;
 
-    width: 50%;
+    width: 80%;
     min-width: 300px;
     max-width: 380px;
     padding: 10px;
