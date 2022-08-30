@@ -35,21 +35,26 @@ watch(changeableName, () => {
 
 const getNextChangeNameTime = () => {
   return (
-    mainStore.getCurrentDayInYear() * 86_400 +
-    new Date().getHours() * 3600 +
-    new Date().getMinutes() * 60 +
-    new Date().getSeconds() +
+    getCurrentChangeNameTime() +
     604800 // Неделя
   );
 };
 
-//Допилить
+const getCurrentChangeNameTime = () => {
+  return (
+    mainStore.getCurrentDayInYear() * 86_400 +
+    new Date().getHours() * 3600 +
+    new Date().getMinutes() * 60 +
+    new Date().getSeconds()
+  );
+};
+
 const isNameChangeable = () => {
-  if (getNextChangeNameTime() > mainStore.user.changeNameDate) {
-    return false;
+  if (getCurrentChangeNameTime() > mainStore.user.changeNameDate) {
+    return true;
   }
 
-  return true;
+  return false;
 };
 
 const showChangeNameInput = () => {
@@ -57,9 +62,13 @@ const showChangeNameInput = () => {
     nameChanging.value = true;
 
     changeableName.value = mainStore.user.name;
-  } else {
-    //Допилить
+
     tipStore.update("Изменение имени доступно раз в 7 дней");
+  } else {
+    const remainingSeconds = getCurrentChangeNameTime() - mainStore.user.changeNameDate;
+    const remainingDays = Math.abs(Math.floor(remainingSeconds / 60 / 60 / 24));
+
+    tipStore.update(`Изменение имени доступно раз в 7 дней, осталось ${remainingDays}`);
   }
 };
 
@@ -132,6 +141,10 @@ const changeName = async () => {
     margin-top: 8px;
 
     cursor: pointer;
+
+    @media (max-width: 480px) {
+      margin-top: 2px;
+    }
 
     img {
       width: 100%;
