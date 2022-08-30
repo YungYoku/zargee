@@ -56,8 +56,10 @@ import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
 import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
+import { useSettingsStore } from "@/stores/settings";
 
 const mainStore = useMainStore();
+const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
@@ -131,6 +133,7 @@ const setIntervals = () => {
 
 onMounted(() => {
   mainStore.loginDemo();
+  settingsStore.setComplexity(2);
   gameStore.setComplexity(2);
   setIntervals();
   loadingStore.hide();

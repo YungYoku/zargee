@@ -75,8 +75,8 @@ export const useSettingsStore = defineStore({
       ) {
         this.complexity = LocalStorageComplexity;
       } else {
-        localStorage["complexity"] = "1";
-        this.complexity = 1;
+        localStorage["complexity"] = "2";
+        this.complexity = 2;
       }
     },
 
