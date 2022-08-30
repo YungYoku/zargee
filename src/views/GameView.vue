@@ -87,7 +87,7 @@ watch(lose, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl,
+        lvl: gameStore.lvl
       });
     }
   }
@@ -98,7 +98,7 @@ watch(time, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl,
+        lvl: gameStore.lvl
       });
     }
   }
@@ -235,7 +235,7 @@ const restart = (props: { rebornType: string; lvl?: number }) => {
   justify-content: center;
   align-items: center;
 
-  grid-template: 60px calc(100vh - 140px) 80px / 60px 1fr 60px;
+  grid-template: 90px calc(100vh - 170px) 80px / 60px 1fr 60px;
   grid-template-areas:
     "score task time"
     "playground playground playground"

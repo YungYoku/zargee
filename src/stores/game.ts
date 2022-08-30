@@ -413,7 +413,7 @@ export const useGameStore = defineStore({
     createTargets() {
       const app = document.querySelector("#app") as HTMLElement;
       const screenWidth = app.offsetWidth;
-      const screenHeight = app.offsetHeight - 140;
+      const screenHeight = app.offsetHeight - 170;
 
       this.updateComplexity();
       this.updateItemsAmount(screenWidth, screenHeight);

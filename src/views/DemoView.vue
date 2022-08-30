@@ -201,7 +201,7 @@ window.addEventListener("beforeunload", unloadHandler);
   justify-content: center;
   align-items: center;
 
-  grid-template: 60px calc(100vh - 140px) 80px / 60px 1fr 60px;
+  grid-template: 90px calc(100vh - 170px) 80px / 60px 1fr 60px;
   grid-template-areas:
     "score task time"
     "playground playground playground"

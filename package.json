@@ -1,6 +1,6 @@
 {
   "name": "zargee",
-  "version": "0.9.17",
+  "version": "0.9.18",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -11,6 +11,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@capacitor/status-bar": "^4.0.1",
     "firebase": "^9.9.3",
     "pinia": "^2.0.21",
     "vue": "^3.2.38",
