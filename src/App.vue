@@ -29,7 +29,9 @@ const changeVolumeOnPageView = () => {
 };
 
 const hideStatusBar = async () => {
-  await StatusBar.hide();
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    await StatusBar.hide();
+  }
 };
 
 onMounted(() => {
