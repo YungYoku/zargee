@@ -68,7 +68,7 @@ const showChangeNameInput = () => {
     const remainingSeconds = getCurrentChangeNameTime() - mainStore.user.changeNameDate;
     const remainingDays = Math.abs(Math.floor(remainingSeconds / 60 / 60 / 24));
 
-    tipStore.update(`Изменение имени доступно раз в 7 дней, осталось ${remainingDays}`);
+    tipStore.update(`Изменение имени доступно раз в 7 дней, осталось ${remainingDays} дней`);
   }
 };
 

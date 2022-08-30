@@ -112,7 +112,7 @@ export const useGameStore = defineStore({
       figureFakeColor: "",
       borderFakeColor: "",
     },
-    targets: [],
+    targets: [] as Array<Target>,
   }),
 
   getters: {},
@@ -364,6 +364,52 @@ export const useGameStore = defineStore({
       );
     },
 
+    ifTargetsYOverlapped(figure1: Target, figure2: Target) {
+      if (
+        figure1.y + figure1.height > figure2.y &&
+        figure1.y + figure1.height < figure2.y + figure2.height
+      ) {
+        return true;
+      }
+
+      if (
+        figure1.y < figure2.y + figure2.height &&
+        figure1.y + figure1.height > figure2.y + figure2.height
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
+    ifTargetsXOverlapped(figure1: Target, figure2: Target) {
+      if (
+        figure1.x + figure1.width > figure2.x &&
+        figure1.x + figure1.width < figure2.x + figure2.width
+      ) {
+        return true;
+      }
+
+      if (
+        figure1.x < figure2.x + figure2.width &&
+        figure1.x + figure1.width > figure2.x + figure2.width
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
+    isFiguresOverlapped(figure1: Target, figure2: Target) {
+      if (this.ifTargetsYOverlapped(figure1, figure2)) {
+        if (this.ifTargetsXOverlapped(figure1, figure2)) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+
     createTargets() {
       const app = document.querySelector("#app") as HTMLElement;
       const screenWidth = app.offsetWidth;
@@ -409,17 +455,19 @@ export const useGameStore = defineStore({
         };
 
         for (let j = 0; j < this.targets.length; j++) {
-          if (
-            Math.abs(this.targets[j].x - target.x) < 30 ||
-            Math.abs(this.targets[j].y - target.y) < 30
-          ) {
-            target.x = Math.floor(
-              Math.random() * (screenWidth - this.complexity.size)
-            );
-            target.y = Math.floor(
-              Math.random() * (screenHeight - this.complexity.size)
-            );
-            j--;
+          const anotherTarget = this.targets[j];
+
+          if (anotherTarget) {
+            if (this.isFiguresOverlapped(anotherTarget, target)) {
+              console.log(this.isFiguresOverlapped(anotherTarget, target));
+              target.x = Math.floor(
+                Math.random() * (screenWidth - this.complexity.size)
+              );
+              target.y = Math.floor(
+                Math.random() * (screenHeight - this.complexity.size)
+              );
+              j--;
+            }
           }
         }
         this.pushTarget(target);
