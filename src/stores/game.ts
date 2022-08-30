@@ -459,7 +459,6 @@ export const useGameStore = defineStore({
 
           if (anotherTarget) {
             if (this.isFiguresOverlapped(anotherTarget, target)) {
-              console.log(this.isFiguresOverlapped(anotherTarget, target));
               target.x = Math.floor(
                 Math.random() * (screenWidth - this.complexity.size)
               );
