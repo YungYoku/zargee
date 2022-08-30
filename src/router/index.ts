@@ -82,7 +82,11 @@ router.beforeEach((to, _, next) => {
   const logged = !!localStorage["uid"];
 
   if (to.name === "Demo") {
-    next();
+    if (!logged) {
+      next();
+    } else {
+      next("/");
+    }
   } else if (to.meta["auth"]) {
     if (logged) {
       next();
