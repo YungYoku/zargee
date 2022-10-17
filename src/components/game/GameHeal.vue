@@ -93,8 +93,6 @@ const reborn = {
     if (mainStore.user.hearts - heartPrice.value < 0) {
       tipStore.update("Недостаточно жизней");
     } else {
-      loadingStore.show();
-
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
         hearts: mainStore.user.hearts - heartPrice.value,
@@ -102,8 +100,6 @@ const reborn = {
         restart("heart");
         swapHeal();
       });
-
-      loadingStore.hide();
     }
   },
 

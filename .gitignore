@@ -26,3 +26,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Android
+android-keystore.jks
+private_key.pepk

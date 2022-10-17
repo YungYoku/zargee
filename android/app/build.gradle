@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    namespace 'zargee.web.app'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "zargee.web.app"

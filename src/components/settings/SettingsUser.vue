@@ -89,6 +89,7 @@ const hideAbout = () => {
 
   &__content {
     position: relative;
+    z-index: 1;
 
     display: grid;
     align-items: center;
