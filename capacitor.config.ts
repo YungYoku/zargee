@@ -1,7 +1,7 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: "zargee.web.app",
+  appId: "zargee.ru",
   appName: "Zargee",
   webDir: "dist",
   bundledWebRuntime: false,
