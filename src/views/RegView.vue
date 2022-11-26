@@ -149,7 +149,7 @@ const form = reactive<Registration>({
       this.name !== "" &&
       this.rules
     );
-  }
+  },
 });
 const passDom = ref();
 const passRepDom = ref();
@@ -171,9 +171,12 @@ onMounted(() => {
   }
 });
 
-watch(() => form.name, () => {
-  form.name = form.name.slice(0, 8);
-});
+watch(
+  () => form.name,
+  () => {
+    form.name = form.name.slice(0, 8);
+  }
+);
 
 const showPolitics = () => {
   politicsShow.value = true;
@@ -206,7 +209,7 @@ const colors = {
   main: "#333333",
   additional: "#d3d3d3",
   error: "#cc6666",
-  valid: "#66cc68"
+  valid: "#66cc68",
 };
 
 const changePower = () => {

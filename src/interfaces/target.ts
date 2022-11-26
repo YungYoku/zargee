@@ -3,7 +3,7 @@ export interface Target {
   y: number;
   width: number;
   height: number;
-  d: string;
+  clipPath: string;
   figure: number;
   figureName: string;
   bgColor: string;

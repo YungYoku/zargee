@@ -11,7 +11,6 @@ import { useRouter } from "vue-router";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
 import GameTip from "@/components/AppTip.vue";
-import { StatusBar, Style } from "@capacitor/status-bar";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
@@ -28,15 +27,7 @@ const changeVolumeOnPageView = () => {
   }
 };
 
-const hideStatusBar = async () => {
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    await StatusBar.hide();
-  }
-};
-
 onMounted(() => {
-  hideStatusBar();
-
   mainStore.loadUIDFromLocalStorage();
 
   settingsStore.updateSettings();

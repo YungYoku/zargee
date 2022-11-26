@@ -6,7 +6,7 @@
       top: target.y + 'px',
       width: target.width + 'px',
       height: target.height + 'px',
-      clipPath: target.d,
+      clipPath: target.clipPath,
       backgroundColor:
         target.borderColor && target.borderColor !== 'transparent'
           ? target.borderColor
@@ -18,7 +18,7 @@
       :style="{
         width: target.width - 20 + 'px',
         height: target.height - 20 + 'px',
-        clipPath: target.d,
+        clipPath: target.clipPath,
         backgroundColor: target.bgColor,
       }"
     ></div>

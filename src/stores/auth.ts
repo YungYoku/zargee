@@ -3,12 +3,10 @@ import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
 
-interface State {}
-
 export const useAuthStore = defineStore({
   id: "auth",
 
-  state: (): State => ({}),
+  state: () => ({}),
 
   getters: {},
 

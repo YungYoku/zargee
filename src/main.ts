@@ -10,6 +10,8 @@ import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 import router from "./router";
 
+window.screen.orientation.lock("portrait");
+
 const app = createApp(App);
 app.use(createPinia());
 

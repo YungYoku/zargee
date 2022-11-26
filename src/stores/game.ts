@@ -294,7 +294,7 @@ export const useGameStore = defineStore({
                   this.targets[idx].figure
                 );
 
-                this.targets[idx].d =
+                this.targets[idx].clipPath =
                   this.gameProps.figures[this.targets[idx].figure];
 
                 this.targets[idx].borderColor = this.generateBorderColor(
@@ -410,6 +410,18 @@ export const useGameStore = defineStore({
       return false;
     },
 
+    generateBgColor() {
+      const randNumber = Math.floor(
+        Math.random() * (this.gameProps.colors.length - 1)
+      );
+
+      return this.gameProps.colors[randNumber] || "#1a1a1a";
+    },
+
+    generateClipPath(figure: number) {
+      return this.gameProps.figures[figure] || "circle(50% at 50% 50%)";
+    },
+
     createTargets() {
       const app = document.querySelector("#app") as HTMLElement;
       const screenWidth = app.offsetWidth;
@@ -427,9 +439,10 @@ export const useGameStore = defineStore({
         const y = Math.floor(
           Math.random() * (screenHeight - this.complexity.size)
         );
+
         const figure = generateFigure(this.lvl);
         const figureName = generateFigureName(figure);
-        const bgColor = this.gameProps.colors[Math.floor(Math.random() * 4)];
+        const bgColor = this.generateBgColor();
         const bgColorName = generateBgColorName(bgColor);
         const borderColor = this.generateBorderColor(bgColor);
         const borderColorName = generateBorderColorName(borderColor);
@@ -441,7 +454,7 @@ export const useGameStore = defineStore({
           y,
           width: this.complexity.size,
           height: this.complexity.size,
-          d: this.gameProps.figures[figure],
+          clipPath: this.generateClipPath(figure),
           figure,
           figureName,
           bgColor,
