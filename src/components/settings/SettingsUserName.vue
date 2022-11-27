@@ -22,6 +22,7 @@ import { ref, watch } from "vue";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -35,8 +36,7 @@ watch(changeableName, () => {
 
 const getNextChangeNameTime = () => {
   return (
-    getCurrentChangeNameTime() +
-    604800 // Неделя
+    getCurrentChangeNameTime() + 604800 // Неделя
   );
 };
 
@@ -65,10 +65,13 @@ const showChangeNameInput = () => {
 
     tipStore.update("Изменение имени доступно раз в 7 дней");
   } else {
-    const remainingSeconds = getCurrentChangeNameTime() - mainStore.user.changeNameDate;
+    const remainingSeconds =
+      getCurrentChangeNameTime() - mainStore.user.changeNameDate;
     const remainingDays = Math.abs(Math.floor(remainingSeconds / 60 / 60 / 24));
 
-    tipStore.update(`Изменение имени доступно раз в 7 дней, осталось ${remainingDays} дней`);
+    tipStore.update(
+      `Изменение имени доступно раз в 7 дней, осталось ${remainingDays} дней`
+    );
   }
 };
 
@@ -95,8 +98,10 @@ const changeName = async () => {
     const userRef = doc(db, "users", mainStore.uid);
     await updateDoc(userRef, {
       name: changeableName.value,
-      changeNameDate: getNextChangeNameTime()
-    }).then(() => {
+      changeNameDate: getNextChangeNameTime(),
+    }).then(async () => {
+      await sendAnalyticsRequest("updateName");
+
       nameChanging.value = false;
     });
   }

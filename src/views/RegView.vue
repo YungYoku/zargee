@@ -110,6 +110,7 @@ import type { AuthResponse } from "@/interfaces/authResponse";
 import { useAuthStore } from "@/stores/auth";
 import passVisible from "@/assets/img/passVisible.svg";
 import passInvisible from "@/assets/img/passInvisible.svg";
+import { sendAnalyticsRequest } from "@/api/api";
 
 interface Registration {
   mode: string;
@@ -269,6 +270,8 @@ const handleResponse = async (response: AuthResponse) => {
   settingsStore.swapSound();
   await mainStore.loadInfo();
   await router.push("/");
+
+  await sendAnalyticsRequest("addEmptyUserToDb");
 };
 
 const handleError = (error: AuthError) => {

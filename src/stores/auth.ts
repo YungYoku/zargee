@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
+import { sendAnalyticsRequest } from "@/api/api";
 
 export const useAuthStore = defineStore({
   id: "auth",
@@ -36,6 +37,7 @@ export const useAuthStore = defineStore({
       await updateDoc(doc(db, "refs", refCode), {
         refs: arrayUnion(name),
       });
+      await sendAnalyticsRequest("sendBonusToGivingRefUser");
     },
 
     async addEmptyUserToDb(uid: string, name: string, bonus: boolean) {
@@ -63,6 +65,7 @@ export const useAuthStore = defineStore({
           name: name,
           refs: [],
         }),
+        await sendAnalyticsRequest("addEmptyUserToDb"),
       ]);
     },
   },

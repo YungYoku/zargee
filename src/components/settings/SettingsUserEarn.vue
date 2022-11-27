@@ -15,6 +15,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useMainStore } from "@/stores/main";
 import { useTipStore } from "@/stores/tip";
 import EarnVideo from "@/components/EarnVideo.vue";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -38,7 +39,9 @@ const watchAd = async () => {
   if (adWatchTime.value > expireTime) {
     await updateDoc(doc(db, "users", mainStore.uid), {
       adWatchTime: adWatchTime.value,
-    }).then(() => {
+    }).then(async () => {
+      await sendAnalyticsRequest("updateAdWatchTime");
+
       timer.value = 5;
       adShowing.value = true;
       adWatching = setInterval(() => {
@@ -63,7 +66,9 @@ const hideAd = async () => {
 const claimReward = async () => {
   await updateDoc(doc(db, "users", mainStore.uid), {
     hearts: mainStore.user.hearts + 1,
-  }).then(() => {
+  }).then(async () => {
+    await sendAnalyticsRequest("updateHearts");
+
     tipStore.update(`Получено 1 сердце`);
   });
 };

@@ -22,6 +22,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useMainStore } from "@/stores/main";
 import { useTipStore } from "@/stores/tip";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -62,6 +63,7 @@ const sendCode = async () => {
           hearts: mainStore.user.hearts + hearts,
           codes: _codes,
         });
+        await sendAnalyticsRequest("claimRewards");
       } else {
         tipStore.update("Этот код не существует");
       }

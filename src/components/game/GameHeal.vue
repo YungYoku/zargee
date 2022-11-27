@@ -39,6 +39,7 @@ import { computed } from "vue";
 import { useTipStore } from "@/stores/tip";
 import { useLoadingStore } from "@/stores/loading";
 import GameLoading from "@/components/AppLoading.vue";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const props = defineProps({
   timeKick: {
@@ -96,7 +97,9 @@ const reborn = {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
         hearts: mainStore.user.hearts - heartPrice.value,
-      }).then(() => {
+      }).then(async () => {
+        await sendAnalyticsRequest("updateHearts");
+
         restart("heart");
         swapHeal();
       });
@@ -112,7 +115,9 @@ const reborn = {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
         gold: mainStore.user.gold - 1,
-      }).then(() => {
+      }).then(async () => {
+        await sendAnalyticsRequest("updateGold");
+
         restart("gold");
         swapHeal();
       });

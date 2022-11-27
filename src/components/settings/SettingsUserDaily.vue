@@ -41,6 +41,7 @@ import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
 import AdVideo from "@/components/EarnVideo.vue";
 import ButtonClose from "@/components/ButtonClose.vue";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();
@@ -49,9 +50,9 @@ const week = [1, 2, 3, 4, 5, 6, 7];
 const calendar = ref(false);
 const time = ref(
   86400 -
-  new Date().getHours() * 3600 -
-  new Date().getMinutes() * 60 -
-  new Date().getSeconds()
+    new Date().getHours() * 3600 -
+    new Date().getMinutes() * 60 -
+    new Date().getSeconds()
 );
 const adShowing = ref(false);
 const timer = ref(5);
@@ -116,13 +117,13 @@ const getButtonText = (weekDay: number) => {
   return isItClaimable(weekDay)
     ? "Получить"
     : isItDoubleClaimable(weekDay)
-      ? "Получить x2"
-      : mainStore.user.rewardDay < weekDay ||
+    ? "Получить x2"
+    : mainStore.user.rewardDay < weekDay ||
       (mainStore.user.rewardDay === weekDay && isItReceived(weekDay))
-        ? "Недоступно"
-        : isItReceived(weekDay) || isItOldReceived(weekDay)
-          ? "Получено"
-          : "";
+    ? "Недоступно"
+    : isItReceived(weekDay) || isItOldReceived(weekDay)
+    ? "Получено"
+    : "";
 };
 
 const interval = setInterval(() => {
@@ -155,9 +156,11 @@ const claimReward = async (first: boolean, second: boolean) => {
     resetDay: mainStore.getCurrentDayInYear() + 1,
     rewardParts: {
       first: first,
-      second: second
-    }
-  }).then(() => {
+      second: second,
+    },
+  }).then(async () => {
+    await sendAnalyticsRequest("claimDaily");
+
     tipStore.update(`Получено ${reward} сердец`);
   });
 };

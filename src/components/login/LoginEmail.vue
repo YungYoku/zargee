@@ -50,6 +50,7 @@ import type { AuthError } from "@/interfaces/authError";
 import ButtonClose from "@/components/ButtonClose.vue";
 import passVisible from "@/assets/img/passVisible.svg";
 import passInvisible from "@/assets/img/passInvisible.svg";
+import { sendAnalyticsRequest } from "@/api/api";
 
 interface Login {
   email: string;
@@ -106,6 +107,8 @@ const handleResponse = async (response: AuthResponse) => {
   await router.push("/");
 
   loadingStore.hide();
+
+  await sendAnalyticsRequest("login");
 };
 
 const handleError = (error: AuthError) => {

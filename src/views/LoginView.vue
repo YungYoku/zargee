@@ -38,6 +38,7 @@ import type { AuthResponse } from "@/interfaces/authResponse";
 import { useAuthStore } from "@/stores/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/main";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const enum LoginType {
   email = "email",
@@ -65,6 +66,7 @@ const isUserInfoExist = async (uid: string) => {
   if (docSnap.exists()) {
     userInfoExist = true;
   }
+  await sendAnalyticsRequest("isUserInfoExists");
 
   return userInfoExist;
 };

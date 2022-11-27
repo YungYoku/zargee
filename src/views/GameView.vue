@@ -59,6 +59,7 @@ import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useSettingsStore } from "@/stores/settings";
+import { sendAnalyticsRequest } from "@/api/api";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
@@ -87,8 +88,9 @@ watch(lose, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl
+        lvl: gameStore.lvl,
       });
+      await sendAnalyticsRequest("updateUserLevelRecord");
     }
   }
 });
@@ -98,8 +100,9 @@ watch(time, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl
+        lvl: gameStore.lvl,
       });
+      await sendAnalyticsRequest("updateUserLevelRecord");
     }
   }
 });

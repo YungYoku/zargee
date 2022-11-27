@@ -4,6 +4,7 @@ import type { User } from "@/interfaces/user";
 import { defineStore } from "pinia";
 import { useLoadingStore } from "@/stores/loading";
 import { useSettingsStore } from "@/stores/settings";
+import { sendAnalyticsRequest } from "@/api/api";
 
 export interface State {
   demo: boolean;
@@ -86,6 +87,7 @@ export const useMainStore = defineStore({
             second: false,
           },
         });
+        await sendAnalyticsRequest("updateResetDay");
       }
     },
 
