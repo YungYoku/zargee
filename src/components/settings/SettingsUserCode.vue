@@ -43,8 +43,8 @@ const sendCode = async () => {
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
-        const hearts = data.hearts;
-        const gold = data.gold;
+        const hearts = data["hearts"];
+        const gold = data["gold"];
 
         if (hearts && !gold) {
           tipStore.update(`Получено ${hearts} сердец`);

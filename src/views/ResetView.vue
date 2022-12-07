@@ -121,7 +121,7 @@ const emailReg = new RegExp(
 );
 
 const form = reactive<Reset>({
-  mode: (query.mode as string) || "default",
+  mode: (query["mode"] as string) || "default",
   email: "",
   password: "",
   passwordRep: "",
@@ -226,7 +226,7 @@ const resetPassword = async () => {
 
     await confirmPasswordReset(
       getAuth(),
-      query.oobCode as string,
+      query["oobCode"] as string,
       form.password
     ).then(async () => {
       await router.push("/login");
