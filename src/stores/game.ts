@@ -34,7 +34,7 @@ export const useGameStore = defineStore({
   id: "game",
 
   state: (): State => ({
-    lvl: 1,
+    lvl: 28,
     complexity: {
       targets: "",
       time: 0,
@@ -275,38 +275,32 @@ export const useGameStore = defineStore({
             Math.random() * (this.targets.length - this.score.current)
           );
 
-          if (this.targets[idx]) {
-            this.targets[idx].blink = true;
-            this.targets[idx].blinkDelay = Math.floor(Math.random() * 4) + 1;
+          this.targets.forEach((item, index) => {
+            if (index === idx) {
+              item.blink = true;
+              item.blinkDelay = Math.floor(Math.random() * 4) + 1;
 
-            setTimeout(() => {
-              if (this.targets[idx]) {
-                this.targets[idx].bgColor =
-                  this.gameProps.colors[Math.round(Math.random() * 4)];
+              setTimeout(() => {
+                if (this.targets[idx]) {
+                  item.bgColor = this.generateBgColor();
 
-                this.targets[idx].bgColorName = generateBgColorName(
-                  this.targets[idx].bgColor
-                );
+                  item.bgColorName = generateBgColorName(item.bgColor);
 
-                this.targets[idx].figure = generateFigure(this.lvl);
+                  item.figure = generateFigure(this.lvl);
 
-                this.targets[idx].figureName = generateFigureName(
-                  this.targets[idx].figure
-                );
+                  item.figureName = generateFigureName(item.figure);
 
-                this.targets[idx].clipPath =
-                  this.gameProps.figures[this.targets[idx].figure];
+                  item.clipPath = this.generateClipPath(item.figure);
 
-                this.targets[idx].borderColor = this.generateBorderColor(
-                  this.targets[idx].bgColor
-                );
+                  item.borderColor = this.generateBorderColor(item.bgColor);
 
-                this.targets[idx].borderColorName = generateBorderColorName(
-                  this.targets[idx].borderColor
-                );
-              }
-            }, this.targets[idx].blinkDelay * 1000 + 4000);
-          }
+                  item.borderColorName = generateBorderColorName(
+                    item.borderColor
+                  );
+                }
+              }, item.blinkDelay * 1000 + 4000);
+            }
+          });
         }
       }
     },
