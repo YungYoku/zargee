@@ -5,11 +5,11 @@
         <settings-user-name />
 
         <div class="name__info">
-          <button type="button" @click="showPolitics">
+          <router-link to="/settings/user/politics">
             <img alt="Политика" src="@/assets/img/file.svg" />
-          </button>
+          </router-link>
 
-          <button type="button" @click="showAbout">i</button>
+          <router-link to="/settings/user/about">i</router-link>
         </div>
       </div>
 
@@ -27,13 +27,7 @@
 
       <settings-user-complexity />
 
-      <game-politics
-        background-color="#f5eee9"
-        v-if="politicsShow"
-        @close="hidePolitics"
-      />
-
-      <settings-user-about v-if="aboutShow" @close="hideAbout" />
+      <router-view />
     </div>
   </div>
 </template>
@@ -44,32 +38,10 @@ import SettingsUserCode from "@/components/settings/SettingsUserCode.vue";
 import SettingsUserEarn from "@/components/settings/SettingsUserEarn.vue";
 import SettingsUserRefCode from "@/components/settings/SettingsUserRefCode.vue";
 import SettingsUserDaily from "@/components/settings/SettingsUserDaily.vue";
-import SettingsUserAbout from "@/components/settings/SettingsUserAbout.vue";
-import GamePolitics from "@/components/AppPolitics.vue";
 import SettingsUserComplexity from "@/components/settings/SettingsUserComplexity.vue";
-import { ref } from "vue";
 import SettingsUserName from "@/components/settings/SettingsUserName.vue";
 
 const mainStore = useMainStore();
-
-const politicsShow = ref(false);
-const aboutShow = ref(false);
-
-const showPolitics = () => {
-  politicsShow.value = true;
-};
-
-const hidePolitics = () => {
-  politicsShow.value = false;
-};
-
-const showAbout = () => {
-  aboutShow.value = true;
-};
-
-const hideAbout = () => {
-  aboutShow.value = false;
-};
 </script>
 
 <style lang="scss" scoped>
@@ -105,7 +77,7 @@ const hideAbout = () => {
 
     text-align: center;
 
-    background-color: #f5eee9;
+    background-color: #ffffff;
     border-radius: 5px;
 
     .name {
@@ -123,6 +95,7 @@ const hideAbout = () => {
 
       gap: 10px;
 
+      a,
       button {
         display: flex;
         justify-content: center;

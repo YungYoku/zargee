@@ -1,6 +1,6 @@
 {
   "name": "zargee",
-  "version": "0.9.26",
+  "version": "0.9.27",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",

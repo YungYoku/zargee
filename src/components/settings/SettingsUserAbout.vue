@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <button-close @close="$emit('close')" />
+    <button-close @close="close" />
 
     <div class="about__content">
       Добро пожаловать Zargee - Popping shapes!
@@ -47,8 +47,15 @@
 import fireOn from "@/assets/img/fireOn.svg";
 import fireOff from "@/assets/img/fireOff.svg";
 import ButtonClose from "@/components/ButtonClose.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const complexity = ["без времени", "легкий", "средний", "сложный"];
+
+const close = () => {
+  router.push("/settings/user");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -68,7 +75,7 @@ const complexity = ["без времени", "легкий", "средний", "
 
   text-align: left;
 
-  background-color: #f5eee9;
+  background-color: #ffffff;
 
   > div {
     overflow-y: scroll;

@@ -1,6 +1,6 @@
 <template>
   <div class="politics">
-    <button-close @close="$emit('close')" />
+    <button-close @close="close" />
 
     <div class="politics__content">
       Политика в отношении обработки персональных данных 1. Общие положения
@@ -319,14 +319,13 @@
 
 <script lang="ts" setup>
 import ButtonClose from "@/components/ButtonClose.vue";
+import { useRouter } from "vue-router";
 
-defineProps({
-  backgroundColor: {
-    type: String,
-    required: false,
-    default: "#ffffff",
-  },
-});
+const router = useRouter();
+
+const close = () => {
+  router.push("/settings/user");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -346,7 +345,7 @@ defineProps({
 
   text-align: left;
 
-  background-color: v-bind(backgroundColor);
+  background-color: #ffffff;
 
   &__content {
     overflow-y: scroll;

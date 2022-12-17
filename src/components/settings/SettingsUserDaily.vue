@@ -268,7 +268,7 @@ const hideAd = () => {
   height: 100%;
   padding: 10px;
 
-  background-color: #f5eee9;
+  background-color: #ffffff;
 
   gap: 8px;
 

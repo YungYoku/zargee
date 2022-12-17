@@ -45,7 +45,6 @@ mainStore.setFirstPage(route.name as string);
 const tabWidth = ref(ButtonSize.min);
 const tabHeight = ref(ButtonSize.min);
 
-const infoShow = ref(false);
 // eslint-disable-next-line no-undef
 const version = APP_VERSION;
 
@@ -78,12 +77,6 @@ onMounted(resizeLinksSize);
 onUnmounted(() => {
   window.removeEventListener("resize", resizeLinksSize);
 });
-
-const showInfo = (id: string) => {
-  if (id === "info" || id === "infoButton" || id === "infoButtonImg") {
-    infoShow.value = true;
-  }
-};
 
 const hideInfo = (e: Event) => {
   const target = e.target as HTMLInputElement;
