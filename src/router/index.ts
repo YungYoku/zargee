@@ -112,26 +112,26 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _, next) => {
+router.beforeEach((to) => {
   const logged = !!localStorage["uid"];
 
   if (to.name === "Demo") {
     if (!logged) {
-      next();
+      return true;
     } else {
-      next("/");
+      return "/";
     }
   } else if (to.meta["auth"]) {
     if (logged) {
-      next();
+      return true;
     } else {
-      next("/login");
+      return "/login";
     }
   } else {
     if (logged) {
-      next("/");
+      return "/";
     } else {
-      next();
+      return true;
     }
   }
 });
