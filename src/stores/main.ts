@@ -9,7 +9,6 @@ export interface State {
   demo: boolean;
   uid: string;
   user: User;
-  firstPage: string;
   subscribedToNewRefs: boolean;
 }
 
@@ -27,7 +26,6 @@ export const useMainStore = defineStore({
     demo: false,
     uid: "",
     user: {} as User,
-    firstPage: "",
     subscribedToNewRefs: false,
   }),
 
@@ -57,10 +55,6 @@ export const useMainStore = defineStore({
 
     setInfo(user: User) {
       this.user = user;
-    },
-
-    setFirstPage(page: string) {
-      this.firstPage = page;
     },
 
     getCurrentDayInYear(day = 0) {

@@ -15,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useMainStore } from "@/stores/main";
-import { useRoute } from "vue-router";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useGameStore } from "@/stores/game";
 
@@ -25,14 +23,10 @@ const enum ButtonSize {
   max = 160,
 }
 
-const mainStore = useMainStore();
 const gameStore = useGameStore();
-const route = useRoute();
 
 const tabWidth = ref(ButtonSize.min);
 const tabHeight = ref(ButtonSize.min);
-
-mainStore.setFirstPage(route.name as string);
 
 const linkLength = computed(() =>
   tabWidth.value < tabHeight.value

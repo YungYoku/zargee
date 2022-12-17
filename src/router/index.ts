@@ -112,28 +112,31 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to) => {
+router.beforeEach((to, from) => {
   const logged = !!localStorage["uid"];
 
   if (to.name === "Demo") {
     if (!logged) {
       return true;
-    } else {
-      return "/";
     }
-  } else if (to.meta["auth"]) {
+    return "/";
+  }
+
+  if (to.meta["auth"]) {
     if (logged) {
+      if (to.name === "Game" && from.name === undefined) {
+        return "/";
+      }
       return true;
     } else {
       return "/login";
     }
-  } else {
-    if (logged) {
-      return "/";
-    } else {
-      return true;
-    }
   }
+
+  if (logged) {
+    return "/";
+  }
+  return true;
 });
 
 export default router;

@@ -22,9 +22,8 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import { useMainStore } from "@/stores/main";
 import { useLoadingStore } from "@/stores/loading";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import SettingsButtonSound from "@/components/settings/SettingsButtonSound.vue";
 import SettingsButtonUser from "@/components/settings/SettingsButtonUser.vue";
 import SettingsButtonLogout from "@/components/settings/SettingsButtonLogout.vue";
@@ -35,12 +34,8 @@ const enum ButtonSize {
   max = 160,
 }
 
-const mainStore = useMainStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
-const route = useRoute();
-
-mainStore.setFirstPage(route.name as string);
 
 const tabWidth = ref(ButtonSize.min);
 const tabHeight = ref(ButtonSize.min);

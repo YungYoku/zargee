@@ -170,15 +170,10 @@ const setIntervals = () => {
 };
 
 onMounted(() => {
-  if (mainStore.firstPage === "") {
-    mainStore.setFirstPage("Game");
-    router.push("/");
-  } else {
-    loadingStore.hide();
+  loadingStore.hide();
 
-    gameStore.setComplexity(settingsStore.complexity);
-    setIntervals();
-  }
+  gameStore.setComplexity(settingsStore.complexity);
+  setIntervals();
 });
 
 onUnmounted(() => {
