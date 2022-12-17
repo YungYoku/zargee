@@ -34,7 +34,7 @@ export const useGameStore = defineStore({
   id: "game",
 
   state: (): State => ({
-    lvl: 28,
+    lvl: 1,
     complexity: {
       targets: "",
       time: 0,

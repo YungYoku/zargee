@@ -87,7 +87,7 @@ watch(lose, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl
+        lvl: gameStore.lvl,
       });
     }
   }
@@ -98,7 +98,7 @@ watch(time, async () => {
     if (gameStore.lvl > mainStore.user.lvl) {
       const userRef = doc(db, "users", mainStore.uid);
       await updateDoc(userRef, {
-        lvl: gameStore.lvl
+        lvl: gameStore.lvl,
       });
     }
   }

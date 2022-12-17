@@ -9,26 +9,18 @@
     }"
     class="infoButton"
     type="button"
-    @click.prevent="open($event)"
   >
     <img id="infoButtonImg" alt="Heart" src="@/assets/img/account.svg" />
   </button>
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(["open"]);
-
 defineProps({
   size: {
     type: String,
     required: true,
   },
 });
-
-const open = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  emit("open", target.id);
-};
 </script>
 
 <style lang="scss" scoped>

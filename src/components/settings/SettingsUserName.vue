@@ -35,8 +35,7 @@ watch(changeableName, () => {
 
 const getNextChangeNameTime = () => {
   return (
-    getCurrentChangeNameTime() +
-    604800 // Неделя
+    getCurrentChangeNameTime() + 604800 // Неделя
   );
 };
 
@@ -65,10 +64,13 @@ const showChangeNameInput = () => {
 
     tipStore.update("Изменение имени доступно раз в 7 дней");
   } else {
-    const remainingSeconds = getCurrentChangeNameTime() - mainStore.user.changeNameDate;
+    const remainingSeconds =
+      getCurrentChangeNameTime() - mainStore.user.changeNameDate;
     const remainingDays = Math.abs(Math.floor(remainingSeconds / 60 / 60 / 24));
 
-    tipStore.update(`Изменение имени доступно раз в 7 дней, осталось ${remainingDays} дней`);
+    tipStore.update(
+      `Изменение имени доступно раз в 7 дней, осталось ${remainingDays} дней`
+    );
   }
 };
 
@@ -95,7 +97,7 @@ const changeName = async () => {
     const userRef = doc(db, "users", mainStore.uid);
     await updateDoc(userRef, {
       name: changeableName.value,
-      changeNameDate: getNextChangeNameTime()
+      changeNameDate: getNextChangeNameTime(),
     }).then(() => {
       nameChanging.value = false;
     });

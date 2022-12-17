@@ -6,13 +6,15 @@
       <img alt="Back" src="@/assets/img/back.svg" />
     </router-link>
 
-    <settings-button-user :size="buttonSize" @open="showInfo" />
+    <router-link class="userButton" to="/settings/user">
+      <settings-button-user :size="buttonSize" />
+    </router-link>
 
     <settings-button-sound :size="buttonSize" />
 
     <settings-button-logout :size="buttonSize" />
 
-    <settings-user v-if="infoShow" @click.stop="hideInfo" />
+    <router-view @click.stop="hideInfo" />
 
     <div class="version">Версия: {{ version }}</div>
   </div>
@@ -22,12 +24,11 @@
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useLoadingStore } from "@/stores/loading";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import SettingsButtonSound from "@/components/settings/SettingsButtonSound.vue";
 import SettingsButtonUser from "@/components/settings/SettingsButtonUser.vue";
 import SettingsButtonLogout from "@/components/settings/SettingsButtonLogout.vue";
 import GameLoading from "@/components/AppLoading.vue";
-import SettingsUser from "@/components/settings/SettingsUser.vue";
 
 const enum ButtonSize {
   min = 80,
@@ -36,6 +37,7 @@ const enum ButtonSize {
 
 const mainStore = useMainStore();
 const loadingStore = useLoadingStore();
+const router = useRouter();
 const route = useRoute();
 
 mainStore.setFirstPage(route.name as string);
@@ -71,9 +73,7 @@ const formatLinkSize = (size: number) => {
 
 window.addEventListener("resize", resizeLinksSize);
 
-onMounted(() => {
-  resizeLinksSize();
-});
+onMounted(resizeLinksSize);
 
 onUnmounted(() => {
   window.removeEventListener("resize", resizeLinksSize);
@@ -88,7 +88,7 @@ const showInfo = (id: string) => {
 const hideInfo = (e: Event) => {
   const target = e.target as HTMLInputElement;
   if (target.id === "info") {
-    infoShow.value = false;
+    router.push("/settings");
   }
 };
 </script>

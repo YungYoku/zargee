@@ -15,8 +15,8 @@ defineProps({
   timer: {
     type: Number,
     required: true,
-    default: 5
-  }
+    default: 5,
+  },
 });
 
 const emit = defineEmits(["hideAd"]);

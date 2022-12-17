@@ -15,7 +15,6 @@ window.screen.orientation.lock("portrait");
 const app = createApp(App);
 app.use(createPinia());
 
-// For more options see below
 app.use(router);
 
 const firebaseConfig = {
