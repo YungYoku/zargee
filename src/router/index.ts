@@ -47,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "user",
         name: "SettingsUser",
-        component: () => SettingsUser,
+        component: SettingsUser,
         meta: {
           audio: true,
           auth: true,
@@ -55,8 +55,8 @@ const routes: Array<RouteRecordRaw> = [
         children: [
           {
             path: "politics",
-            name: "SettingsPolitics",
-            component: () => GamePolitics,
+            name: "SettingsUserPolitics",
+            component: GamePolitics,
             meta: {
               audio: true,
               auth: true,
@@ -65,7 +65,7 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: "about",
             name: "SettingsUserAbout",
-            component: () => SettingsUserAbout,
+            component: SettingsUserAbout,
             meta: {
               audio: true,
               auth: true,
