@@ -59,7 +59,12 @@ const addTime = () => {
   }
 
   button {
+    padding: 10px;
+
     font-size: 18px;
+
+    border: 1px solid #333333;
+    border-radius: 5px;
   }
 }
 </style>
