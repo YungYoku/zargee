@@ -3,6 +3,7 @@
     <game-start-timer
       v-if="startTimer && !loadingStore.loading"
       :start-timer="startTimer"
+      @addTime="addTime"
     />
 
     <game-task v-if="!startTimer && !loadingStore.loading" class="task" />
@@ -119,6 +120,10 @@ const updateKickInterval = () => {
     clearIntervals();
     router.push("/");
   }
+};
+
+const addTime = () => {
+  startTimer.value += 10;
 };
 
 const setStartTimerInterval = () => {
