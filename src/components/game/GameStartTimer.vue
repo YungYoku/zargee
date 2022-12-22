@@ -36,11 +36,15 @@ const addTime = () => {
   width: 100%;
   height: 100vh;
 
-
   .time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 140px;
 
     font-size: 100px;
+    text-align: center;
 
     animation: timer 1s infinite;
 
@@ -58,6 +62,4 @@ const addTime = () => {
     font-size: 18px;
   }
 }
-
-
 </style>
