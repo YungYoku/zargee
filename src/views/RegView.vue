@@ -2,7 +2,7 @@
   <div class="authWrap">
     <game-loading v-if="loadingStore.loading" />
 
-    <form class="registration" @submit.prevent="submit">
+    <form class="registration" @submit.prevent="register">
       <h2 class="title">Регистрация</h2>
 
       <label class="email" for="emailInput">
@@ -40,7 +40,7 @@
         />
 
         <button type="button" @click="swapPassShowing">
-          <img alt="view" :src="passShowingIcon" />
+          <img :src="passShowingIcon" alt="view" />
         </button>
       </label>
 
@@ -296,7 +296,7 @@ const handleError = (error: AuthError) => {
   }
 };
 
-const submit = async () => {
+const register = async () => {
   if (form.isValid()) {
     loadingStore.show();
 

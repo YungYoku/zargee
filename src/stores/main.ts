@@ -84,6 +84,9 @@ export const useMainStore = defineStore({
     },
 
     async subscribeToNewRefs() {
+      if (this.subscribedToNewRefs) return;
+      this.subscribedToNewRefs = true;
+
       await onSnapshot(
         doc(db, "refs", this.user.ref.toString()),
         async (response) => {
@@ -117,10 +120,7 @@ export const useMainStore = defineStore({
             this.setInfo(_user);
             await this.updateResetDay(_user);
 
-            if (!this.subscribedToNewRefs) {
-              await this.subscribeToNewRefs();
-              this.subscribedToNewRefs = true;
-            }
+            await this.subscribeToNewRefs();
 
             loadingStore.hide();
           }

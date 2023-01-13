@@ -6,8 +6,8 @@
       <h2 class="title">Логин</h2>
 
       <login-email
-        @close="setLoginType(LoginType.notSpecified)"
         v-if="loginType === 'email'"
+        @close="setLoginType(LoginType.notSpecified)"
       />
 
       <auth-options
