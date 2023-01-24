@@ -1,11 +1,15 @@
 <template>
+  <div id="yandex_left" ref="yandex_left"></div>
+
   <router-view />
 
   <game-tip />
+
+  <div id="yandex_right" ref="yandex_right"></div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 import { useSettingsStore } from "@/stores/settings";
@@ -16,6 +20,20 @@ const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
 const soundsStore = useSoundsStore();
 const router = useRouter();
+const yandex_left = ref(null);
+const yandex_right = ref(null);
+
+const isRouteGame = computed(() => {
+  const routeName = router.currentRoute.value.name;
+  return routeName === "Game" || routeName === "Demo";
+});
+watch(isRouteGame, () => {
+  if (isRouteGame.value) {
+    hideSideAds();
+  } else {
+    showSideAds();
+  }
+});
 
 const changeVolumeOnPageView = () => {
   if (settingsStore.isMusicChangeable) {
@@ -27,6 +45,43 @@ const changeVolumeOnPageView = () => {
   }
 };
 
+const hideSideAds = () => {
+  if (yandex_right.value) {
+    const yrDom = yandex_right.value as HTMLElement;
+    yrDom.classList.add("hide");
+  }
+  if (yandex_left.value) {
+    const ylDom = yandex_left.value as HTMLElement;
+    ylDom.classList.add("hide");
+  }
+};
+const showSideAds = () => {
+  if (yandex_right.value) {
+    const yrDom = yandex_right.value as HTMLElement;
+    yrDom.classList.remove("hide");
+  }
+  if (yandex_left.value) {
+    const ylDom = yandex_left.value as HTMLElement;
+    ylDom.classList.remove("hide");
+  }
+};
+
+const mountSideAds = () => {
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_left",
+      blockId: "R-A-1981739-1",
+    });
+  });
+
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_right",
+      blockId: "R-A-1981739-2",
+    });
+  });
+};
+
 onMounted(() => {
   mainStore.loadUIDFromLocalStorage();
 
@@ -35,6 +90,8 @@ onMounted(() => {
   mainStore.loadInfo();
 
   document.addEventListener("visibilitychange", changeVolumeOnPageView);
+
+  mountSideAds();
 });
 
 onUnmounted(() => {
@@ -63,5 +120,26 @@ watch(
 <style lang="scss" scoped>
 #app {
   isolation: isolate;
+
+  #yandex_left,
+  #yandex_right {
+    position: absolute;
+    top: 10vh;
+
+    max-width: 225px;
+    height: 80vh;
+
+    &.hide {
+      display: none;
+    }
+  }
+
+  #yandex_left {
+    left: 9%;
+  }
+
+  #yandex_right {
+    right: 9%;
+  }
 }
 </style>

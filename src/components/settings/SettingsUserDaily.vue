@@ -29,7 +29,13 @@
 
     <button-close @close="swapCalendar" />
 
-    <ad-video v-if="adShowing" :timer="timer" class="earn" @hideAd="hideAd" />
+    <ad-video
+      v-if="adShowing"
+      :timer="timer"
+      block-id="R-A-1981739-3"
+      class="earn"
+      @hideAd="hideAd"
+    />
   </div>
 </template>
 

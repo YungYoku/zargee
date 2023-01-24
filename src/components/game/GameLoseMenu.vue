@@ -11,7 +11,12 @@
         <span class="reborn__time">{{ timeKick }}</span>
       </button>
 
-      <earn-video v-if="adShowing" :timer="adTimer" @hideAd="hideAd" />
+      <earn-video
+        v-if="adShowing"
+        :timer="adTimer"
+        block-id="R-A-1981739-4"
+        @hideAd="hideAd"
+      />
 
       <the-share v-if="!mainStore.demo" />
 

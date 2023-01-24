@@ -4,7 +4,12 @@
 
     <h4 class="earn__counter">+1</h4>
 
-    <earn-video v-if="adShowing" :timer="timer" @hideAd="hideAd" />
+    <earn-video
+      v-if="adShowing"
+      :timer="timer"
+      block-id="R-A-1981739-5"
+      @hideAd="hideAd"
+    />
   </div>
 </template>
 

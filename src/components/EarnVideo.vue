@@ -1,6 +1,6 @@
 <template>
   <div class="earn-video">
-    <h3>Реклама</h3>
+    <div id="yandex_video"></div>
 
     <div v-if="timer" class="earn-video__timer">{{ timer }}</div>
 
@@ -11,7 +11,14 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+import { onMounted } from "vue";
+
+const props = defineProps({
+  blockId: {
+    type: String,
+    required: true,
+    default: "",
+  },
   timer: {
     type: Number,
     required: true,
@@ -24,6 +31,15 @@ const emit = defineEmits(["hideAd"]);
 const hideAd = () => {
   emit("hideAd");
 };
+
+onMounted(() => {
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_video",
+      blockId: props.blockId,
+    });
+  });
+});
 </script>
 
 <style lang="scss" scoped>
@@ -64,6 +80,9 @@ const hideAd = () => {
 
     border: 1px solid #333333;
     border-radius: 50%;
+
+    z-index: 5;
+    background: #fff;
   }
 }
 </style>
