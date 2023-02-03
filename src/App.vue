@@ -1,11 +1,15 @@
 <template>
-  <div id="yandex_left" ref="yandex_left"></div>
+  <div class="yandex_wrap left">
+    <div id="yandex_left" ref="yandex_left"></div>
+  </div>
 
   <router-view />
 
   <game-tip />
 
-  <div id="yandex_right" ref="yandex_right"></div>
+  <div class="yandex_wrap right">
+    <div id="yandex_right" ref="yandex_right"></div>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -121,25 +125,33 @@ watch(
 #app {
   isolation: isolate;
 
-  #yandex_left,
-  #yandex_right {
+  .yandex_wrap {
     position: absolute;
     top: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     max-width: 225px;
     height: 80vh;
 
-    &.hide {
-      display: none;
+    &.left {
+      left: 9%;
+    }
+
+    &.right {
+      right: 9%;
     }
   }
 
-  #yandex_left {
-    left: 9%;
-  }
-
+  #yandex_left,
   #yandex_right {
-    right: 9%;
+    height: 675px;
+
+    &.hide {
+      display: none;
+    }
   }
 }
 </style>

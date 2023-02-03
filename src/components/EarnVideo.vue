@@ -55,7 +55,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
 
-  background-color: #f5eee9;
+  backdrop-filter: blur(20px);
 
   h3 {
     font-size: 20px;
@@ -66,6 +66,7 @@ onMounted(() => {
     position: fixed;
     top: 20px;
     right: 20px;
+    z-index: 5;
 
     display: flex;
     justify-content: center;
@@ -78,11 +79,9 @@ onMounted(() => {
     font-size: 24px;
     color: #333333;
 
+    background: #fff;
     border: 1px solid #333333;
     border-radius: 50%;
-
-    z-index: 5;
-    background: #fff;
   }
 }
 </style>
