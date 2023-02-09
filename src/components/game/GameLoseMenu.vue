@@ -84,7 +84,7 @@ const emit = defineEmits([
 ]);
 
 const adShowing = ref(false);
-const adTimer = ref(5);
+const adTimer = ref(9);
 const healShow = ref(false);
 
 const interval = setInterval(() => {
@@ -133,7 +133,7 @@ const clearIntervals = () => {
 
 const watchAd = () => {
   healShow.value = false;
-  adTimer.value = 5;
+  adTimer.value = 9;
   adShowing.value = true;
   emit("watchAd");
 };

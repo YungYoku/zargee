@@ -5,7 +5,7 @@
 
   <router-view />
 
-  <game-tip />
+  <app-tip />
 
   <div class="yandex_wrap right">
     <div id="yandex_right" ref="yandex_right"></div>
@@ -18,7 +18,7 @@ import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
-import GameTip from "@/components/AppTip.vue";
+import AppTip from "@/components/AppTip.vue";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();

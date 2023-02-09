@@ -29,7 +29,7 @@
 
     <button-close @close="swapCalendar" />
 
-    <ad-video
+    <earn-video
       v-if="adShowing"
       :timer="timer"
       block-id="R-A-1981739-3"
@@ -45,7 +45,7 @@ import { useMainStore } from "@/stores/main";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
-import AdVideo from "@/components/EarnVideo.vue";
+import EarnVideo from "@/components/EarnVideo.vue";
 import ButtonClose from "@/components/ButtonClose.vue";
 
 const mainStore = useMainStore();
@@ -60,7 +60,7 @@ const time = ref(
     new Date().getSeconds()
 );
 const adShowing = ref(false);
-const timer = ref(5);
+const timer = ref(9);
 let adWatching: number;
 
 const imageShowing = computed(() => {
@@ -193,7 +193,7 @@ const swapCalendar = () => {
 };
 
 const watchAd = () => {
-  timer.value = 5;
+  timer.value = 9;
   adShowing.value = true;
   adWatching = setInterval(() => {
     if (timer.value > 0) {

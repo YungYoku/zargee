@@ -25,7 +25,7 @@ const mainStore = useMainStore();
 const tipStore = useTipStore();
 
 const adShowing = ref(false);
-const timer = ref(5);
+const timer = ref(9);
 let adWatching: number;
 
 const adWatchTime = computed(() => {
@@ -44,7 +44,7 @@ const watchAd = async () => {
     await updateDoc(doc(db, "users", mainStore.uid), {
       adWatchTime: adWatchTime.value,
     }).then(() => {
-      timer.value = 5;
+      timer.value = 9;
       adShowing.value = true;
       adWatching = setInterval(() => {
         if (timer.value > 0) {
