@@ -7,7 +7,9 @@
     <earn-video
       v-if="adShowing"
       :timer="timer"
-      block-id="R-A-1981739-5"
+      laptop-block-id="R-A-1981739-11"
+      mobile-block-id="R-A-1981739-14"
+      pc-block-id="R-A-1981739-5"
       @hideAd="hideAd"
     />
   </div>

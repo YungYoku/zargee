@@ -32,8 +32,10 @@
     <earn-video
       v-if="adShowing"
       :timer="timer"
-      block-id="R-A-1981739-3"
       class="earn"
+      laptop-block-id="R-A-1981739-9"
+      mobile-block-id="R-A-1981739-12"
+      pc-block-id="R-A-1981739-3"
       @hideAd="hideAd"
     />
   </div>

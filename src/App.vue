@@ -1,14 +1,18 @@
 <template>
-  <div class="yandex_wrap left">
-    <div id="yandex_left" ref="yandex_left"></div>
+  <div ref="yandex_left" class="yandex_wrap left">
+    <div id="yandex_left_pc"></div>
+
+    <div id="yandex_left_laptop"></div>
   </div>
 
   <router-view />
 
   <app-tip />
 
-  <div class="yandex_wrap right">
-    <div id="yandex_right" ref="yandex_right"></div>
+  <div ref="yandex_right" class="yandex_wrap right">
+    <div id="yandex_right_pc"></div>
+
+    <div id="yandex_right_laptop"></div>
   </div>
 </template>
 
@@ -73,15 +77,29 @@ const showSideAds = () => {
 const mountSideAds = () => {
   window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
-      renderTo: "yandex_left",
+      renderTo: "yandex_left_pc",
       blockId: "R-A-1981739-1",
     });
   });
 
   window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
-      renderTo: "yandex_right",
+      renderTo: "yandex_left_laptop",
+      blockId: "R-A-1981739-7",
+    });
+  });
+
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_right_pc",
       blockId: "R-A-1981739-2",
+    });
+  });
+
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_right_laptop",
+      blockId: "R-A-1981739-8",
     });
   });
 };
@@ -143,13 +161,51 @@ watch(
     &.right {
       right: 9%;
     }
-  }
-
-  #yandex_left,
-  #yandex_right {
-    height: 675px;
 
     &.hide {
+      display: none;
+    }
+
+    @media (max-width: 1200px) {
+      &.left {
+        left: 5%;
+      }
+
+      &.right {
+        right: 5%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      max-width: 160px;
+      &.left {
+        left: 2%;
+      }
+
+      &.right {
+        right: 2%;
+      }
+    }
+  }
+
+  #yandex_left_pc,
+  #yandex_right_pc {
+    height: 675px;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  #yandex_left_laptop,
+  #yandex_right_laptop {
+    height: 600px;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
       display: none;
     }
   }

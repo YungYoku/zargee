@@ -1,6 +1,7 @@
 <template>
   <div class="earn-video">
-    <div id="yandex_video"></div>
+    <div id="yandex_video_pc"></div>
+    <div id="yandex_video_laptop"></div>
 
     <div v-if="timer" class="earn-video__timer">{{ timer }}</div>
 
@@ -14,7 +15,17 @@
 import { onMounted } from "vue";
 
 const props = defineProps({
-  blockId: {
+  pcBlockId: {
+    type: String,
+    required: true,
+    default: "",
+  },
+  laptopBlockId: {
+    type: String,
+    required: true,
+    default: "",
+  },
+  mobileBlockId: {
     type: String,
     required: true,
     default: "",
@@ -35,10 +46,27 @@ const hideAd = () => {
 onMounted(() => {
   window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
-      renderTo: "yandex_video",
-      blockId: props.blockId,
+      renderTo: "yandex_video_pc",
+      blockId: props.pcBlockId,
     });
   });
+
+  window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+      renderTo: "yandex_video_laptop",
+      blockId: props.laptopBlockId,
+    });
+  });
+
+  if (window.innerWidth < 768) {
+    window.yaContextCb.push(() => {
+      Ya.Context.AdvManager.render({
+        type: "fullscreen",
+        platform: "touch",
+        blockId: props.mobileBlockId,
+      });
+    });
+  }
 });
 </script>
 
@@ -56,6 +84,28 @@ onMounted(() => {
   height: 100%;
 
   backdrop-filter: blur(20px);
+
+  #yandex_video_pc {
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  #yandex_video_laptop {
+    @media (min-width: 2014px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  #yandex_video_mobile {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
 
   h3 {
     font-size: 20px;
@@ -82,6 +132,10 @@ onMounted(() => {
     background: #fff;
     border: 1px solid #333333;
     border-radius: 50%;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
   }
 }
 </style>

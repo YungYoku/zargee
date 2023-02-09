@@ -14,7 +14,9 @@
       <earn-video
         v-if="adShowing"
         :timer="adTimer"
-        block-id="R-A-1981739-4"
+        laptop-block-id="R-A-1981739-10"
+        mobile-block-id="R-A-1981739-13"
+        pc-block-id="R-A-1981739-4"
         @hideAd="hideAd"
       />
 
