@@ -92,7 +92,7 @@ onMounted(() => {
   }
 
   #yandex_video_laptop {
-    @media (min-width: 2014px) {
+    @media (min-width: 1024px) {
       display: none;
     }
 
@@ -133,7 +133,7 @@ onMounted(() => {
     border: 1px solid #333333;
     border-radius: 50%;
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
       display: none;
     }
   }
