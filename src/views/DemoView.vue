@@ -3,6 +3,7 @@
     <game-start-timer
       v-if="startTimer && !loadingStore.loading"
       :start-timer="startTimer"
+      @addTime="addTime"
     />
 
     <game-task v-if="!startTimer && !loadingStore.loading" class="task" />
@@ -97,6 +98,10 @@ const setStartTimerInterval = () => {
       }
     }
   }, 1000);
+};
+
+const addTime = () => {
+  startTimer.value += 10;
 };
 
 const setIntervals = () => {

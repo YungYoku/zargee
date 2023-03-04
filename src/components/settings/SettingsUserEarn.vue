@@ -21,7 +21,7 @@ import { db } from "@/main";
 import { doc, updateDoc } from "firebase/firestore";
 import { useMainStore } from "@/stores/main";
 import { useTipStore } from "@/stores/tip";
-import EarnVideo from "@/components/EarnVideo.vue";
+import EarnVideo from "@/components/earnVideo/EarnVideoWrap.vue";
 
 const mainStore = useMainStore();
 const tipStore = useTipStore();

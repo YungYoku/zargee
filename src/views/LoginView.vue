@@ -105,6 +105,8 @@ const loginGoogle = async () => {
       //const email = error.customData.email;
 
       //const credential = GoogleAuthProvider.credentialFromError(error);
+
+      loadingStore.hide();
     });
 };
 </script>

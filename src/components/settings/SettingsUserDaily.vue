@@ -47,7 +47,7 @@ import { useMainStore } from "@/stores/main";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
-import EarnVideo from "@/components/EarnVideo.vue";
+import EarnVideo from "@/components/earnVideo/EarnVideoWrap.vue";
 import ButtonClose from "@/components/ButtonClose.vue";
 
 const mainStore = useMainStore();

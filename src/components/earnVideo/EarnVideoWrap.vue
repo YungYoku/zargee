@@ -1,18 +1,18 @@
 <template>
   <div class="earn-video">
-    <div id="yandex_video_pc"></div>
-    <div id="yandex_video_laptop"></div>
-
-    <div v-if="timer" class="earn-video__timer">{{ timer }}</div>
-
-    <button v-else class="earn-video__close" type="button" @click="hideAd">
-      <img alt="Закрыть" src="@/assets/img/close.svg" />
-    </button>
+    <earn-video
+      v-if="!isItMobile"
+      :laptopBlockId="props.laptopBlockId"
+      :pc-block-id="props.pcBlockId"
+      :timer="props.timer"
+      @hideAd="hideAd"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
+import { ref } from "vue";
+import EarnVideo from "@/components/earnVideo/EarnVideo.vue";
 
 const props = defineProps({
   pcBlockId: {
@@ -37,37 +37,27 @@ const props = defineProps({
   },
 });
 
+const isItMobile = ref(false);
+
 const emit = defineEmits(["hideAd"]);
 
 const hideAd = () => {
   emit("hideAd");
 };
 
-onMounted(() => {
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
-      renderTo: "yandex_video_pc",
-      blockId: props.pcBlockId,
-    });
-  });
+if (window.innerWidth < 768) {
+  isItMobile.value = true;
 
   window.yaContextCb.push(() => {
     Ya.Context.AdvManager.render({
-      renderTo: "yandex_video_laptop",
-      blockId: props.laptopBlockId,
+      type: "fullscreen",
+      platform: "touch",
+      blockId: props.mobileBlockId,
     });
   });
 
-  if (window.innerWidth < 768) {
-    window.yaContextCb.push(() => {
-      Ya.Context.AdvManager.render({
-        type: "fullscreen",
-        platform: "touch",
-        blockId: props.mobileBlockId,
-      });
-    });
-  }
-});
+  hideAd();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -97,12 +87,6 @@ onMounted(() => {
     }
 
     @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  #yandex_video_mobile {
-    @media (min-width: 768px) {
       display: none;
     }
   }

@@ -47,7 +47,7 @@
 <script lang="ts" setup>
 import TheShare from "@/components/game/GameShare.vue";
 import GameHeal from "@/components/game/GameHeal.vue";
-import EarnVideo from "@/components/EarnVideo.vue";
+import EarnVideo from "@/components/earnVideo/EarnVideoWrap.vue";
 import { onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
 import { useRouter } from "vue-router";
