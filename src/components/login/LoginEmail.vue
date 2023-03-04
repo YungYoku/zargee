@@ -25,7 +25,7 @@
       />
 
       <button type="button" @click="swapPassShowing">
-        <img alt="view" :src="passShowingIcon" />
+        <img :src="passShowingIcon" alt="view" />
       </button>
     </label>
 
@@ -160,12 +160,10 @@ const close = () => {
     left: 40px;
   }
 
-  .pass {
-    position: relative;
-  }
-
   .email,
   .pass {
+    position: relative;
+
     &::after {
       content: "";
       position: absolute;

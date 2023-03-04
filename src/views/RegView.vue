@@ -359,6 +359,8 @@ const register = async () => {
     .pass,
     .passRep,
     .refCode {
+      position: relative;
+
       &::after {
         content: "";
         position: absolute;
