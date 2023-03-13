@@ -11,7 +11,7 @@ export const useTipStore = defineStore({
 
   state: (): State => ({
     tip: "",
-    expireTime: 2000,
+    expireTime: 5000,
     timeout: 0,
   }),
 

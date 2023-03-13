@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from "vue-router";
 import { createRouter, createWebHistory } from "vue-router";
 import SettingsUser from "@/components/settings/SettingsUser.vue";
-import GamePolitics from "@/components/AppPolitics.vue";
 import SettingsUserAbout from "@/components/settings/SettingsUserAbout.vue";
+import AppPolitics from "@/components/AppPolitics.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -56,7 +56,7 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: "politics",
             name: "SettingsUserPolitics",
-            component: GamePolitics,
+            component: AppPolitics,
             meta: {
               audio: true,
               auth: true,
@@ -94,6 +94,17 @@ const routes: Array<RouteRecordRaw> = [
       audio: false,
       auth: false,
     },
+    children: [
+      {
+        path: "politics",
+        name: "RegistrationPolitics",
+        component: AppPolitics,
+        meta: {
+          audio: false,
+          auth: false,
+        },
+      },
+    ],
   },
 
   {

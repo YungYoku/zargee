@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: "zargee.ru",
   appName: "Zargee",
   webDir: "dist",
-  bundledWebRuntime: false,
+  bundledWebRuntime: true,
 };
 
 export default config;

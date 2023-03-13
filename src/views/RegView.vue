@@ -78,11 +78,11 @@
 
         <span> Я согласен с правилами. </span>
 
-        <button class="politicsBtn" @click="showPolitics">
+        <router-link to="/reg/politics">
           <img alt="Политика" src="@/assets/img/file.svg" />
-        </button>
+        </router-link>
 
-        <game-politics v-if="politicsShow" @close="hidePolitics" />
+        <router-view />
       </label>
 
       <button class="btnSubmit" type="submit">Отправить</button>
@@ -104,7 +104,6 @@ import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "vue-router";
 import GameLoading from "@/components/AppLoading.vue";
 import AnimatedLink from "@/components/AnimatedLink.vue";
-import GamePolitics from "@/components/AppPolitics.vue";
 import type { AuthError } from "@/interfaces/authError";
 import type { AuthResponse } from "@/interfaces/authResponse";
 import { useAuthStore } from "@/stores/auth";
@@ -158,7 +157,6 @@ const lineII = ref();
 const lineIII = ref();
 
 const passIcon = ref("passInvisible");
-const politicsShow = ref(false);
 
 onMounted(() => {
   const queryRef = router.currentRoute.value.query["ref"] as string;
@@ -177,14 +175,6 @@ watch(
     form.name = form.name.slice(0, 8);
   }
 );
-
-const showPolitics = () => {
-  politicsShow.value = true;
-};
-
-const hidePolitics = () => {
-  politicsShow.value = false;
-};
 
 const passShowingIcon = computed(() => {
   if (passIcon.value === "passVisible") {
@@ -241,18 +231,18 @@ const rightPass = () => {
     passDom.value.style.color = colors.error;
     passRepDom.value.style.color = colors.error;
   } else if (!form.password && !form.passwordRep) {
-    passDom.value.style.color = colors.additional;
-    passRepDom.value.style.color = colors.additional;
+    passDom.value.style.color = null;
+    passRepDom.value.style.color = null;
   } else {
     passDom.value.style.color = colors.valid;
     passRepDom.value.style.color = colors.valid;
   }
 
-  if (form.password.length < 6) {
+  if (form.password.length && form.password.length < 6) {
     passDom.value.style.color = colors.error;
   }
 
-  if (form.passwordRep.length < 6) {
+  if (form.passwordRep.length && form.passwordRep.length < 6) {
     passRepDom.value.style.color = colors.error;
   }
 };
@@ -454,7 +444,7 @@ const register = async () => {
     .rules {
       display: flex;
       justify-content: flex-start;
-      align-items: center;
+      align-items: flex-end;
 
       font-size: 14px;
       color: initial;
@@ -476,14 +466,34 @@ const register = async () => {
         line-height: 14px;
       }
 
+      a,
       button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 26px;
+        height: 26px;
         margin-left: auto;
+
+        color: #333333;
+
+        border: 1px solid #333333;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        img {
+          width: 16px;
+          height: 16px;
+        }
       }
     }
 
     .btnSubmit {
       z-index: 3;
 
+      margin: 10px 0 0 0;
       padding: 10px 0;
 
       font-size: 20px;
