@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <router-link class="home__link" to="/game">
+    <router-link class="home__link" draggable="false" to="/game">
       <img alt="Play" class="home__link-img" src="@/assets/img/play.svg" />
     </router-link>
 
-    <router-link class="home__link" to="/settings">
+    <router-link class="home__link" draggable="false" to="/settings">
       <img
         alt="Settings"
         class="home__link-img"

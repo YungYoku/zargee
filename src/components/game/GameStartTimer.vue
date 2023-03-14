@@ -1,6 +1,7 @@
 <template>
   <div class="timer">
     <div class="time">{{ startTimer }}</div>
+
     <button type="button" @click="addTime">Добавить 10 секунд</button>
   </div>
 </template>

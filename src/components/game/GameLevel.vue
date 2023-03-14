@@ -20,6 +20,7 @@ const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 
 const swapSound = () => {
+  console.log("e");
   settingsStore.swapSound();
 };
 </script>
@@ -37,35 +38,35 @@ const swapSound = () => {
 
   font-size: 20px;
   text-align: center;
-}
 
-.lvl h3 {
-  z-index: 2;
+  h3 {
+    z-index: 2;
 
-  padding: 10px;
+    padding: 10px;
 
-  font-size: 20px;
-}
+    font-size: 20px;
+  }
 
-.sound {
-  z-index: 4;
+  .sound {
+    z-index: 4;
 
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 
-  background-color: transparent;
+    background-color: transparent;
 
-  cursor: pointer;
-}
+    cursor: pointer;
 
-.sound img {
-  z-index: 4;
+    img {
+      z-index: 4;
 
-  width: 20px;
-  height: 20px;
+      width: 20px;
+      height: 20px;
 
-  background-color: transparent;
+      background-color: transparent;
 
-  cursor: pointer;
+      cursor: pointer;
+    }
+  }
 }
 </style>

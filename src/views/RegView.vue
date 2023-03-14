@@ -78,7 +78,7 @@
 
         <span> Я согласен с правилами. </span>
 
-        <router-link to="/reg/politics">
+        <router-link draggable="false" to="/reg/politics">
           <img alt="Политика" src="@/assets/img/file.svg" />
         </router-link>
 
@@ -131,6 +131,8 @@ const router = useRouter();
 const emailReg = new RegExp(
   /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
 );
+
+const onFocusLeave = () => {};
 
 const form = reactive<Registration>({
   mode: "reg",

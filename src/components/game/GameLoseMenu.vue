@@ -24,7 +24,12 @@
 
       <button v-if="mainStore.demo" @click="logout">Выйти</button>
 
-      <router-link v-if="!mainStore.demo" to="/" @click="clearIntervals">
+      <router-link
+        v-if="!mainStore.demo"
+        draggable="false"
+        to="/"
+        @click="clearIntervals"
+      >
         Меню
         <img alt="Menu" src="@/assets/img/menu.svg" />
       </router-link>

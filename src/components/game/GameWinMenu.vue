@@ -3,7 +3,7 @@
     <div class="win__content">
       <h2>Конец игры</h2>
 
-      <router-link to="/" @click="clearIntervals">
+      <router-link draggable="false" to="/" @click="clearIntervals">
         Меню
         <img alt="Menu" src="@/assets/img/menu.svg" />
       </router-link>

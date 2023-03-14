@@ -5,11 +5,13 @@
         <settings-user-name />
 
         <div class="name__info">
-          <router-link to="/settings/user/politics">
+          <router-link draggable="false" to="/settings/user/politics">
             <img alt="Политика" src="@/assets/img/file.svg" />
           </router-link>
 
-          <router-link to="/settings/user/about">i</router-link>
+          <router-link draggable="false" to="/settings/user/about">
+            i
+          </router-link>
         </div>
       </div>
 

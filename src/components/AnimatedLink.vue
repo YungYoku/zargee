@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <router-link :to="link" class="link">
+    <router-link :to="link" class="link" draggable="false">
       <span class="text">
         {{ text }}
       </span>

@@ -2,11 +2,11 @@
   <div class="settings">
     <game-loading v-if="loadingStore.loading" />
 
-    <router-link class="back" to="/">
+    <router-link class="back" draggable="false" to="/">
       <img alt="Back" src="@/assets/img/back.svg" />
     </router-link>
 
-    <router-link class="userButton" to="/settings/user">
+    <router-link class="userButton" draggable="false" to="/settings/user">
       <settings-button-user :size="buttonSize" />
     </router-link>
 

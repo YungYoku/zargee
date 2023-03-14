@@ -30,7 +30,7 @@
     </label>
 
     <div class="passForgot">
-      <router-link to="/reset">Забыли пароль?</router-link>
+      <router-link draggable="false" to="/reset">Забыли пароль?</router-link>
     </div>
 
     <button class="btnSubmit" type="submit">Войти</button>
