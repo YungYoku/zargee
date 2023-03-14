@@ -132,8 +132,6 @@ const emailReg = new RegExp(
   /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
 );
 
-const onFocusLeave = () => {};
-
 const form = reactive<Registration>({
   mode: "reg",
   email: "",

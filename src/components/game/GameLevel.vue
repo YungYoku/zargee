@@ -27,7 +27,7 @@ const swapSound = () => {
 
 <style lang="scss" scoped>
 .lvl {
-  z-index: 0;
+  z-index: 4;
 
   display: flex;
   justify-content: center;
@@ -40,16 +40,12 @@ const swapSound = () => {
   text-align: center;
 
   h3 {
-    z-index: 2;
-
     padding: 10px;
 
     font-size: 20px;
   }
 
   .sound {
-    z-index: 4;
-
     width: 20px;
     height: 20px;
 
@@ -58,8 +54,6 @@ const swapSound = () => {
     cursor: pointer;
 
     img {
-      z-index: 4;
-
       width: 20px;
       height: 20px;
 
