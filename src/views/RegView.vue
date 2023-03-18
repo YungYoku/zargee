@@ -119,6 +119,7 @@ interface Registration {
   refCode: string;
   rules: boolean;
   isValid: () => boolean;
+  isValidExceptRules: () => boolean;
 }
 
 const mainStore = useMainStore();
@@ -147,6 +148,15 @@ const form = reactive<Registration>({
       emailReg.test(this.email) &&
       this.name !== "" &&
       this.rules
+    );
+  },
+  isValidExceptRules() {
+    return (
+      this.password === this.passwordRep &&
+      this.password.length >= 6 &&
+      emailReg.test(this.email) &&
+      this.name !== "" &&
+      !this.rules
     );
   },
 });
@@ -287,7 +297,9 @@ const handleError = (error: AuthError) => {
 };
 
 const register = async () => {
-  if (form.isValid()) {
+  if (form.isValidExceptRules()) {
+    tipStore.update("Согласитесь с правилами");
+  } else if (form.isValid()) {
     loadingStore.show();
 
     await createUserWithEmailAndPassword(getAuth(), form.email, form.password)

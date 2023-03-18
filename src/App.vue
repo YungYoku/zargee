@@ -146,6 +146,7 @@ watch(
   .yandex_wrap {
     position: absolute;
     top: 10vh;
+    z-index: 10;
 
     display: flex;
     justify-content: center;
