@@ -1,15 +1,5 @@
 <template>
-  <div class="daily">
-    <button @click="swapCalendar">Получить жизнь</button>
-
-    <div class="heartsWrap">
-      <img v-if="imageShowing" alt="Approve" src="@/assets/img/approve.svg" />
-
-      <h4 v-if="rewardShowing">+{{ mainStore.user.rewardDay }}</h4>
-    </div>
-  </div>
-
-  <div v-if="calendar" class="calendar">
+  <div class="calendar">
     <span class="leftTime">{{ formattedTime }}</span>
 
     <div v-for="day in week" :key="day" class="calendar__day">
@@ -27,7 +17,7 @@
       </button>
     </div>
 
-    <button-close @close="swapCalendar" />
+    <button-close />
 
     <earn-video
       v-if="adShowing"
@@ -54,7 +44,6 @@ const mainStore = useMainStore();
 const tipStore = useTipStore();
 
 const week = [1, 2, 3, 4, 5, 6, 7];
-const calendar = ref(false);
 const time = ref(
   86400 -
     new Date().getHours() * 3600 -
@@ -64,18 +53,6 @@ const time = ref(
 const adShowing = ref(false);
 const timer = ref(9);
 let adWatching: number;
-
-const imageShowing = computed(() => {
-  return !(
-    !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
-  );
-});
-
-const rewardShowing = computed(() => {
-  return (
-    !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
-  );
-});
 
 const isItPossibleToReceive = (weekDay: number) => {
   if (
@@ -190,10 +167,6 @@ const getHearts = async (day = mainStore.user.rewardDay) => {
   }
 };
 
-const swapCalendar = () => {
-  calendar.value = !calendar.value;
-};
-
 const watchAd = () => {
   timer.value = 9;
   adShowing.value = true;
@@ -213,54 +186,6 @@ const hideAd = () => {
 </script>
 
 <style lang="scss" scoped>
-.daily {
-  display: grid;
-  align-items: center;
-
-  grid-gap: 5px;
-  grid-template: 100% / 1fr 46px;
-
-  button {
-    padding: 10px;
-
-    font-size: 16px;
-    font-weight: 400;
-    text-align: left;
-    color: #333333;
-
-    background-color: transparent;
-    border: 1px solid #333333;
-    border-radius: 5px;
-
-    cursor: pointer;
-  }
-}
-
-.heartsWrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 46px;
-  height: 46px;
-  padding: 10px;
-
-  border: 1px solid #333333;
-  border-radius: 5px;
-
-  img {
-    width: 19px;
-    height: 19px;
-  }
-
-  h4 {
-    font-size: 16px;
-    font-weight: 700;
-    text-align: center;
-    color: #333333;
-  }
-}
-
 .calendar {
   position: absolute;
   top: 0;
@@ -274,11 +199,11 @@ const hideAd = () => {
 
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 12px;
 
   background-color: #ffffff;
 
-  gap: 8px;
+  gap: 12px;
 
   &__day {
     position: relative;
@@ -287,7 +212,7 @@ const hideAd = () => {
     justify-content: center;
     align-items: center;
 
-    padding: 5px 5px 5px 10px;
+    padding: 0 0 0 6px;
 
     font-size: 20px;
     color: #333333;
@@ -295,7 +220,7 @@ const hideAd = () => {
     border: 1px solid #333333;
     border-radius: 5px;
 
-    gap: 10px;
+    gap: 12px;
 
     span {
       width: 62px;
@@ -316,17 +241,17 @@ const hideAd = () => {
       font-size: 16px;
       color: #000000;
 
-      background-color: transparent;
-      border: 1px solid #4ae32f;
-      border-radius: 5px;
+      background-color: #4ae32f;
+      border-radius: 0 5px 5px 0;
 
       cursor: pointer;
     }
 
     .received,
     .cantBeReceived {
-      //background-color: transparent;
-      border: 1px solid #333333;
+      color: #ffffff;
+
+      background-color: #333333;
 
       cursor: not-allowed;
     }

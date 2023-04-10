@@ -19,7 +19,19 @@
 
       <h4 class="life">Золотые жизни: {{ mainStore.user.gold }}</h4>
 
-      <settings-user-daily />
+      <router-link class="daily" to="/settings/user/daily">
+        <button type="button">Получить жизнь</button>
+
+        <div class="heartsWrap">
+          <img
+            v-if="dailyImageShowing"
+            alt="Approve"
+            src="@/assets/img/approve.svg"
+          />
+
+          <h4 v-if="dailyRewardShowing">+{{ mainStore.user.rewardDay }}</h4>
+        </div>
+      </router-link>
 
       <settings-user-earn />
 
@@ -39,11 +51,23 @@ import { useMainStore } from "@/stores/main";
 import SettingsUserCode from "@/components/settings/SettingsUserCode.vue";
 import SettingsUserEarn from "@/components/settings/SettingsUserEarn.vue";
 import SettingsUserRefCode from "@/components/settings/SettingsUserRefCode.vue";
-import SettingsUserDaily from "@/components/settings/SettingsUserDaily.vue";
 import SettingsUserComplexity from "@/components/settings/SettingsUserComplexity.vue";
 import SettingsUserName from "@/components/settings/SettingsUserName.vue";
+import { computed } from "vue";
 
 const mainStore = useMainStore();
+
+const dailyImageShowing = computed(() => {
+  return !(
+    !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
+  );
+});
+
+const dailyRewardShowing = computed(() => {
+  return (
+    !mainStore.user.rewardParts?.first || !mainStore.user.rewardParts?.second
+  );
+});
 </script>
 
 <style lang="scss" scoped>
@@ -68,13 +92,13 @@ const mainStore = useMainStore();
     display: grid;
     align-items: center;
 
-    grid-gap: 15px;
+    grid-gap: 12px;
     grid-template: repeat(8, auto) / 1fr;
 
     width: 80%;
     min-width: 300px;
-    max-width: 380px;
-    padding: 10px;
+    max-width: 368px;
+    padding: 12px;
     overflow: hidden;
 
     text-align: center;
@@ -130,6 +154,53 @@ const mainStore = useMainStore();
 
       border: 1px solid #333333;
       border-radius: 5px;
+    }
+
+    .daily {
+      display: grid;
+
+      grid-gap: 12px;
+      grid-template: 100% / 1fr 48px;
+
+      button {
+        padding: 10px;
+
+        font-size: 16px;
+        font-weight: 400;
+        text-align: left;
+        color: #333333;
+
+        background-color: transparent;
+        border: 1px solid #333333;
+        border-radius: 5px;
+
+        cursor: pointer;
+      }
+
+      .heartsWrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 48px;
+        height: 48px;
+        padding: 10px;
+
+        border: 1px solid #333333;
+        border-radius: 5px;
+
+        img {
+          width: 19px;
+          height: 19px;
+        }
+
+        h4 {
+          font-size: 16px;
+          font-weight: 700;
+          text-align: center;
+          color: #333333;
+        }
+      }
     }
   }
 }

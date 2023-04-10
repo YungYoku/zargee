@@ -57,13 +57,13 @@ interface Login {
   isValid: () => boolean;
 }
 
+const emit = defineEmits(["close"]);
+
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
 const tipStore = useTipStore();
 const router = useRouter();
-
-const emit = defineEmits(["close"]);
 
 const emailReg = new RegExp(
   /^[_a-z\d-+-]+(\.[_a-z\d-]+)*@[a-z\d-]+(\.[a-z\d-]+)*(\.[a-z]{2,})$/i
@@ -152,12 +152,12 @@ const close = () => {
   width: 100%;
   height: 100%;
   margin-right: auto;
-  gap: 18px;
+  gap: 12px;
 
   .close {
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 24px;
+    left: 24px;
   }
 
   .email,

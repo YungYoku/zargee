@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import SettingsUser from "@/components/settings/SettingsUser.vue";
 import SettingsUserAbout from "@/components/settings/SettingsUserAbout.vue";
 import AppPolitics from "@/components/AppPolitics.vue";
+import SettingsUserDaily from "@/components/settings/SettingsUserDaily.vue";
+import LoginEmail from "@/components/login/LoginEmail.vue";
+import AuthOptions from "@/components/auth/AuthOptions.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -71,6 +74,15 @@ const routes: Array<RouteRecordRaw> = [
               auth: true,
             },
           },
+          {
+            path: "daily",
+            name: "SettingsUserDaily",
+            component: SettingsUserDaily,
+            meta: {
+              audio: true,
+              auth: true,
+            },
+          },
         ],
       },
     ],
@@ -84,6 +96,26 @@ const routes: Array<RouteRecordRaw> = [
       audio: false,
       auth: false,
     },
+    children: [
+      {
+        path: "",
+        name: "AuthOptions",
+        component: AuthOptions,
+        meta: {
+          audio: false,
+          auth: false,
+        },
+      },
+      {
+        path: "email",
+        name: "LoginEmail",
+        component: LoginEmail,
+        meta: {
+          audio: false,
+          auth: false,
+        },
+      },
+    ],
   },
 
   {

@@ -2,24 +2,24 @@
   <div
     ref="targetRef"
     :style="{
-      left: target.x + 'px',
-      top: target.y + 'px',
-      width: target.width + 'px',
-      height: target.height + 'px',
-      clipPath: target.clipPath,
+      left: props.target.x + 'px',
+      top: props.target.y + 'px',
+      width: props.target.width + 'px',
+      height: props.target.height + 'px',
+      clipPath: props.target.clipPath,
       backgroundColor:
-        target.borderColor && target.borderColor !== 'transparent'
-          ? target.borderColor
-          : target.bgColor,
+        props.target.borderColor && props.target.borderColor !== 'transparent'
+          ? props.target.borderColor
+          : props.target.bgColor,
     }"
     class="target"
   >
     <div
       :style="{
-        width: target.width - 20 + 'px',
-        height: target.height - 20 + 'px',
-        clipPath: target.clipPath,
-        backgroundColor: target.bgColor,
+        width: props.target.width - 20 + 'px',
+        height: props.target.height - 20 + 'px',
+        clipPath: props.target.clipPath,
+        backgroundColor: props.target.bgColor,
       }"
     ></div>
   </div>

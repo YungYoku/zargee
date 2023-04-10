@@ -1,14 +1,19 @@
 <template>
-  <button type="button" @click="close" class="button-close">
+  <button class="button-close" type="button" @click="close">
     <img alt="Back" class="button-close__img" src="@/assets/img/back.svg" />
   </button>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
+
 const emit = defineEmits(["close"]);
 
-const close = () => {
+const router = useRouter();
+
+const close = async () => {
   emit("close");
+  await router.go(-1);
 };
 </script>
 
@@ -18,10 +23,10 @@ const close = () => {
   justify-content: center;
   align-items: center;
 
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-  min-height: 36px;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
   margin-right: auto;
 
   background-color: transparent;
@@ -31,8 +36,8 @@ const close = () => {
   cursor: pointer;
 
   .button-close__img {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
   }
 }
 </style>

@@ -329,13 +329,13 @@ const register = async () => {
 
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
 
     width: 30%;
-    min-width: 400px;
-    max-width: 460px;
+    min-width: 384px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 30px 40px 20px 40px;
+    padding: 24px;
     overflow: hidden;
 
     background-color: #fbfaf7;
@@ -344,7 +344,7 @@ const register = async () => {
 
     @media screen and (max-width: 480px) {
       width: 90%;
-      min-width: 300px;
+      min-width: 288px;
     }
 
     .title {
@@ -440,17 +440,17 @@ const register = async () => {
     .passPower {
       display: grid;
 
-      grid-gap: 10px;
-      grid-template: 100% / 1fr 1fr 1fr;
-    }
+      grid-gap: 12px;
+      grid-template: auto / 1fr 1fr 1fr;
 
-    .powerLines {
-      width: 100%;
-      height: 5px;
+      .powerLines {
+        width: 100%;
+        height: 6px;
 
-      background-color: lightgray;
+        background-color: lightgray;
 
-      transition: all 0.5s;
+        transition: all 0.5s;
+      }
     }
 
     .rules {

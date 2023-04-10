@@ -1,22 +1,22 @@
 <template>
   <div class="wrap">
-    <input v-if="nameChanging" type="text" v-model.trim="changeableName" />
+    <input v-if="nameChanging" v-model.trim="changeableName" type="text" />
 
     <h2 v-else class="name">{{ mainStore.user.name }}</h2>
 
-    <button v-if="nameChanging" @click="changeName" type="button">
-      <img src="@/assets/img/approve.svg" alt="Сохранить" />
+    <button v-if="nameChanging" type="button" @click="changeName">
+      <img alt="Сохранить" src="@/assets/img/approve.svg" />
     </button>
 
-    <button v-else @click="showChangeNameInput" type="button">
-      <img src="@/assets/img/edit.svg" alt="Изменить" />
+    <button v-else type="button" @click="showChangeNameInput">
+      <img alt="Изменить" src="@/assets/img/edit.svg" />
     </button>
 
     <div class="lvl">{{ mainStore.user.lvl }}</div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useMainStore } from "@/stores/main";
 import { ref, watch } from "vue";
 import { doc, updateDoc } from "firebase/firestore";

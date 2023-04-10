@@ -2,13 +2,11 @@
   <div class="settings">
     <game-loading v-if="loadingStore.loading" />
 
-    <router-link class="back" draggable="false" to="/">
+    <router-link alt="Назад" class="back" draggable="false" to="/">
       <img alt="Back" src="@/assets/img/back.svg" />
     </router-link>
 
-    <router-link class="userButton" draggable="false" to="/settings/user">
-      <settings-button-user :size="buttonSize" />
-    </router-link>
+    <settings-button-user :size="buttonSize" />
 
     <settings-button-sound :size="buttonSize" />
 
@@ -30,8 +28,8 @@ import SettingsButtonLogout from "@/components/settings/SettingsButtonLogout.vue
 import GameLoading from "@/components/AppLoading.vue";
 
 const enum ButtonSize {
-  min = 80,
-  max = 160,
+  min = 92,
+  max = 184,
 }
 
 const loadingStore = useLoadingStore();
@@ -62,6 +60,7 @@ const formatLinkSize = (size: number) => {
   if (size < ButtonSize.min) {
     return ButtonSize.min;
   }
+
   return size;
 };
 
@@ -97,15 +96,15 @@ const hideInfo = (e: Event) => {
 
   .back {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 24px;
+    left: 24px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
 
     border: 1px solid #333333;
     border-radius: 50%;
@@ -113,8 +112,8 @@ const hideInfo = (e: Event) => {
     cursor: pointer;
 
     img {
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
     }
   }
 

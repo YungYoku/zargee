@@ -1,6 +1,6 @@
 <template>
   <div class="politics">
-    <button-close @close="close" />
+    <button-close />
 
     <div class="politics__content">
       Политика в отношении обработки персональных данных 1. Общие положения
@@ -318,13 +318,6 @@
 
 <script lang="ts" setup>
 import ButtonClose from "@/components/ButtonClose.vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-const close = () => {
-  router.go(-1);
-};
 </script>
 
 <style lang="scss" scoped>

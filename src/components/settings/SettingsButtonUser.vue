@@ -1,17 +1,24 @@
 <template>
-  <button
-    id="infoButton"
-    :style="{
-      width: size,
-      minWidth: size,
-      height: size,
-      minHeight: size,
-    }"
-    class="infoButton"
-    type="button"
+  <router-link
+    alt="Личный кабинет"
+    class="userButton"
+    draggable="false"
+    to="/settings/user"
   >
-    <img id="infoButtonImg" alt="Heart" src="@/assets/img/account.svg" />
-  </button>
+    <button
+      id="infoButton"
+      :style="{
+        width: size,
+        minWidth: size,
+        height: size,
+        minHeight: size,
+      }"
+      class="infoButton"
+      type="button"
+    >
+      <img id="infoButtonImg" alt="Heart" src="@/assets/img/account.svg" />
+    </button>
+  </router-link>
 </template>
 
 <script lang="ts" setup>

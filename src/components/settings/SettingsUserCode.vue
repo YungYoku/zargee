@@ -76,10 +76,9 @@ const sendCode = async () => {
 <style lang="scss" scoped>
 .codeWrap {
   display: grid;
-  align-items: center;
 
-  grid-gap: 5px;
-  grid-template: 100% / 1fr 46px;
+  grid-gap: 12px;
+  grid-template: 100% / 1fr 48px;
 
   label {
     width: 100%;
@@ -113,8 +112,8 @@ const sendCode = async () => {
     justify-content: center;
     align-items: center;
 
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     padding: 10px;
 
     background-color: transparent;

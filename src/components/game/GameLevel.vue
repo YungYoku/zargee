@@ -20,7 +20,6 @@ const settingsStore = useSettingsStore();
 const gameStore = useGameStore();
 
 const swapSound = () => {
-  console.log("e");
   settingsStore.swapSound();
 };
 </script>

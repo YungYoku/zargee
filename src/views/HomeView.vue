@@ -19,14 +19,14 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useGameStore } from "@/stores/game";
 
 const enum ButtonSize {
-  min = 80,
-  max = 160,
+  min = 92,
+  max = 184,
 }
 
 const gameStore = useGameStore();
 
-const tabWidth = ref(ButtonSize.min);
-const tabHeight = ref(ButtonSize.min);
+const tabWidth = ref<ButtonSize | number>(ButtonSize.min);
+const tabHeight = ref<ButtonSize | number>(ButtonSize.min);
 
 const linkLength = computed(() =>
   tabWidth.value < tabHeight.value

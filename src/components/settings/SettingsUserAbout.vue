@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <button-close @close="close" />
+    <button-close />
 
     <div class="about__content">
       Добро пожаловать Zargee - Popping shapes!
@@ -47,15 +47,8 @@
 import fireOn from "@/assets/img/fireOn.svg";
 import fireOff from "@/assets/img/fireOff.svg";
 import ButtonClose from "@/components/ButtonClose.vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const complexity = ["без времени", "легкий", "средний", "сложный"];
-
-const close = () => {
-  router.push("/settings/user");
-};
 </script>
 
 <style lang="scss" scoped>

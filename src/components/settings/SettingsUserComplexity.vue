@@ -1,5 +1,7 @@
 <template>
   <div class="complexity">
+    <div class="title">Сложность:</div>
+
     <input
       v-model.number="settingsStore.complexity"
       max="4"
@@ -10,10 +12,10 @@
 
     <div class="complexity__fire">
       <button
-        type="button"
-        class="complexity__fire-button"
         v-for="complexity in 4"
         :key="complexity"
+        class="complexity__fire-button"
+        type="button"
         @click="changeComplexity(complexity)"
       >
         <img
@@ -42,6 +44,7 @@ const changeComplexity = (complexity: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
 
   padding: 10px;
 

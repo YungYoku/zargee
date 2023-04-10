@@ -79,10 +79,9 @@ const claimReward = async () => {
 <style lang="scss" scoped>
 .earn {
   display: grid;
-  align-items: center;
 
-  grid-gap: 5px;
-  grid-template: 100% / 1fr 46px;
+  grid-gap: 12px;
+  grid-template: 100% / 1fr 48px;
 
   &__button {
     padding: 10px;
@@ -104,8 +103,8 @@ const claimReward = async () => {
     justify-content: center;
     align-items: center;
 
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     padding: 10px;
 
     font-size: 16px;

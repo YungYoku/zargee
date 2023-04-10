@@ -5,13 +5,8 @@
     <div class="login__form-wrap">
       <h2 class="title">Логин</h2>
 
-      <login-email
-        v-if="loginType === 'email'"
+      <router-view
         @close="setLoginType(LoginType.notSpecified)"
-      />
-
-      <auth-options
-        v-else
         @email="setLoginType(LoginType.email)"
         @google="loginGoogle"
       />
@@ -28,8 +23,6 @@ import { useLoadingStore } from "@/stores/loading";
 import { ref } from "vue";
 import AnimatedLink from "@/components/AnimatedLink.vue";
 import GameLoading from "@/components/AppLoading.vue";
-import AuthOptions from "@/components/auth/AuthOptions.vue";
-import LoginEmail from "@/components/login/LoginEmail.vue";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useMainStore } from "@/stores/main";
 import { useSettingsStore } from "@/stores/settings";
@@ -42,7 +35,7 @@ import { db } from "@/main";
 const enum LoginType {
   email = "email",
   google = "google",
-  notSpecified = "not specified",
+  notSpecified = "",
 }
 
 const mainStore = useMainStore();
@@ -51,9 +44,12 @@ const settingsStore = useSettingsStore();
 const loadingStore = useLoadingStore();
 const router = useRouter();
 
-const loginType = ref("not specified");
+const loginType = ref<LoginType>(LoginType.notSpecified);
 
 const setLoginType = (type: LoginType) => {
+  if (type !== LoginType.google) {
+    router.push(`/login/${type}`);
+  }
   loginType.value = type;
 };
 
@@ -120,7 +116,7 @@ const loginGoogle = async () => {
 
   width: 100%;
   height: 100vh;
-  gap: 30px;
+  gap: 24px;
 
   &__form-wrap {
     position: relative;
@@ -131,20 +127,20 @@ const loginGoogle = async () => {
     align-items: center;
 
     width: 30%;
-    min-width: 400px;
-    max-width: 460px;
+    min-width: 384px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 30px 40px 20px 40px;
+    padding: 24px;
 
     background-color: #fbfaf7;
     border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
-    gap: 15px;
+    gap: 24px;
 
     @media screen and (max-width: 480px) {
       width: 90%;
-      min-width: 300px;
+      min-width: 288px;
     }
 
     .title {
