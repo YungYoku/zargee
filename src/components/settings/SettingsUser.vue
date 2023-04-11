@@ -95,7 +95,7 @@ const dailyRewardShowing = computed(() => {
     grid-gap: 12px;
     grid-template: repeat(8, auto) / 1fr;
 
-    width: calc(100% - 40px);
+    width: calc(100% - 48px);
     min-width: 300px;
     max-width: 368px;
     padding: 12px;
