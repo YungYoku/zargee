@@ -1,0 +1,108 @@
+:where(:not(img, svg, input[type="checkbox"]):not(svg *, symbol *)) {
+  all: unset;
+
+  display: revert;
+}
+
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+
+  line-height: 1.5;
+  text-decoration: none;
+
+  border: none;
+  outline: none;
+
+  transition: none;
+
+  user-select: none;
+  scroll-behavior: smooth;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+
+  color: #333333;
+
+  background-color: #f5eee9;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+
+  max-width: 100%;
+}
+
+img {
+  pointer-events: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+input {
+  user-select: text;
+
+  &::selection {
+    background-color: rgba(51, 51, 51, 0.2);
+    border-radius: 5px;
+  }
+}
+
+button {
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+button:active,
+button:focus {
+  outline: none;
+}
+
+audio {
+  position: absolute;
+  z-index: -1;
+
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}
