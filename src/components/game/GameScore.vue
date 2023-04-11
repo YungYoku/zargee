@@ -25,7 +25,7 @@ const score = computed(
 
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 12px;
 
   font-size: 20px;
   text-align: left;

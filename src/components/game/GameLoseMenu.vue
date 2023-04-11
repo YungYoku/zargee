@@ -179,12 +179,12 @@ const logout = () => {
 
     display: grid;
 
-    grid-gap: 10px;
+    grid-gap: 12px;
 
     width: 30%;
     min-width: 300px;
     max-width: 320px;
-    padding: 10px;
+    padding: 12px;
     overflow: hidden;
 
     background-color: #f5eee9;
@@ -198,7 +198,7 @@ const logout = () => {
 
       width: 100%;
       height: 100%;
-      padding: 20px;
+      padding: 24px;
 
       font-size: 22px;
       font-weight: 400;

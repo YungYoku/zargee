@@ -15,6 +15,9 @@
 import TheTarget from "@/components/game/GameTarget.vue";
 import { useGameStore } from "@/stores/game";
 import type { Target } from "@/interfaces/target";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const emit = defineEmits(["lvlEnd"]);
 
@@ -36,6 +39,7 @@ const handleTargetClick = (target: Target, idx: number) => {
     gameStore.handleTargetClick(payload);
   } else {
     gameStore.setLose(true);
+    router.push(`${router.currentRoute.value.path}/loseMenu`);
   }
 };
 </script>

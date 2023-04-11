@@ -6,6 +6,8 @@ import AppPolitics from "@/components/AppPolitics.vue";
 import SettingsUserDaily from "@/components/settings/SettingsUserDaily.vue";
 import LoginEmail from "@/components/login/LoginEmail.vue";
 import AuthOptions from "@/components/auth/AuthOptions.vue";
+import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
+import { useGameStore } from "@/stores/game";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,6 +28,33 @@ const routes: Array<RouteRecordRaw> = [
       audio: false,
       auth: true,
     },
+    children: [
+      {
+        path: "loseMenu",
+        name: "GameLoseMenu",
+        component: GameLoseMenu,
+        meta: {
+          audio: false,
+          auth: true,
+        },
+        beforeEnter: (_, from) => {
+          const gameStore = useGameStore();
+          if (!!from.name && from.name === "Game" && gameStore.lose) {
+            if (from.name === "Game") {
+              if (gameStore.lose) {
+                return true;
+              } else {
+                return { path: "/game" };
+              }
+            } else {
+              return { path: "/" };
+            }
+          }
+
+          return { path: "/" };
+        },
+      },
+    ],
   },
 
   {
@@ -34,8 +63,41 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/DemoView.vue"),
     meta: {
       audio: false,
-      auth: true,
+      auth: false,
     },
+    beforeEnter: () => {
+      const logged = !!localStorage["uid"];
+      if (logged) return { path: "/" };
+
+      return true;
+    },
+    children: [
+      {
+        path: "loseMenu",
+        name: "DemoLoseMenu",
+        component: GameLoseMenu,
+        meta: {
+          audio: false,
+          auth: false,
+        },
+        beforeEnter: (_, from) => {
+          const gameStore = useGameStore();
+          if (!!from.name && from.name === "Demo" && gameStore.lose) {
+            if (from.name === "Demo") {
+              if (gameStore.lose) {
+                return true;
+              } else {
+                return { path: "/demo" };
+              }
+            } else {
+              return { path: "/" };
+            }
+          }
+
+          return { path: "/login" };
+        },
+      },
+    ],
   },
 
   {
@@ -157,19 +219,12 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   const logged = !!localStorage["uid"];
-
-  if (to.name === "Demo") {
-    if (!logged) {
-      return true;
-    }
-    return "/";
-  }
-
   if (to.meta["auth"]) {
     if (logged) {
       if (to.name === "Game" && from.name === undefined) {
         return "/";
       }
+
       return true;
     } else {
       return "/login";
@@ -179,6 +234,7 @@ router.beforeEach((to, from) => {
   if (logged) {
     return "/";
   }
+
   return true;
 });
 

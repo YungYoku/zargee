@@ -6,7 +6,9 @@
       @addTime="addTime"
     />
 
+    <game-level class="lvl" />
     <game-task v-if="!startTimer && !loadingStore.loading" class="task" />
+    <game-timer v-if="!startTimer && !loadingStore.loading" class="time" />
 
     <game-playground
       v-show="!startTimer && !loadingStore.loading"
@@ -14,11 +16,7 @@
       @lvlEnd="setStartTimerInterval"
     />
 
-    <game-lose-menu
-      v-if="
-        (!startTimer && !loadingStore.loading && gameStore.time === 0) ||
-          gameStore.lose
-      "
+    <router-view
       :deaths="deaths"
       :free-reborn-amount="freeRebornAmount"
       :heart-reborn-amount="heartRebornAmount"
@@ -35,11 +33,7 @@
       @clearIntervals="clearIntervals"
     />
 
-    <game-timer v-if="!startTimer && !loadingStore.loading" class="time" />
-
     <game-score v-if="!startTimer && !loadingStore.loading" class="score" />
-
-    <game-level class="lvl" />
   </div>
 </template>
 
@@ -54,7 +48,6 @@ import GameWinMenu from "@/components/game/GameWinMenu.vue";
 import GameTask from "@/components/game/GameTask.vue";
 import GameLevel from "@/components/game/GameLevel.vue";
 import GamePlayground from "@/components/game/GamePlayground.vue";
-import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
 import GameStartTimer from "@/components/game/GameStartTimer.vue";
 import GameTimer from "@/components/game/GameTimer.vue";
 import GameScore from "@/components/game/GameScore.vue";
@@ -204,7 +197,7 @@ const createTargets = () => {
   gameStore.createTargets();
 };
 
-const restart = (props: { rebornType: string; lvl?: number }) => {
+const restart = async (props: { rebornType: string; lvl?: number }) => {
   if (props.lvl) {
     gameStore.setLvl(props.lvl);
 
@@ -226,6 +219,8 @@ const restart = (props: { rebornType: string; lvl?: number }) => {
 
   createTargets();
   setStartTimerInterval();
+
+  await router.go(-1);
 };
 </script>
 
@@ -235,7 +230,7 @@ const restart = (props: { rebornType: string; lvl?: number }) => {
   justify-content: center;
   align-items: center;
 
-  grid-template: 90px calc(100vh - 170px) 80px / 60px 1fr 60px;
+  grid-template: 80px calc(100vh - 160px) 80px / 60px 1fr 60px;
   grid-template-areas:
     "score task time"
     "playground playground playground"

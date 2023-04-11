@@ -5,6 +5,7 @@ import type { Target } from "@/interfaces/target";
 import type { Score } from "@/interfaces/score";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
+import { useRouter } from "vue-router";
 
 interface Complexity {
   targets: string;
@@ -419,7 +420,7 @@ export const useGameStore = defineStore({
     createTargets() {
       const app = document.querySelector("#app") as HTMLElement;
       const screenWidth = app.offsetWidth;
-      const screenHeight = app.offsetHeight - 170;
+      const screenHeight = app.offsetHeight - 160;
 
       this.updateComplexity();
       this.updateItemsAmount(screenWidth, screenHeight);
@@ -510,6 +511,7 @@ export const useGameStore = defineStore({
     handleTargetClick(payload: clickTargetPayload) {
       const settingsStore = useSettingsStore();
       const soundsStore = useSoundsStore();
+      const router = useRouter();
 
       if (
         (payload.target.borderColor !== "transparent" &&
@@ -535,7 +537,7 @@ export const useGameStore = defineStore({
           soundsStore.playPopSound();
         }
       } else {
-        this.lose = true;
+        this.setLose(true);
 
         if (settingsStore.isMusicPlayable) {
           soundsStore.playMistakeSound();
@@ -546,7 +548,7 @@ export const useGameStore = defineStore({
     reset(): void {
       this.time = 15;
       this.score.current = 0;
-      this.lose = false;
+      this.setLose(false);
       this.targets = [];
       // this.timeKick = 10;
       this.task = {

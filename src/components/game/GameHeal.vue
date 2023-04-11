@@ -131,12 +131,12 @@ const reborn = {
 
   display: grid;
 
-  grid-gap: 10px;
+  grid-gap: 12px;
   grid-template: 1fr 1fr 1fr / 1fr;
 
   width: 100%;
   height: 100%;
-  padding: 54px 10px 10px 10px;
+  padding: 60px 12px 12px 12px;
 
   background-color: #f5eee9;
 
