@@ -1,6 +1,6 @@
 {
   "name": "zargee",
-  "version": "0.9.38",
+  "version": "0.9.39",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -46,6 +46,7 @@
     "stylelint-prettier": "^3.0.0",
     "typescript": "~5.0.4",
     "vite": "^4.2.1",
+    "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-inspect": "^0.7.19",
     "vite-plugin-pwa": "^0.14.7",
     "vite-plugin-stylelint": "^4.3.0",
