@@ -45,19 +45,30 @@ const hideAd = () => {
   emit("hideAd");
 };
 
-if (window.innerWidth < 768) {
-  isItMobile.value = true;
+const mountAds = () => {
+  if (window.innerWidth < 768) {
+    isItMobile.value = true;
 
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
-      type: "fullscreen",
-      platform: "touch",
-      blockId: props.mobileBlockId,
+    const ads = [
+      {
+        type: "fullscreen",
+        platform: "touch",
+        blockId: props.mobileBlockId,
+      },
+    ];
+
+    ads.forEach((ad) => {
+      window.yaContextCb.push(() => {
+        // eslint-disable-next-line no-undef
+        Ya.Context.AdvManager.render(ad);
+      });
     });
-  });
 
-  hideAd();
-}
+    hideAd();
+  }
+};
+
+mountAds();
 </script>
 
 <style lang="scss" scoped>

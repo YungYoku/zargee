@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import "./assets/main.scss";
-
 import App from "./App.vue";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
@@ -9,7 +8,6 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 import router from "./router";
-import { reportError } from "@/api/api";
 
 try {
   window.screen.orientation.lock("portrait");
@@ -38,9 +36,5 @@ initializeAppCheck(fbApp, {
   provider: new ReCaptchaV3Provider("6Ld3yVIhAAAAAGk3si4mQCHfbfIBOqZFLmkVtAnK"),
   isTokenAutoRefreshEnabled: true,
 });
-
-app.config.errorHandler = (err: unknown) => {
-  reportError(err);
-};
 
 app.mount("#app");

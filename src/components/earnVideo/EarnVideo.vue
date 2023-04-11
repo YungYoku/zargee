@@ -36,20 +36,28 @@ const hideAd = () => {
   emit("hideAd");
 };
 
-onMounted(() => {
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+const mountAds = () => {
+  const ads = [
+    {
       renderTo: "yandex_video_pc",
       blockId: props.pcBlockId,
-    });
-  });
-
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+    },
+    {
       renderTo: "yandex_video_laptop",
       blockId: props.laptopBlockId,
+    },
+  ];
+
+  ads.forEach((ad) => {
+    window.yaContextCb.push(() => {
+      // eslint-disable-next-line no-undef
+      Ya.Context.AdvManager.render(ad);
     });
   });
+};
+
+onMounted(() => {
+  mountAds();
 });
 </script>
 

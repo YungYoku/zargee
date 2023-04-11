@@ -75,31 +75,29 @@ const showSideAds = () => {
 };
 
 const mountSideAds = () => {
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+  const ads = [
+    {
       renderTo: "yandex_left_pc",
       blockId: "R-A-1981739-1",
-    });
-  });
-
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+    },
+    {
       renderTo: "yandex_left_laptop",
       blockId: "R-A-1981739-7",
-    });
-  });
-
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+    },
+    {
       renderTo: "yandex_right_pc",
       blockId: "R-A-1981739-2",
-    });
-  });
-
-  window.yaContextCb.push(() => {
-    Ya.Context.AdvManager.render({
+    },
+    {
       renderTo: "yandex_right_laptop",
       blockId: "R-A-1981739-8",
+    },
+  ];
+
+  ads.forEach((ad) => {
+    window.yaContextCb.push(() => {
+      // eslint-disable-next-line no-undef
+      Ya.Context.AdvManager.render(ad);
     });
   });
 };
