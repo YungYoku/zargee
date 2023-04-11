@@ -60,11 +60,11 @@ const complexity = ["без времени", "легкий", "средний", "
 
   display: grid;
 
-  grid-gap: 5px;
+  grid-gap: 12px;
 
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 12px;
 
   text-align: left;
 

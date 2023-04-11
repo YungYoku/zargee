@@ -329,11 +329,11 @@ import ButtonClose from "@/components/ButtonClose.vue";
 
   display: grid;
 
-  grid-gap: 5px;
+  grid-gap: 12px;
 
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 12px;
 
   text-align: left;
 
