@@ -8,6 +8,7 @@ import LoginEmail from "@/components/login/LoginEmail.vue";
 import AuthOptions from "@/components/auth/AuthOptions.vue";
 import GameLoseMenu from "@/components/game/GameLoseMenu.vue";
 import { useGameStore } from "@/stores/game";
+import GameHeal from "@/components/game/GameHeal.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -53,6 +54,17 @@ const routes: Array<RouteRecordRaw> = [
 
           return { path: "/" };
         },
+        children: [
+          {
+            path: "heal",
+            name: "GameLoseMenuHeal",
+            component: GameHeal,
+            meta: {
+              audio: true,
+              auth: true,
+            },
+          },
+        ],
       },
     ],
   },
@@ -96,6 +108,17 @@ const routes: Array<RouteRecordRaw> = [
 
           return { path: "/login" };
         },
+        children: [
+          {
+            path: "heal",
+            name: "DemoLoseMenuHeal",
+            component: GameHeal,
+            meta: {
+              audio: true,
+              auth: true,
+            },
+          },
+        ],
       },
     ],
   },

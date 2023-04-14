@@ -5,7 +5,6 @@ import type { Target } from "@/interfaces/target";
 import type { Score } from "@/interfaces/score";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
-import { useRouter } from "vue-router";
 
 interface Complexity {
   targets: string;
@@ -511,7 +510,6 @@ export const useGameStore = defineStore({
     handleTargetClick(payload: clickTargetPayload) {
       const settingsStore = useSettingsStore();
       const soundsStore = useSoundsStore();
-      const router = useRouter();
 
       if (
         (payload.target.borderColor !== "transparent" &&

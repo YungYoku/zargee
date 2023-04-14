@@ -219,8 +219,8 @@ const restart = async (props: { rebornType: string; lvl?: number }) => {
 
   createTargets();
   setStartTimerInterval();
-
-  await router.go(-1);
+  console.log(router.currentRoute.value);
+  await router.push("/game");
 };
 </script>
 

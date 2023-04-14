@@ -34,13 +34,11 @@
         <img alt="Menu" src="@/assets/img/menu.svg" />
       </router-link>
 
-      <game-heal
-        v-if="healShow"
+      <router-view
         :free-reborn-amount="freeRebornAmount"
         :heart-reborn-amount="heartRebornAmount"
         :timeKick="timeKick"
         class="heal"
-        @close="closeHealMenu"
         @restart="restart"
         @swapHeal="swapHeal"
         @watchAd="watchAd"
@@ -51,7 +49,6 @@
 
 <script lang="ts" setup>
 import TheShare from "@/components/game/GameShare.vue";
-import GameHeal from "@/components/game/GameHeal.vue";
 import EarnVideo from "@/components/earnVideo/EarnVideoWrap.vue";
 import { onUnmounted, ref } from "vue";
 import { useMainStore } from "@/stores/main";
@@ -92,7 +89,6 @@ const emit = defineEmits([
 
 const adShowing = ref(false);
 const adTimer = ref(9);
-const healShow = ref(false);
 
 const interval = setInterval(() => {
   if (adShowing.value) {
@@ -121,15 +117,11 @@ const restart = (rebornType: string, lvl?: number) => {
   }
 };
 
-const closeHealMenu = () => {
-  healShow.value = false;
-};
-
 const swapHeal = () => {
   if (mainStore.demo) {
     watchAd();
   } else {
-    healShow.value = true;
+    router.push(`${router.currentRoute.value.path}/heal`);
   }
 };
 
@@ -138,11 +130,14 @@ const clearIntervals = () => {
   emit("reset");
 };
 
-const watchAd = () => {
-  healShow.value = false;
+const watchAd = async () => {
   adTimer.value = 9;
   adShowing.value = true;
   emit("watchAd");
+
+  if (!mainStore.demo) {
+    await router.go(-1);
+  }
 };
 
 const hideAd = () => {
@@ -151,10 +146,10 @@ const hideAd = () => {
   emit("stopAdWatching");
 };
 
-const logout = () => {
+const logout = async () => {
   emit("logout");
   mainStore.logout();
-  router.push("/login");
+  await router.push("/login");
 };
 </script>
 

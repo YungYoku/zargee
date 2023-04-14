@@ -124,7 +124,7 @@ const changeName = async () => {
 
   input,
   .name {
-    max-width: 200px;
+    max-width: 194px;
 
     font-size: 40px;
     font-weight: 700;

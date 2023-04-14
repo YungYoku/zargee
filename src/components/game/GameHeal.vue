@@ -2,20 +2,23 @@
   <div class="heal">
     <game-loading v-if="loadingStore.loading" />
 
-    <button class="leaveHeal" @click="close">
-      <img alt="Back" src="@/assets/img/back.svg" />
-    </button>
+    <button-close class="leaveHeal" />
 
     <span>{{ timeKick }}</span>
 
-    <button v-if="isHeartRebornAvailable" class="heal__option" @click="watchAd">
+    <button
+      v-if="isHeartRebornAvailable"
+      class="heal__option"
+      type="button"
+      @click="watchAd"
+    >
       Бесплатно
     </button>
 
     <div v-else class="heal__option used">Использовано</div>
 
     <div class="heal__option" @click="reborn.heart">
-      <button>
+      <button type="button">
         {{ heartPrice }}
         <img alt="Heart" src="@/assets/img/heart.svg" />
       </button>
@@ -24,9 +27,9 @@
     </div>
 
     <div class="heal__option" @click="reborn.gold">
-      <button>Золотая жизнь</button>
+      <button type="button">Золотая жизнь</button>
 
-      <span> Доступно: {{ mainStore.user.gold }} </span>
+      <span>Доступно: {{ mainStore.user.gold }}</span>
     </div>
   </div>
 </template>
@@ -39,6 +42,7 @@ import { computed } from "vue";
 import { useTipStore } from "@/stores/tip";
 import { useLoadingStore } from "@/stores/loading";
 import GameLoading from "@/components/AppLoading.vue";
+import ButtonClose from "@/components/ButtonClose.vue";
 
 const props = defineProps({
   timeKick: {
@@ -60,7 +64,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["restart", "swapHeal", "watchAd", "close"]);
+const emit = defineEmits(["restart", "watchAd"]);
 
 const mainStore = useMainStore();
 const loadingStore = useLoadingStore();
@@ -70,20 +74,12 @@ const heartPrice = computed(() =>
   props.heartRebornAmount === 0 ? 1 : 2 ** props.heartRebornAmount
 );
 
-const close = () => {
-  emit("close");
-};
-
 const watchAd = () => {
   emit("watchAd");
 };
 
 const restart = (rebornType: string) => {
   emit("restart", rebornType);
-};
-
-const swapHeal = () => {
-  emit("swapHeal");
 };
 
 const isHeartRebornAvailable = computed(() => props.freeRebornAmount < 5);
@@ -98,7 +94,6 @@ const reborn = {
         hearts: mainStore.user.hearts - heartPrice.value,
       }).then(() => {
         restart("heart");
-        swapHeal();
       });
     }
   },
@@ -114,7 +109,6 @@ const reborn = {
         gold: mainStore.user.gold - 1,
       }).then(() => {
         restart("gold");
-        swapHeal();
       });
 
       loadingStore.hide();
@@ -132,26 +126,25 @@ const reborn = {
   display: grid;
 
   grid-gap: 12px;
-  grid-template: 1fr 1fr 1fr / 1fr;
+  grid-template: repeat(3, auto) / 1fr;
 
   width: 100%;
   height: 100%;
-  padding: 60px 12px 12px 12px;
+  padding: 72px 12px 12px 12px;
 
   background-color: #f5eee9;
 
   > span {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 12px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    width: 38px;
-    height: 38px;
-    padding: 5px;
+    width: 48px;
+    height: 48px;
 
     font-size: 18px;
     font-weight: 400;
@@ -219,7 +212,7 @@ const reborn = {
     cursor: not-allowed;
   }
 
-  > button:not([class="leaveHeal"]) {
+  > button:not([class="button-close leaveHeal"]) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -244,20 +237,6 @@ const reborn = {
     position: absolute;
     top: 10px;
     left: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 36px;
-    height: 36px;
-    padding: 7px;
-
-    background-color: transparent;
-    border: 1px solid #333333;
-    border-radius: 50%;
-
-    cursor: pointer;
 
     img {
       width: 16px;
