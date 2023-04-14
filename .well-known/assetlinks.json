@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "zargee.web.app",
+      "sha256_cert_fingerprints": [
+        "69:C6:4F:4D:D7:25:38:55:D4:F1:B4:E3:7E:FA:5C:DD:0B:90:8D:30:38:44:FE:9D:BD:AB:AE:B4:92:3D:77:DF"
+      ]
+    }
+  }
+]
