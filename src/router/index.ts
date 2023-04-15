@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
             name: "GameLoseMenuHeal",
             component: GameHeal,
             meta: {
-              audio: true,
+              audio: false,
               auth: true,
             },
           },
@@ -114,8 +114,8 @@ const routes: Array<RouteRecordRaw> = [
             name: "DemoLoseMenuHeal",
             component: GameHeal,
             meta: {
-              audio: true,
-              auth: true,
+              audio: false,
+              auth: false,
             },
           },
         ],

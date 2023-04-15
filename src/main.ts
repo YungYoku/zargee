@@ -8,12 +8,6 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import router from "./router";
 
-// try {
-//   window.screen.orientation.lock("portrait");
-// } catch (error) {
-//   console.log(error);
-// }
-
 const app = createApp(App);
 app.use(createPinia());
 
@@ -32,7 +26,7 @@ const fbApp = initializeApp(firebaseConfig);
 export const db = getFirestore();
 getAnalytics(fbApp);
 initializeAppCheck(fbApp, {
-  provider: new ReCaptchaV3Provider("6Ld3yVIhAAAAAGk3si4mQCHfbfIBOqZFLmkVtAnK"),
+  provider: new ReCaptchaV3Provider(import.meta.env["VITE_RECAPTCHA"]),
   isTokenAutoRefreshEnabled: true,
 });
 
