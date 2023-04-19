@@ -97,7 +97,7 @@ const dailyRewardShowing = computed(() => {
 
     width: calc(100% - 48px);
     min-width: 300px;
-    max-width: 368px;
+    max-width: 384px;
     padding: 12px;
     overflow: hidden;
 
