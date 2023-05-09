@@ -233,6 +233,16 @@ const routes: Array<RouteRecordRaw> = [
       auth: false,
     },
   },
+
+  {
+    path: "/analytics",
+    name: "Analytics",
+    component: () => import("@/views/AnalyticsView.vue"),
+    meta: {
+      audio: true,
+      auth: true,
+    },
+  },
 ];
 
 const router = createRouter({

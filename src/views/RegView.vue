@@ -73,8 +73,54 @@
         />
       </label>
 
-      <label class="rules">
-        <input v-model="form.rules" type="checkbox" />
+      <div class="gender">
+        <label for="gender-unknown">
+          <input
+            id="gender-unknown"
+            v-model="form.gender"
+            name="gender"
+            type="radio"
+            value="Не указано"
+          />
+          Не указано
+        </label>
+
+        <label for="gender-male">
+          <input
+            id="gender-male"
+            v-model="form.gender"
+            name="gender"
+            type="radio"
+            value="Муж"
+          />
+          Муж
+        </label>
+
+        <label for="gender-female">
+          <input
+            id="gender-female"
+            v-model="form.gender"
+            name="gender"
+            type="radio"
+            value="Жен"
+          />
+          Жен
+        </label>
+      </div>
+
+      <label class="age" for="age">
+        Возраст:
+        <input
+          id="age"
+          v-model.number="form.age"
+          max="150"
+          min="0"
+          type="number"
+        />
+      </label>
+
+      <label class="rules" for="rules">
+        <input id="rules" v-model="form.rules" type="checkbox" />
 
         <span> Я согласен с правилами. </span>
 
@@ -117,6 +163,8 @@ interface Registration {
   password: string;
   passwordRep: string;
   refCode: string;
+  age: number;
+  gender: string;
   rules: boolean;
   isValid: () => boolean;
   isValidExceptRules: () => boolean;
@@ -140,6 +188,8 @@ const form = reactive<Registration>({
   password: "",
   passwordRep: "",
   refCode: "",
+  age: 0,
+  gender: "Не указано",
   rules: false,
   isValid() {
     return (
@@ -360,7 +410,8 @@ const register = async () => {
     .name,
     .pass,
     .passRep,
-    .refCode {
+    .refCode,
+    .age {
       position: relative;
 
       &::after {
@@ -498,6 +549,71 @@ const register = async () => {
         img {
           width: 16px;
           height: 16px;
+        }
+      }
+    }
+
+    .age {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+
+      input {
+        width: 100%;
+
+        border-bottom: 1px solid #333333;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          margin: 0;
+
+          -webkit-appearance: none;
+        }
+
+        &[type="number"] {
+          -moz-appearance: textfield;
+        }
+      }
+    }
+
+    .gender {
+      display: flex;
+      gap: 12px;
+
+      label {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+
+        input {
+          position: relative;
+
+          width: 16px;
+          height: 16px;
+
+          border: 1px solid #333333;
+          border-radius: 50%;
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+
+            width: 8px;
+            height: 8px;
+
+            background: transparent;
+            border-radius: 50%;
+          }
+
+          &:checked {
+            &::after {
+              background: #333333;
+            }
+          }
         }
       }
     }

@@ -1,7 +1,9 @@
 export interface User {
+  age: number;
   adWatchTime: number;
   codes: string[];
   gold: number;
+  gender: string;
   hearts: number;
   lvl: number;
   name: string;

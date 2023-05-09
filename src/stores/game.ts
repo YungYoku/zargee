@@ -262,7 +262,7 @@ export const useGameStore = defineStore({
     },
 
     generateBlinking() {
-      this.targets.forEach((el) => (el.blink = false));
+      this.targets.forEach((el: Target) => (el.blink = false));
       const amount = Math.floor(
         Math.random() * this.targets.length * this.gameProps.blink
       );
@@ -275,7 +275,7 @@ export const useGameStore = defineStore({
             Math.random() * (this.targets.length - this.score.current)
           );
 
-          this.targets.forEach((item, index) => {
+          this.targets.forEach((item: Target, index: number) => {
             if (index === idx) {
               item.blink = true;
               item.blinkDelay = Math.floor(Math.random() * 4) + 1;

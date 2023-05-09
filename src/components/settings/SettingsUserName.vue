@@ -113,8 +113,6 @@ const changeName = async () => {
 
   gap: 10px;
 
-  height: 60px;
-
   input {
     padding: 0 0 0 5px;
 
@@ -129,6 +127,12 @@ const changeName = async () => {
     font-size: 40px;
     font-weight: 700;
     text-align: left;
+
+    @media (max-width: 1024px) {
+      max-width: 175px;
+
+      font-size: 36px;
+    }
 
     @media (max-width: 480px) {
       max-width: 130px;

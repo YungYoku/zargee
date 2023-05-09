@@ -93,7 +93,7 @@ const dailyRewardShowing = computed(() => {
     align-items: center;
 
     grid-gap: 12px;
-    grid-template: repeat(8, auto) / 1fr;
+    grid-template: 96px repeat(7, 48px) / 1fr;
 
     width: calc(100% - 48px);
     min-width: 300px;
@@ -106,12 +106,20 @@ const dailyRewardShowing = computed(() => {
     background-color: #ffffff;
     border-radius: 5px;
 
+    @media (max-width: 480px) {
+      grid-template: repeat(8, 48px) / 1fr;
+    }
+
     .name {
       display: grid;
       align-items: center;
 
       grid-gap: 10px;
-      grid-template: 100% / 1fr 62px;
+      grid-template: 96px / 1fr 62px;
+
+      @media (max-width: 480px) {
+        grid-template: 48px / 1fr 62px;
+      }
     }
 
     .name__info {
@@ -145,6 +153,7 @@ const dailyRewardShowing = computed(() => {
     }
 
     .life {
+      height: 100%;
       padding: 10px;
 
       font-size: 16px;

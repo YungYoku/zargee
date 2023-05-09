@@ -80,6 +80,8 @@ const sendCode = async () => {
   grid-gap: 12px;
   grid-template: 100% / 1fr 48px;
 
+  height: 100%;
+
   label {
     width: 100%;
 

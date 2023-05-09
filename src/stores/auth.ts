@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { arrayUnion, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/main";
 import { useTipStore } from "@/stores/tip";
+import type { User } from "@/interfaces/user";
 
 export const useAuthStore = defineStore({
   id: "auth",
@@ -43,9 +44,11 @@ export const useAuthStore = defineStore({
 
       await Promise.all([
         await setDoc(doc(db, "users", uid), {
+          age: 0,
           adWatchTime: 0,
           codes: [],
           gold: bonus ? 1 : 0,
+          gender: "Муж",
           hearts: bonus ? 10 : 1,
           lvl: 0,
           name: name,
@@ -58,7 +61,7 @@ export const useAuthStore = defineStore({
             first: false,
             second: false,
           },
-        }),
+        } as User),
         await setDoc(doc(db, "refs", refCode.toString()), {
           name: name,
           refs: [],

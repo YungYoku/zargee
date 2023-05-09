@@ -11,6 +11,14 @@
         src="@/assets/img/settings.svg"
       />
     </router-link>
+
+    <router-link class="home__link" draggable="false" to="/analytics">
+      <img
+        alt="Analytics"
+        class="home__link-img"
+        src="@/assets/img/stats.svg"
+      />
+    </router-link>
   </div>
 </template>
 
@@ -72,7 +80,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100vh;
 
-  gap: 20px;
+  gap: 24px;
 
   &__link {
     display: flex;

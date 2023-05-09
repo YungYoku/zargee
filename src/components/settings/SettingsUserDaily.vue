@@ -213,6 +213,7 @@ const hideAd = () => {
     align-items: center;
 
     padding: 0 0 0 6px;
+    overflow: hidden;
 
     font-size: 20px;
     color: #333333;
@@ -242,7 +243,6 @@ const hideAd = () => {
       color: #000000;
 
       background-color: #4ae32f;
-      border-radius: 0 5px 5px 0;
 
       cursor: pointer;
     }

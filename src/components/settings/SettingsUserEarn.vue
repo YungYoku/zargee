@@ -83,6 +83,8 @@ const claimReward = async () => {
   grid-gap: 12px;
   grid-template: 100% / 1fr 48px;
 
+  height: 100%;
+
   &__button {
     padding: 10px;
 

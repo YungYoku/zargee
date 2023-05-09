@@ -113,18 +113,26 @@ export const useMainStore = defineStore({
         const loadingStore = useLoadingStore();
         loadingStore.show();
 
-        await onSnapshot(doc(db, "users", this.uid), async (response) => {
-          if (response.exists()) {
-            const _user: User = response.data() as User;
+        await onSnapshot(
+          doc(db, "users", this.uid),
+          async (response) => {
+            if (response.exists()) {
+              const _user: User = response.data() as User;
 
-            this.setInfo(_user);
-            await this.updateResetDay(_user);
+              this.setInfo(_user);
+              await this.updateResetDay(_user);
 
-            await this.subscribeToNewRefs();
+              await this.subscribeToNewRefs();
 
-            loadingStore.hide();
+              loadingStore.hide();
+            }
+          },
+          (error) => {
+            console.error(error);
+
+            this.logout();
           }
-        });
+        );
       }
     },
 

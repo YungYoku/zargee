@@ -28,6 +28,7 @@ const copyToClipboard = () => {
   justify-content: space-between;
   align-items: center;
 
+  height: 100%;
   padding: 10px;
 
   font-size: 16px;

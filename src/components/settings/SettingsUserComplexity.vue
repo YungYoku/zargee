@@ -44,12 +44,13 @@ const changeComplexity = (complexity: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
 
+  height: 100%;
   padding: 10px;
 
   border: 1px solid #333333;
   border-radius: 5px;
+  gap: 10px;
 
   input {
     width: calc(100% - 126px);

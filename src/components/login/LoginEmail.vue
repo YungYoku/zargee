@@ -125,6 +125,8 @@ const handleError = (error: AuthError) => {
       form.password = "";
       break;
   }
+
+  loadingStore.hide();
 };
 
 const submit = async () => {
@@ -134,8 +136,6 @@ const submit = async () => {
     await signInWithEmailAndPassword(getAuth(), form.email, form.password)
       .then(handleResponse)
       .catch(handleError);
-
-    loadingStore.hide();
   }
 };
 

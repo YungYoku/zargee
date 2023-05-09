@@ -92,7 +92,7 @@ const hideInfo = (e: Event) => {
 
   width: 100%;
   height: 100vh;
-  gap: 20px;
+  gap: 24px;
 
   .back {
     position: absolute;

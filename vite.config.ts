@@ -6,7 +6,6 @@ import stylelint from "vite-plugin-stylelint";
 import { VitePWA } from "vite-plugin-pwa";
 import eslint from "vite-plugin-eslint";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
