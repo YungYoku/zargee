@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/main";
+import { useMainStore } from "@/stores/main";
 
 interface Color {
   color: string;
@@ -14,8 +15,17 @@ interface Figure {
   userValue: number;
 }
 
-interface Stat {
+interface ColorStat {
   [key: string]: {
+    color: string;
+    failure: number;
+    success: number;
+  };
+}
+
+interface FigureStat {
+  [key: string]: {
+    figure: string;
     failure: number;
     success: number;
   };
@@ -23,12 +33,12 @@ interface Stat {
 
 interface State {
   allStatistics: {
-    colors: Stat;
-    figures: Stat;
+    colors: ColorStat;
+    figures: FigureStat;
   };
   userStatistics: {
-    colors: Stat;
-    figures: Stat;
+    colors: ColorStat;
+    figures: FigureStat;
   };
 }
 
@@ -52,45 +62,88 @@ export const useStatisticsStore = defineStore({
         colors: [] as Array<Color>,
         figures: [] as Array<Figure>,
       };
-      const keys = Object.keys(state.allStatistics.colors);
-      keys.forEach((key) => {
-        statistics.colors.push({
-          color: key,
-          allValue:
-            state.allStatistics.colors[key].success /
-            state.allStatistics.colors[key].failure,
-          userValue:
-            state.userStatistics.colors[key].success /
-            state.userStatistics.colors[key].failure,
-        });
-      });
-      keys.forEach((key) => {
-        statistics.figures.push({
-          figure: key,
-          allValue:
-            state.allStatistics.figures[key].success /
-            state.allStatistics.figures[key].failure,
-          userValue:
-            state.userStatistics.figures[key].success /
-            state.userStatistics.figures[key].failure,
-        });
+
+      const colorKeys = Object.keys(state.allStatistics.colors);
+      colorKeys.forEach((key) => {
+        statistics.colors.push(state.calculateColor(key));
       });
 
+      const figuresKeys = Object.keys(state.allStatistics.figures);
+      figuresKeys.forEach((key) => {
+        statistics.figures.push(state.calculateFigure(key));
+      });
+      console.log(statistics);
       return statistics;
     },
   },
 
   actions: {
-    async loadAllStatistics() {
-      const docRef = doc(db, "statistics", "statistics");
-      const docSnap = await getDoc(docRef);
+    calculateColor(key: string) {
+      let allValue = 0;
+      const allValueFailure = this.allStatistics.colors[key].failure;
+      if (allValueFailure) {
+        const allValueSuccess = this.allStatistics.colors[key].success;
+        allValue = allValueSuccess / allValueFailure;
+      }
 
-      if (docSnap.exists()) {
-        this.allStatistics = docSnap.data();
-        console.log(this.allStatistics);
+      let userValue = 0;
+      const userValueFailure = this.userStatistics.colors[key].failure;
+      if (userValueFailure) {
+        const userValueSuccess = this.userStatistics.colors[key].success;
+        userValue = userValueSuccess / userValueFailure;
+      }
+
+      return {
+        color: key,
+        allValue,
+        userValue,
+      };
+    },
+
+    calculateFigure(key: string) {
+      let allValue = 0;
+      const allValueFailure = this.allStatistics.figures[key].failure;
+      if (allValueFailure) {
+        const allValueSuccess = this.allStatistics.figures[key].success;
+        allValue = allValueSuccess / allValueFailure;
+      }
+
+      let userValue = 0;
+      const userValueFailure = this.userStatistics.figures[key].failure;
+      if (userValueFailure) {
+        const userValueSuccess = this.userStatistics.figures[key].success;
+        userValue = userValueSuccess / userValueFailure;
+      }
+
+      return {
+        figure: key,
+        allValue,
+        userValue,
+      };
+    },
+
+    async loadGlobalSStatistics() {
+      const ref = doc(db, "statistics", "statistics");
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        this.allStatistics = snap.data();
       } else {
         console.log("No such document!");
       }
+    },
+
+    updateUserSStatistics() {
+      const main = useMainStore();
+      this.userStatistics = {
+        figures: main.user.figures,
+        colors: main.user.colors,
+      };
+    },
+
+    async loadAllStatistics() {
+      this.updateUserSStatistics();
+      await this.loadGlobalSStatistics();
     },
   },
 });

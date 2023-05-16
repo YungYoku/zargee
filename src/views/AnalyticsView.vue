@@ -14,13 +14,13 @@
           :key="stat.allValue * stat.userValue"
           class="stat"
         >
-          Ваш КПД: {{ stat.userValue }}
-          <br />
-          Общий КПД: {{ stat.allValue }}
+          <span>Фигура: {{ stat.figure }}</span>
+          <span>Ваш КПД: {{ stat.userValue }}</span>
+          <span>Общий КПД: {{ stat.allValue }}</span>
         </div>
       </div>
 
-      <div class="figures">
+      <div class="colors">
         <div class="title">Статистика попадания по цветам</div>
 
         <div
@@ -28,9 +28,9 @@
           :key="stat.allValue * stat.userValue"
           class="stat"
         >
-          Ваш КПД: {{ stat.userValue }}
-          <br />
-          Общий КПД: {{ stat.allValue }}
+          <span>Цвет: {{ stat.color }}</span>
+          <span>Ваш КПД: {{ stat.userValue }}</span>
+          <span>Общий КПД: {{ stat.allValue }}</span>
         </div>
       </div>
     </div>
@@ -76,11 +76,11 @@ statisticsStore.loadAllStatistics();
     align-items: center;
 
     grid-gap: 12px;
-    grid-template: repeat(8, auto) / 1fr;
+    grid-template: repeat(4, auto) / 1fr;
 
     width: calc(100% - 48px);
     min-width: 300px;
-    max-width: 384px;
+    max-width: 552px;
     padding: 12px;
     overflow: hidden;
 
@@ -88,6 +88,33 @@ statisticsStore.loadAllStatistics();
 
     background-color: #ffffff;
     border-radius: 5px;
+
+    .figures,
+    .colors {
+      width: 100%;
+
+      .title {
+        text-align: left;
+      }
+
+      .stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+
+        span {
+          width: calc(100% / 4);
+
+          text-align: left;
+
+          &:nth-child(1) {
+            width: calc(100% / 2);
+          }
+        }
+      }
+    }
   }
 }
 </style>

@@ -4,6 +4,7 @@ import type { User } from "@/interfaces/user";
 import { defineStore } from "pinia";
 import { useLoadingStore } from "@/stores/loading";
 import { useSettingsStore } from "@/stores/settings";
+import { useStatisticsStore } from "@/stores/statistics";
 
 export interface State {
   demo: boolean;
@@ -111,6 +112,7 @@ export const useMainStore = defineStore({
     async loadInfo() {
       if (this.uid) {
         const loadingStore = useLoadingStore();
+        const statistics = useStatisticsStore();
         loadingStore.show();
 
         await onSnapshot(
@@ -123,6 +125,8 @@ export const useMainStore = defineStore({
               await this.updateResetDay(_user);
 
               await this.subscribeToNewRefs();
+
+              await statistics.loadAllStatistics();
 
               loadingStore.hide();
             }

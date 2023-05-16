@@ -102,13 +102,16 @@ const mountSideAds = () => {
   });
 };
 
-onMounted(() => {
+const start = () => {
   mainStore.loadUIDFromLocalStorage();
 
   settingsStore.updateSettings();
 
   mainStore.loadInfo();
+};
 
+start();
+onMounted(() => {
   document.addEventListener("visibilitychange", changeVolumeOnPageView);
 
   mountSideAds();
