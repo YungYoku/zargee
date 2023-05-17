@@ -206,15 +206,22 @@ const logout = async () => {
       border-radius: 5px;
 
       cursor: pointer;
-    }
-  }
 
-  a,
-  button {
-    img {
-      width: 32px;
-      height: 32px;
-      margin-left: 20px;
+      img {
+        width: 32px;
+        height: 32px;
+        margin-left: 20px;
+      }
+
+      &:hover {
+        color: #ffffff;
+
+        background-color: #333333;
+
+        img {
+          filter: invert(1);
+        }
+      }
     }
   }
 
@@ -236,6 +243,12 @@ const logout = async () => {
 
       border: 1px solid #333333;
       border-radius: 50%;
+    }
+
+    &:hover {
+      .reborn__time {
+        border: 1px solid #ffffff;
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <button class="button-close" type="button" @click="close">
+  <button class="close" type="button" @click="close">
     <img alt="Back" class="button-close__img" src="@/assets/img/back.svg" />
   </button>
 </template>
@@ -18,7 +18,7 @@ const close = async () => {
 </script>
 
 <style lang="scss" scoped>
-.button-close {
+.close {
   display: flex;
   justify-content: center;
   align-items: center;

@@ -44,11 +44,21 @@ button {
   border-radius: 5px;
 
   cursor: pointer;
-}
 
-img {
-  width: 32px;
-  height: 32px;
-  margin-left: 20px;
+  img {
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
+  }
+
+  &:hover {
+    color: #ffffff;
+
+    background-color: #333333;
+
+    img {
+      filter: invert(1);
+    }
+  }
 }
 </style>

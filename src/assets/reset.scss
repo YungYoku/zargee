@@ -91,18 +91,6 @@ button {
   background-color: transparent;
 
   cursor: pointer;
-  transition: all 0.2s;
-}
-
-a:active,
-a:focus,
-a:hover,
-button:active,
-button:focus,
-button:hover {
-  outline: none;
-
-  transition: all 0.2s;
 }
 
 audio {
@@ -113,4 +101,26 @@ audio {
   height: 0;
 
   opacity: 0;
+}
+
+a,
+a:active,
+a:focus,
+a:hover,
+button,
+button:focus,
+button:hover,
+div,
+div:focus,
+div:hover,
+img,
+img:focus,
+img:hover {
+  transition: all 0.2s;
+}
+
+button:active,
+button:focus,
+button:hover {
+  outline: none;
 }

@@ -2,9 +2,9 @@
   <div class="heal">
     <game-loading v-if="loadingStore.loading" />
 
-    <button-close class="leaveHeal" />
+    <button-close />
 
-    <span>{{ timeKick }}</span>
+    <span class="kick-time">{{ timeKick }}</span>
 
     <button
       v-if="isHeartRebornAvailable"
@@ -12,25 +12,25 @@
       type="button"
       @click="watchAd"
     >
-      Бесплатно
+      <span class="top">Бесплатно</span>
     </button>
 
     <div v-else class="heal__option used">Использовано</div>
 
-    <div class="heal__option" @click="reborn.heart">
-      <button type="button">
+    <button class="heal__option" @click="reborn.heart">
+      <span class="top">
         {{ heartPrice }}
         <img alt="Heart" src="@/assets/img/heart.svg" />
-      </button>
+      </span>
 
-      <span>Доступно: {{ mainStore.user.hearts }}</span>
-    </div>
+      <span class="bottom">Доступно: {{ mainStore.user.hearts }}</span>
+    </button>
 
-    <div class="heal__option" @click="reborn.gold">
-      <button type="button">Золотая жизнь</button>
+    <button class="heal__option" @click="reborn.gold">
+      <span class="top">Золотая жизнь</span>
 
-      <span>Доступно: {{ mainStore.user.gold }}</span>
-    </div>
+      <span class="bottom">Доступно: {{ mainStore.user.gold }}</span>
+    </button>
   </div>
 </template>
 
@@ -134,7 +134,7 @@ const reborn = {
 
   background-color: #f5eee9;
 
-  > span {
+  .kick-time {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -158,6 +158,7 @@ const reborn = {
     position: relative;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -174,13 +175,12 @@ const reborn = {
 
     cursor: pointer;
 
-    button {
+    .top {
       display: flex;
       justify-content: center;
       align-items: center;
 
       font-size: 32px;
-      color: #333333;
 
       background-color: transparent;
 
@@ -188,7 +188,7 @@ const reborn = {
       gap: 5px;
     }
 
-    span {
+    .bottom {
       position: absolute;
       bottom: 10px;
 
@@ -204,6 +204,16 @@ const reborn = {
       width: 24px;
       height: 24px;
     }
+
+    &:hover {
+      color: #ffffff;
+
+      background-color: #333333;
+
+      img {
+        filter: invert(1);
+      }
+    }
   }
 
   .used {
@@ -212,28 +222,7 @@ const reborn = {
     cursor: not-allowed;
   }
 
-  > button:not([class="button-close leaveHeal"]) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-
-    font-size: 32px;
-    font-weight: 400;
-    text-align: center;
-    color: #333333;
-
-    background-color: transparent;
-    border: 1px solid #333333;
-    border-radius: 5px;
-
-    cursor: pointer;
-  }
-
-  .leaveHeal {
+  .close {
     position: absolute;
     top: 10px;
     left: 10px;
