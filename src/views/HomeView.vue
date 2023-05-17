@@ -72,7 +72,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100vh;
 
-  gap: 24px;
+  gap: 48px;
 
   &__link {
     display: flex;
