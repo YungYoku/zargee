@@ -166,6 +166,7 @@ const logout = async () => {
 
   width: 100%;
   height: 100vh;
+  padding: 6px 12px 12px 12px;
 
   background-color: rgba(0, 0, 0, 0.5);
 
@@ -178,12 +179,12 @@ const logout = async () => {
 
     width: 30%;
     min-width: 300px;
-    max-width: 320px;
+    max-width: 384px;
     padding: 12px;
     overflow: hidden;
 
     background-color: #f5eee9;
-    border-radius: 5px;
+    border-radius: 6px;
 
     a,
     button {
@@ -192,10 +193,11 @@ const logout = async () => {
       align-items: center;
 
       width: 100%;
-      height: 100%;
+      height: 96px;
       padding: 24px;
 
-      font-size: 22px;
+      font-size: 24px;
+      line-height: 1;
       font-weight: 400;
       color: #333333;
 
@@ -224,12 +226,12 @@ const logout = async () => {
       justify-content: center;
       align-items: center;
 
-      width: 38px;
-      height: 38px;
-      margin-left: 20px;
-      padding: 5px;
+      width: 48px;
+      height: 48px;
+      margin-left: 24px;
+      padding: 6px;
 
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 400;
 
       border: 1px solid #333333;

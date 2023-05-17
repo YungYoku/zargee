@@ -82,6 +82,7 @@ const dailyRewardShowing = computed(() => {
 
   width: 100%;
   height: 100vh;
+  padding: 5px 12px 12px 12px;
 
   background-color: rgba(0, 0, 0, 0.5);
 
