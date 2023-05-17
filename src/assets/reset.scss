@@ -86,15 +86,23 @@ input {
   }
 }
 
+a,
 button {
   background-color: transparent;
 
   cursor: pointer;
+  transition: all 0.2s;
 }
 
+a:active,
+a:focus,
+a:hover,
 button:active,
-button:focus {
+button:focus,
+button:hover {
   outline: none;
+
+  transition: all 0.2s;
 }
 
 audio {

@@ -61,5 +61,13 @@ const logout = async () => {
     height: 50%;
     margin: 25%;
   }
+
+  &:hover {
+    background-color: #333333;
+
+    img {
+      filter: invert(1);
+    }
+  }
 }
 </style>

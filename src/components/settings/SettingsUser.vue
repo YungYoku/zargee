@@ -94,7 +94,7 @@ const dailyRewardShowing = computed(() => {
     align-items: center;
 
     grid-gap: 12px;
-    grid-template: 96px repeat(7, 48px) / 1fr;
+    grid-template: 72px repeat(7, 48px) / 1fr;
 
     width: calc(100% - 48px);
     min-width: 300px;
@@ -116,10 +116,10 @@ const dailyRewardShowing = computed(() => {
       align-items: center;
 
       grid-gap: 10px;
-      grid-template: 96px / 1fr 62px;
+      grid-template: 100% / 1fr 62px;
 
       @media (max-width: 480px) {
-        grid-template: 48px / 1fr 62px;
+        grid-template: 100% / 1fr 62px;
       }
     }
 

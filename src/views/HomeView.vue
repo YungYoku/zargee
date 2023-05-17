@@ -1,23 +1,15 @@
 <template>
   <div class="home">
     <router-link class="home__link" draggable="false" to="/game">
-      <img alt="Play" class="home__link-img" src="@/assets/img/play.svg" />
+      <img alt="Play" src="@/assets/img/play.svg" />
     </router-link>
 
     <router-link class="home__link" draggable="false" to="/settings">
-      <img
-        alt="Settings"
-        class="home__link-img"
-        src="@/assets/img/settings.svg"
-      />
+      <img alt="Settings" src="@/assets/img/settings.svg" />
     </router-link>
 
     <router-link class="home__link" draggable="false" to="/analytics">
-      <img
-        alt="Analytics"
-        class="home__link-img"
-        src="@/assets/img/stats.svg"
-      />
+      <img alt="Analytics" src="@/assets/img/stats.svg" />
     </router-link>
   </div>
 </template>
@@ -95,9 +87,17 @@ onUnmounted(() => {
 
     cursor: pointer;
 
-    &-img {
+    img {
       width: 50%;
       height: 50%;
+    }
+
+    &:hover {
+      background-color: #333333;
+
+      img {
+        filter: invert(1);
+      }
     }
   }
 }

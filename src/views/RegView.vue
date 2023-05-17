@@ -131,9 +131,9 @@
         <router-view />
       </label>
 
-      <button class="btnSubmit" type="submit">Отправить</button>
+      <button class="btnSubmit" type="submit">Продолжить</button>
 
-      <animated-link :link="'/login'" class="swapMode" text="ЛОГИН" />
+      <animated-link :link="'/login'" class="swapMode" text="ВХОД" />
     </form>
 
     <animated-link :link="'/demo'" :text="'ДЕМО ВЕРСИЯ'" />

@@ -3,7 +3,7 @@
     <game-loading v-if="loadingStore.loading" />
 
     <div class="login__form-wrap">
-      <h2 class="title">Логин</h2>
+      <h2 class="title">Вход</h2>
 
       <router-view
         @close="setLoginType(LoginType.notSpecified)"

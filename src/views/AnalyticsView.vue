@@ -3,6 +3,8 @@
     <button-close class="back" />
 
     <div class="info">
+      <div class="title">Аналитика</div>
+
       <div class="age">Возраст: {{ mainStore.user.age }}</div>
       <div class="gender">Пол: {{ mainStore.user.gender }}</div>
 
@@ -75,7 +77,7 @@ statisticsStore.loadAllStatistics();
 
     align-items: center;
 
-    grid-gap: 12px;
+    grid-gap: 24px;
     grid-template: repeat(4, auto) / 1fr;
 
     width: calc(100% - 48px);
@@ -88,6 +90,14 @@ statisticsStore.loadAllStatistics();
 
     background-color: #ffffff;
     border-radius: 5px;
+
+    > .title {
+      padding: 8px 0 0 0;
+
+      font-size: 40px;
+      line-height: 1;
+      font-weight: 700;
+    }
 
     .figures,
     .colors {

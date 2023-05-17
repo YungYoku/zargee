@@ -47,11 +47,19 @@ const soundIcon = computed(() => {
   border-radius: 50%;
 
   cursor: pointer;
-}
 
-img {
-  width: 50%;
-  height: 50%;
-  margin: 25%;
+  img {
+    width: 50%;
+    height: 50%;
+    margin: 25%;
+  }
+
+  &:hover {
+    background-color: #333333;
+
+    img {
+      filter: invert(1);
+    }
+  }
 }
 </style>

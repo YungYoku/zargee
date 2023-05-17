@@ -72,7 +72,7 @@ export const useStatisticsStore = defineStore({
       figuresKeys.forEach((key) => {
         statistics.figures.push(state.calculateFigure(key));
       });
-      console.log(statistics);
+
       return statistics;
     },
   },

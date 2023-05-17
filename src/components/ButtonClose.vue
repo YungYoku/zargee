@@ -39,5 +39,13 @@ const close = async () => {
     width: 24px;
     height: 24px;
   }
+
+  &:hover {
+    background-color: #333333;
+
+    img {
+      filter: invert(1);
+    }
+  }
 }
 </style>
