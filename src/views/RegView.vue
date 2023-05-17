@@ -392,7 +392,7 @@ const register = async () => {
     border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
-    @media screen and (max-width: 480px) {
+    @media (max-width: 480px) {
       width: 90%;
       min-width: 288px;
     }

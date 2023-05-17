@@ -73,10 +73,10 @@
       </div>
 
       <button :class="{ mailSend: isMailSend }" class="btnSubmit" type="submit">
-        {{ isMailSend ? "Письмо отправлено" : "Восстановить" }}
+        {{ isMailSend ? "Письмо отправлено" : "Продолжить" }}
       </button>
 
-      <animated-link class="swapMode" link="login" text="ЛОГИН" />
+      <animated-link class="swapMode" link="login" text="ВХОД" />
     </form>
   </div>
 </template>
@@ -252,19 +252,19 @@ const resetPassword = async () => {
     flex-direction: column;
 
     width: 30%;
-    min-width: 400px;
-    max-width: 460px;
+    min-width: 408px;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 30px 40px 20px 40px;
-    gap: 18px;
+    padding: 24px;
+    gap: 24px;
 
     background-color: #fbfaf7;
     border-radius: 5px;
     box-shadow: 0 14px 20px 6px #eae0d5;
 
-    @media screen and (max-width: 480px) {
+    @media (max-width: 480px) {
       width: 90%;
-      min-width: 300px;
+      min-width: 288px;
     }
   }
 

@@ -108,7 +108,7 @@ const clearIntervals = () => {
 
 const updateKickInterval = () => {
   if (timeKick.value > 0) {
-    // timeKick.value--;
+    timeKick.value--;
   } else {
     clearIntervals();
     router.push("/");

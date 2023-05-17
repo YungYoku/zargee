@@ -138,7 +138,7 @@ const loginGoogle = async () => {
 
     gap: 24px;
 
-    @media screen and (max-width: 480px) {
+    @media (max-width: 480px) {
       width: 90%;
       min-width: 288px;
     }
