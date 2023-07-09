@@ -11,23 +11,25 @@
 
 <script lang="ts" setup>
 import { onMounted } from "vue";
+import type { Ad } from "@/assets/api/yaContext";
+import { renderAd } from "@/assets/api/yaContext";
 
 const props = defineProps({
   pcBlockId: {
     type: String,
     required: true,
-    default: "",
+    default: ""
   },
   laptopBlockId: {
     type: String,
     required: true,
-    default: "",
+    default: ""
   },
   timer: {
     type: Number,
     required: true,
-    default: 5,
-  },
+    default: 5
+  }
 });
 
 const emit = defineEmits(["hideAd"]);
@@ -37,23 +39,18 @@ const hideAd = () => {
 };
 
 const mountAds = () => {
-  const ads = [
+  const ads: Array<Ad> = [
     {
       renderTo: "yandex_video_pc",
-      blockId: props.pcBlockId,
+      blockId: props.pcBlockId ?? ""
     },
     {
       renderTo: "yandex_video_laptop",
-      blockId: props.laptopBlockId,
-    },
+      blockId: props.laptopBlockId ?? ""
+    }
   ];
 
-  ads.forEach((ad) => {
-    window.yaContextCb.push(() => {
-      // eslint-disable-next-line no-undef
-      Ya.Context.AdvManager.render(ad);
-    });
-  });
+  ads.forEach(renderAd);
 };
 
 onMounted(() => {

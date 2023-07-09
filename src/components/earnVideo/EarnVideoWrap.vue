@@ -13,28 +13,30 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import EarnVideo from "@/components/earnVideo/EarnVideo.vue";
+import type { Ad } from "@/assets/api/yaContext";
+import { renderAd } from "@/assets/api/yaContext";
 
 const props = defineProps({
   pcBlockId: {
     type: String,
     required: true,
-    default: "",
+    default: ""
   },
   laptopBlockId: {
     type: String,
     required: true,
-    default: "",
+    default: ""
   },
   mobileBlockId: {
     type: String,
     required: true,
-    default: "",
+    default: ""
   },
   timer: {
     type: Number,
     required: true,
-    default: 5,
-  },
+    default: 5
+  }
 });
 
 const isItMobile = ref(false);
@@ -49,20 +51,15 @@ const mountAds = () => {
   if (window.innerWidth < 768) {
     isItMobile.value = true;
 
-    const ads = [
+    const ads: Array<Ad> = [
       {
         type: "fullscreen",
         platform: "touch",
-        blockId: props.mobileBlockId,
-      },
+        blockId: props.mobileBlockId ?? ""
+      }
     ];
 
-    ads.forEach((ad) => {
-      window.yaContextCb.push(() => {
-        // eslint-disable-next-line no-undef
-        Ya.Context.AdvManager.render(ad);
-      });
-    });
+    ads.forEach(renderAd);
 
     hideAd();
   }

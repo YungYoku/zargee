@@ -23,6 +23,8 @@ import { useRouter } from "vue-router";
 import { useSettingsStore } from "@/stores/settings";
 import { useSoundsStore } from "@/stores/sounds";
 import AppTip from "@/components/AppTip.vue";
+import type { Ad } from "@/assets/api/yaContext";
+import { renderAd } from "@/assets/api/yaContext";
 
 const mainStore = useMainStore();
 const settingsStore = useSettingsStore();
@@ -75,31 +77,26 @@ const showSideAds = () => {
 };
 
 const mountSideAds = () => {
-  const ads = [
+  const ads: Array<Ad> = [
     {
       renderTo: "yandex_left_pc",
-      blockId: "R-A-1981739-1",
+      blockId: "R-A-1981739-1"
     },
     {
       renderTo: "yandex_left_laptop",
-      blockId: "R-A-1981739-7",
+      blockId: "R-A-1981739-7"
     },
     {
       renderTo: "yandex_right_pc",
-      blockId: "R-A-1981739-2",
+      blockId: "R-A-1981739-2"
     },
     {
       renderTo: "yandex_right_laptop",
-      blockId: "R-A-1981739-8",
-    },
+      blockId: "R-A-1981739-8"
+    }
   ];
 
-  ads.forEach((ad) => {
-    window.yaContextCb.push(() => {
-      // eslint-disable-next-line no-undef
-      Ya.Context.AdvManager.render(ad);
-    });
-  });
+  ads.forEach(renderAd);
 };
 
 const start = () => {
